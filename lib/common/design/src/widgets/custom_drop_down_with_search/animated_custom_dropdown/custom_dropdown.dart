@@ -2,10 +2,9 @@ library animated_custom_dropdown;
 
 import 'dart:async';
 
-import 'package:footarena/common/extensions/extensions.dart';
 import 'package:flutter/material.dart';
-import 'package:footarena/common/extensions/extensions.dart';
 
+import '../../../../../extensions/extensions.dart';
 import '../../../../design.dart';
 
 export 'custom_dropdown.dart';
@@ -233,28 +232,28 @@ class _CustomDropdownState<T> extends State<CustomDropdown<T>> {
             contentPadding:
                 const EdgeInsets.symmetric(horizontal: 10, vertical: 15),
             filled: true,
-            fillColor: context.theme.scaffoldBackgroundColor,
+            fillColor: Colors.white,
             focusColor: context.theme.primaryColor,
             hoverColor: Colors.white,
-            labelStyle: context.textTheme.labelMedium!.copyWith(
+            labelStyle: context.labelMedium(
                 color: context.theme.hintColor,
                 fontWeight: FontWeight.w400,
                 fontSize: 14),
-            hintStyle: context.textTheme.labelMedium!.copyWith(
+            hintStyle: context.labelMedium(
                 color: context.theme.hintColor,
                 fontWeight: FontWeight.w400,
                 fontSize: 14),
             enabledBorder: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(15),
-              borderSide: BorderSide(color: context.theme.hintColor),
+              borderRadius: BorderRadius.circular(10),
+              borderSide: const BorderSide(color: Colors.white),
             ),
             focusedBorder: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(15),
-              borderSide: BorderSide(color: context.theme.primaryColor),
+              borderRadius: BorderRadius.circular(10),
+              borderSide: const BorderSide(color: Colors.white),
             ),
             border: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(15),
-                borderSide: BorderSide(color: context.theme.hintColor)),
+                borderRadius: BorderRadius.circular(10),
+                borderSide: const BorderSide(color: Colors.white)),
           ),
           child: _OverlayBuilder(
             overlay: (size, hideCallback) {

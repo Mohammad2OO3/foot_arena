@@ -1,29 +1,64 @@
+import 'package:bot_toast/bot_toast.dart';
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
+import 'package:provider/provider.dart';
+import 'common/design/design.dart';
+import 'common/design/src/theme/theme/theme_notifier.dart';
+import 'common/helper/helper.dart';
+import 'core/di/injection.dart';
+import 'package:device_preview/device_preview.dart';
+import '../router/app_router.dart';
 
-import 'router/app_router.dart';
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await EasyLocalization.ensureInitialized();
+  await configureInjection();
 
-void main() {
-  runApp(const MyApp());
+  runApp(
+    EasyLocalization(
+      supportedLocales: const [Locale('ar'), Locale('en')],
+
+      path: 'assets/translations',
+
+      fallbackLocale: const Locale('ar'),
+
+      child: ChangeNotifierProvider<AppThemeNotifier>(
+        create: (_) => getIt<AppThemeNotifier>(),
+        child: MainApp(),
+      ),
+    ),
+  );
 }
 
-class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+class MainApp extends StatelessWidget {
+  const MainApp({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp.router(
-      title: 'FootArena',
-      debugShowCheckedModeBanner: false,
+    return ResponsiveBreakpoints.builder(
+      child: DevicePreview(
+        enabled: false,
+        builder: (context) {
+          return MaterialApp(
+            navigatorKey: AppVariables.navigatorKey,
+            localizationsDelegates: context.localizationDelegates,
 
-      theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(
-          seedColor: Colors.deepPurple,
-        ),
-        useMaterial3: true,
+            supportedLocales: context.supportedLocales,
+            locale: context.locale,
+            theme: context.watch<AppThemeNotifier>().themeData,
+            useInheritedMediaQuery: true,
+            debugShowCheckedModeBanner: false,
+            builder: BotToastInit(),
+            navigatorObservers: [BotToastNavigatorObserver()],
+            initialRoute: RouteName.onBoard,
+            onGenerateRoute: RouteManager.onGenerateRoute,
+          );
+        },
       ),
-
-      routerConfig: AppRouter.router,
+      breakpoints: [
+        const Breakpoint(start: 0, end: 450, name: MOBILE),
+        const Breakpoint(start: 451, end: 801, name: TABLET),
+        const Breakpoint(start: 801, end: double.infinity, name: DESKTOP),
+      ],
     );
   }
 }

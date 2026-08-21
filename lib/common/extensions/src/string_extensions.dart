@@ -15,3 +15,26 @@ extension StringExtentions on String? {
     }
   }
 }
+
+extension PhoneFormatterExtension on String {
+  String formatPhone() {
+    if (isEmpty) return this;
+
+    // إزالة المسافات والشرطات
+    String phone = replaceAll(" ", "").replaceAll("-", "");
+
+    if (phone.length <= 4) return phone;
+
+    String start = phone.substring(0, 4);
+    String number = phone.substring(4);
+
+    List<String> parts = [];
+
+    for (int i = 0; i < number.length; i += 3) {
+      int end = (i + 3 < number.length) ? i + 3 : number.length;
+      parts.add(number.substring(i, end));
+    }
+
+    return parts.isEmpty ? start : "$start ${parts.join(' ')}";
+  }
+}

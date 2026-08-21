@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
+import 'package:footarena/common/extensions/extensions.dart';
 
 import '../widgets/widgets.dart';
 
@@ -48,7 +48,7 @@ class _CompleteProfileScreenState extends State<CompleteProfileScreen> {
     // هنا لاحقًا تربط API أو Bloc
 
     // بعد الحفظ انتقل للصفحة الرئيسية
-    context.go('/main');
+    context.pushNamedAndRemoveUntil('main',(p0) => false,);
   }
 
   @override
@@ -65,9 +65,9 @@ class _CompleteProfileScreenState extends State<CompleteProfileScreen> {
           ),
           onPressed: () {
             // التحقق أولاً إذا كان هناك صفحة سابقة للرجوع إليها
-            if (context.canPop()) {
+            // if (context.canPop()) {
               context.pop();
-            }
+            // }
           },
         ),
       ),
@@ -75,20 +75,26 @@ class _CompleteProfileScreenState extends State<CompleteProfileScreen> {
         child: Column(
           children: [
             Expanded(
-              child: ProfileGlassCard(
-                firstNameController: firstNameController,
-                lastNameController: lastNameController,
-                phoneController: phoneController,
-                ageController: ageController,
-                heightController: heightController,
-                weightController: weightController,
-                yearsPlayedController: yearsPlayedController,
-                ratingController: ratingController,
-                position: position,
-                positions: positions,
-                onPositionChanged: (val) {
-                  setState(() => position = val);
-                },
+              child: SingleChildScrollView(
+                child: Column(
+                  children: [
+                    ProfileGlassCard(
+                      firstNameController: firstNameController,
+                      lastNameController: lastNameController,
+                      phoneController: phoneController,
+                      ageController: ageController,
+                      heightController: heightController,
+                      weightController: weightController,
+                      yearsPlayedController: yearsPlayedController,
+                      ratingController: ratingController,
+                      position: position,
+                      positions: positions,
+                      onPositionChanged: (val) {
+                        setState(() => position = val);
+                      },
+                    ),
+                  ],
+                ),
               ),
             ),
 

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:footarena/common/extensions/extensions.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 import '../../../../common/design/design.dart';
@@ -33,7 +34,7 @@ class AuthBottomText extends StatelessWidget {
           child: Text(
             isLoginTab ? 'Sign Up' : 'Login',
             style: GoogleFonts.tajawal(
-              color: PColors.primary,
+              color: context.primarySwatch,
               fontSize: 14,
               fontWeight: FontWeight.bold,
             ),

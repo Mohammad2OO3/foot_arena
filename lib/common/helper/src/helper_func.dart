@@ -6,7 +6,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import '../../../core/di/injection.dart';
 import '../../../core/unified_api/dio/api_client.dart';
 import '../../extensions/extensions.dart';
-import 'prefs_keys.dart';
+import '../helper.dart';
 
 class HelperFunc {
   static final SharedPreferences _pref = getIt<SharedPreferences>();
@@ -14,8 +14,15 @@ class HelperFunc {
 
   static void logout() {
     _pref.remove(PrefsKeys.userInfo);
+    _pref.remove(PrefsKeys.token);
     _pref.remove(PrefsKeys.currentCountry);
+    _pref.remove(PrefsKeys.appTheme);
     getIt<ApiClient>().resetHeader();
+  }
+
+  static void changeLang() {
+    getIt<ApiClient>().resetHeader();
+
   }
 
   static bool isPhone(BuildContext context) {
@@ -23,7 +30,8 @@ class HelperFunc {
   }
 
   static T responsiveCondition<T>(BuildContext context,
-      {required T mobile, required T desktop, T? tablet}) {
+      {required T mobile, required T desktop, T? tablet})
+  {
     if (context.isMobile) {
       return mobile;
     } else if (MediaQuery.sizeOf(context).width <= 1280) {

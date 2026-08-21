@@ -17,8 +17,8 @@ class EmptyWidget extends StatelessWidget {
         children: [
           Text(
             LocaleKeys.errorMassegeNocontent.tr(),
-            style: context.textTheme.titleLarge?.copyWith(
-              color: context.primaryColor,
+            style: context.titleLarge(
+              color: context.primarySwatch,
             ),
           ),
           Space.vM1,

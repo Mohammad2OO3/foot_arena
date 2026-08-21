@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
+import 'package:footarena/common/extensions/extensions.dart';
 
 
 import '../widgets/widgets.dart';
@@ -109,7 +109,7 @@ class _LoginScreenState extends State<LoginScreen>
     }
 
     // ✅ بدل pushAndRemoveUntil
-    context.go('/home');
+    context.pushNamedAndRemoveUntil('home',(p0) => false,);
   }
 
   void _signup() {
@@ -128,7 +128,7 @@ class _LoginScreenState extends State<LoginScreen>
     }
 
 
-    context.push('/complete_profile');
+    context.pushNamedAndRemoveUntil('complete_profile',(p0) => false,);
   }
 
   void _error(String msg) {

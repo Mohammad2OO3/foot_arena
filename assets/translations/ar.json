@@ -1,1 +1,31 @@
-{}
+{
+  "validation": {
+    "requiredField": "هذا الحقل مطلوب.",
+    "invalidEmailAddress": "يرجى إدخال عنوان بريد إلكتروني صالح.",
+    "passwordTooShort": "يجب أن تتكون كلمة المرور من 8 أحرف على الأقل.",
+    "passwordsDoNotMatch": "كلمتا المرور غير متطابقتين.",
+    "invalidPhoneNumber": "يرجى إدخال رقم هاتف صالح.",
+    "fieldTooShort": "يجب ألا يقل طول هذا الحقل عن {4} أحرف.",
+    "fieldTooLong": "يجب ألا يتجاوز طول هذا الحقل {100} حرف.",
+    "invalidCharacters": "بعض الأحرف غير مسموح بها.",
+    "addNote": "يرجى إضافة ملاحظة !!",
+    "passwordNotStrong": "كلمة المرور ليست قوية بما يكفي، ويجب أن تحتوي على أحرف كبيرة وصغيرة وأرقام ورموز خاصة."
+  },
+  "errorMassege": {
+    "success": "تم بنجاح",
+    "badRequestError": "طلب غير صالح",
+    "noContent": "لا يوجد محتوى",
+    "forbiddenError": "الوصول مرفوض",
+    "unauthorizedError": "غير مصرح لك",
+    "notFoundError": "غير موجود",
+    "conflictError": "حدث تعارض",
+    "blockedError": "تم الحظر",
+    "internalServerError": "خطأ داخلي في الخادم",
+    "notAllowed": "غير مسموح",
+    "unknownError": "خطأ غير معروف",
+    "timeoutError": "انتهت مهلة الطلب",
+    "defaultError": "خطأ افتراضي",
+    "cacheError": "خطأ في التخزين المؤقت",
+    "noInternetError": "لا يوجد اتصال بالإنترنت"
+  }
+}

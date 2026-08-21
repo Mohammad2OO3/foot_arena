@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:footarena/common/extensions/extensions.dart';
 
 import '../../../../common/design/design.dart';
 
@@ -12,15 +13,15 @@ class LoginLogo extends StatelessWidget {
       height: 90,
       decoration: BoxDecoration(
         shape: BoxShape.circle,
-        gradient: const RadialGradient(
+        gradient:  RadialGradient(
           colors: [
-            PColors.primary,
+            context.primarySwatch,
             Color(0xFF00C853),
           ],
         ),
         boxShadow: [
           BoxShadow(
-            color: PColors.primary.withOpacity(0.25),
+            color: context.primarySwatch.withOpacity(0.25),
             blurRadius: 40,
             spreadRadius: 6,
           ),

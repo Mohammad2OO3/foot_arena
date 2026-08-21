@@ -1,4 +1,3 @@
-import 'package:footarena/common/design/src/widgets/empty_widget.dart';
 import 'package:flutter/material.dart';
 
 import '../../design/src/widgets.dart';
@@ -61,12 +60,19 @@ class PaginationStateModel<T> {
         errorMessage: errorMessage,
       );
 
-  PaginationStateModel<T> setSuccess(
-          {required List<T> data, required int perPage}) =>
+  PaginationStateModel<T> setSuccess({required List<T> data, int? perPage}) =>
       copyWith(
         list: List.of(list)..addAll(data),
         perPage: perPage,
-        isEndPage: data.length < perPage,
+        isEndPage: data.length < (perPage ?? this.perPage),
+        status: BlocStatus.success,
+      );
+
+  PaginationStateModel<T> setSuccessReverse({required List<T> data, int? perPage}) =>
+      copyWith(
+        list: List.of(data)..addAll(list),
+        perPage: perPage,
+        isEndPage: data.length < (perPage ?? this.perPage),
         status: BlocStatus.success,
       );
 
@@ -94,13 +100,13 @@ class PaginationStateModel<T> {
       return successWidet();
     }
     if (isEmpty) {
-      return emptyWidget ?? const EmptyWidget();
+      return emptyWidget ?? const EmptyDataWidget();
     }
     if (isLoading) {
       return loadingWidget ?? const LoadingWidget();
     } else {
       return failedWidget ??
-          CustomErrorWidget(
+          AppErrorWidget(
             errorMessage: errorMessage,
             onTap: onTapRetry ?? () {},
           );

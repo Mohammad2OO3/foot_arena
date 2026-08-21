@@ -13,7 +13,8 @@ class CacheNetworkImage extends StatelessWidget {
     this.height,
     required this.imageUrl,
     this.boxFit = BoxFit.cover,
-    this.shape = BoxShape.rectangle, required BoxFit fit,
+    this.shape = BoxShape.rectangle,
+    this.blurHash
   });
   final double? width;
   final double? height;
@@ -22,6 +23,7 @@ class CacheNetworkImage extends StatelessWidget {
   final Border? border;
   final BoxShape shape;
   final BorderRadiusGeometry? borderRadius;
+  final String? blurHash;
   @override
   Widget build(BuildContext context) {
     return ExtendedImage.network(
@@ -35,12 +37,23 @@ class CacheNetworkImage extends StatelessWidget {
       loadStateChanged: (state) {
         switch (state.extendedImageLoadState) {
           case LoadState.loading:
-            return ShimmerWidget(
+            return blurHash==null?ShimmerWidget(
               width: width,
               height: height,
               shape: shape,
               border: border,
               borderRadius: borderRadius,
+            ):
+            Container(
+              width: width,
+              height: height,
+              decoration: BoxDecoration(
+                shape: shape,
+                border: border,
+                borderRadius: borderRadius,
+
+              ),
+              child: Image.network(blurHash!),
             );
           case LoadState.completed:
             return Container(
@@ -74,7 +87,8 @@ class CacheNetworkImage extends StatelessWidget {
                     Center(
                       child: Icon(
                         Icons.replay_circle_filled_sharp,
-                        color: context.primaryColor,
+                        color: context.primarySwatch,
+                        size: 50,
                       ),
                     ),
                   ],

@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:go_router/go_router.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
-
+import '../../../common/extensions/src/context_extensions.dart';
 import '../bloc/onboarding_bloc.dart';
 import '../bloc/onboarding_event.dart';
 import '../bloc/onboarding_state.dart';
@@ -114,10 +113,11 @@ class OnBoardingScreen extends StatelessWidget {
                     padding: EdgeInsets.symmetric(
                       horizontal: width * 0.1,
                     ),
-                    child: GestureDetector(
+                    child: InkWell(
                       onTap: () {
                         if (state.currentIndex == pages.length - 1) {
-                          context.go('/login');
+                          context.pushNamed('login');
+                          return ;
                         } else {
                           _controller.nextPage(
                             duration: const Duration(milliseconds: 400),

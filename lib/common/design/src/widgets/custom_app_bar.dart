@@ -1,34 +1,71 @@
 import 'package:flutter/material.dart';
-
 import '../../../extensions/extensions.dart';
 
 class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   const CustomAppBar({
     super.key,
     required this.title,
-    this.canPop = true,
+    this.actions,
   });
   final String title;
-  final bool canPop;
+  final List<Widget>? actions;
 
   @override
   Widget build(BuildContext context) {
     return AppBar(
-      backgroundColor: context.scaffoldBackgroundColor,
-      surfaceTintColor: context.scaffoldBackgroundColor,
+      title: Text(title),
       centerTitle: true,
-      title: Text(
-        title,
-        style: context.textTheme.titleLarge,
+      surfaceTintColor: context.scaffoldBackgroundColor,
+      leading: IconButton(
+        onPressed: () {
+          context.pop();
+        },
+        icon: const Icon(Icons.arrow_back_ios_new_outlined),
       ),
-      leading: (canPop)
-          ? IconButton(
-              onPressed: () {
-                context.pop();
-              },
-              icon: const Icon(Icons.arrow_back_ios_rounded),
-            )
-          : null,
+      actions: actions,
+    );
+  }
+
+  @override
+  Size get preferredSize => const Size.fromHeight(kToolbarHeight);
+}
+
+
+class CustomMyAppBar extends StatelessWidget implements PreferredSizeWidget {
+   CustomMyAppBar({
+    super.key,
+    required this.title,
+    this.actions,
+    required this.isBack,
+    this.leading,
+    this.fun
+  });
+  final String title;
+  final List<Widget>? actions;
+  final bool isBack;
+  final Widget? leading;
+  final VoidCallback? fun;
+
+  @override
+  Widget build(BuildContext context) {
+    return AppBar(
+        title: Text(
+            title ,
+          style: context.labelLarge(),
+        ),
+        backgroundColor: Colors.transparent,
+        centerTitle: true,
+        // leading:isBack?  GestureDetector(
+        //   child: SvgAsset(
+        //     AppVariables.checkLanguage(context) == 'ar'
+        //         ? Assets.images.svg.rightArrow
+        //         : Assets.images.svg.leftArrow,
+        //     height: 10,
+        //     width: 10,
+        //   ),
+        //   onTap:  fun?? ()=>context.pop(),
+        // ):leading
+        //
     );
   }
 

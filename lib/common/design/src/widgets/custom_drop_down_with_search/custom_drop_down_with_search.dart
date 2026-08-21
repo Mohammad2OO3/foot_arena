@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-
 import '../../../../extensions/extensions.dart';
+
 import 'animated_custom_dropdown/custom_dropdown.dart';
 
 class CustomDropdownWithSearch<T> extends StatefulWidget {
@@ -55,7 +55,7 @@ class _CustomDropdownWithSearchState<T>
         listItemBuilder: (context, item) {
           return Text(
             widget.itemToString(item),
-            style: context.textTheme.headlineLarge?.copyWith(
+            style: context.headlineLarge(
               fontWeight: FontWeight.w400,
               fontSize: 14,
             ),
@@ -64,7 +64,7 @@ class _CustomDropdownWithSearchState<T>
         headerBuilder: (context, selectedItem) {
           return Text(
             widget.itemToString(selectedItem),
-            style: context.textTheme.headlineLarge?.copyWith(
+            style: context.headlineLarge(
               fontWeight: FontWeight.w400,
               fontSize: 14,
             ),

@@ -1,68 +1,103 @@
-class AppConst {
-  // ========== Screen Padding ==========
-  /// الهوامش الخارجية الثابتة للشاشة
-  static const double screenPaddingHorizontal = 16.0;
-  static const double screenPaddingVertical = 16.0;
+import 'package:flutter/material.dart';
 
-  // ========== Spacing ==========
-  static const double spacingXs = 4.0;
-  static const double spacingSm = 8.0;
-  static const double spacingMd = 12.0;
-  static const double spacingLg = 16.0;
-  static const double spacingXl = 20.0;
-  static const double spacingXxl = 24.0;
-  static const double spacingSection = 32.0;
+abstract class LayoutConstrains {
+  LayoutConstrains._();
 
-  // ========== Card Internal Padding ==========
-  static const double cardPaddingHorizontal = 16.0;
-  static const double cardPaddingVertical = 12.0;
-  static const double cardPaddingAll = 16.0;
+  static const s1 = 2.0;
+  static const s2 = 4.0;
+  static const s3 = 8.0;
+  static const m1 = 12.0;
+  static const m2 = 16.0;
+  static const m3 = 20.0;
+  static const m4 = 24.0;
+  static const l1 = 32.0;
+  static const l2 = 40.0;
+  static const l3 = 48.0;
+  static const xl1 = 64.0;
+  static const xl2 = 72.0;
+  static const xl3 = 80.0;
+  static const xxl1 = 96.0;
+  static const xxl2 = 128;
+  static const xxl3 = 160;
+}
 
-  // ========== Border Radius ==========
-  /// البطاقات الرئيسية وكروت الملاعب/اللاعبين
-  static const double radiusCard = 20.0;
+abstract class Space {
+  Space._();
 
-  /// حقول الإدخال والبحث والأزرار الكبيرة
-  static const double radiusInput = 16.0;
+  static const vS1 = RSizedBox.vertical(LayoutConstrains.s1);
+  static const vS2 = RSizedBox.vertical(LayoutConstrains.s2);
+  static const vS3 = RSizedBox.vertical(LayoutConstrains.s3);
+  static const vM1 = RSizedBox.vertical(LayoutConstrains.m1);
+  static const vM2 = RSizedBox.vertical(LayoutConstrains.m2);
+  static const vM3 = RSizedBox.vertical(LayoutConstrains.m3);
+  static const vM4 = RSizedBox.vertical(LayoutConstrains.m4);
+  static const vL1 = RSizedBox.vertical(LayoutConstrains.l1);
+  static const vL2 = RSizedBox.vertical(LayoutConstrains.l2);
+  static const vL3 = RSizedBox.vertical(LayoutConstrains.l3);
+  static const vXL1 = RSizedBox.vertical(LayoutConstrains.xl1);
+  static const vXL2 = RSizedBox.vertical(LayoutConstrains.xl2);
+  static const vXL3 = RSizedBox.vertical(LayoutConstrains.xl3);
 
-  /// الفلاتر الصغيرة والأزرار الفرعية (Chips)
-  static const double radiusChip = 12.0;
+  ///////////////////////////////////////////////////////////
+  static const hS1 = RSizedBox.horizontal(LayoutConstrains.s1);
+  static const hS2 = RSizedBox.horizontal(LayoutConstrains.s2);
+  static const hS3 = RSizedBox.horizontal(LayoutConstrains.s3);
+  static const hM1 = RSizedBox.horizontal(LayoutConstrains.m1);
+  static const hM2 = RSizedBox.horizontal(LayoutConstrains.m2);
+  static const hM3 = RSizedBox.horizontal(LayoutConstrains.m3);
+  static const hM4 = RSizedBox.horizontal(LayoutConstrains.m4);
+  static const hL1 = RSizedBox.horizontal(LayoutConstrains.l1);
+  static const hL2 = RSizedBox.horizontal(LayoutConstrains.l2);
+  static const hL3 = RSizedBox.horizontal(LayoutConstrains.l3);
+  static const hXL1 = RSizedBox.horizontal(LayoutConstrains.xl1);
+  static const hXL2 = RSizedBox.horizontal(LayoutConstrains.xl2);
+  static const hXL3 = RSizedBox.horizontal(LayoutConstrains.xl3);
+}
 
-  /// التاجات الصغيرة (التقييم، الحالات)
-  static const double radiusTag = 8.0;
+class RSizedBox extends StatelessWidget {
+  const RSizedBox(
+    this.width,
+    this.heigth, {
+    super.key,
+  });
+  final double width;
+  final double heigth;
+  const RSizedBox.vertical(this.heigth, {super.key}) : width = 0;
+  const RSizedBox.horizontal(this.width, {super.key}) : heigth = 0;
 
-  /// دائري كامل
-  static const double radiusCircular = 999.0;
+  @override
+  Widget build(BuildContext context) {
+    return SizedBox(
+      height: heigth,
+      width: width,
+    );
+  }
+}
 
-  // ========== Icon Sizes ==========
-  static const double iconXs = 12.0;
-  static const double iconSm = 16.0;
-  static const double iconMd = 20.0;
-  static const double iconLg = 24.0;
-  static const double iconXl = 32.0;
-  static const double iconXxl = 40.0;
+abstract class PRadius {
+  PRadius._();
 
-  // ========== Component Sizes ==========
-  /// ارتفاع حقول الإدخال والأزرار الكبيرة
-  static const double inputHeight = 56.0;
+  static const button = 28.0;
+  static const container = 16.0;
+  static const texFiled = 12.0;
+  static const chip = 12.0;
+  static const checkBox = 6.0;
+  static const card = 8.0;
+}
 
-  /// ارتفاع الأزرار المتوسطة
-  static const double buttonHeightMd = 48.0;
+abstract class PEdgeInsets {
+  PEdgeInsets._();
 
-  /// ارتفاع الأزرار الصغيرة والـ Chips
-  static const double chipHeight = 36.0;
+  static const all = EdgeInsets.all(LayoutConstrains.m3);
+  static const horizontal =
+      EdgeInsets.symmetric(horizontal: LayoutConstrains.m3);
 
-  /// عرض شريط البحث مع الفلتر
-  static const double searchBarWidth = 0.75; // نسبة من عرض الشاشة
+  static const vertical =
+      EdgeInsets.symmetric(vertical: LayoutConstrains.m3);
+  static const dHorizontal =
+      EdgeInsets.symmetric(horizontal: LayoutConstrains.l2);
+}
 
-  /// مسافة بين حقل البحث والفلتر
-  static const double searchFilterSpacing = 12.0;
-
-  // ========== Avatar Sizes ==========
-  static const double avatarSm = 32.0;
-  static const double avatarMd = 48.0;
-  static const double avatarLg = 64.0;
-  static const double avatarXl = 96.0;
-
-  AppConst._();
+class PPadding {
+  static const mainPadding = 12.0;
 }

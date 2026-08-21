@@ -1,128 +1,72 @@
+import 'package:bot_toast/bot_toast.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'colors.dart';
-import 'typo.dart';
-import 'const.dart';
+import 'package:google_fonts/google_fonts.dart';
+
+import '../../design.dart';
 
 class Toaster {
   Toaster._();
+  static showLoading() {
+    BotToast.showCustomLoading(
+      toastBuilder: (_) {
+        return const LoadingWidget();
+      },
+      backButtonBehavior: BackButtonBehavior.ignore,
 
-  /// SnackBar نجاح - أخضر
-  static void showSuccess(BuildContext context, String message) {
-    _show(
-      context,
-      message,
-      Icons.check_circle_rounded,
-      AppColors.primary,
     );
   }
 
-  /// SnackBar خطأ - أحمر
-  static void showError(BuildContext context, String message) {
-    _show(
-      context,
-      message,
-      Icons.cancel_rounded,
-      AppColors.accent,
-      borderColor: AppColors.accent,
-    );
+  static closeAllLoading() {
+    BotToast.closeAllLoading();
   }
 
-  /// SnackBar معلومات - بنفسجي
-  static void showInfo(BuildContext context, String message) {
-    _show(
-      context,
-      message,
-      Icons.info_rounded,
-      AppColors.secondary,
-    );
+  static showText({required String text}) {
+    BotToast.showText(text: text);
   }
+  static showNotification({ required String title}) {
+    BotToast.showText(text: title);
 
-  /// SnackBar تحذير - أصفر
-  static void showWarning(BuildContext context, String message) {
-    _show(
-      context,
-      message,
-      Icons.warning_rounded,
-      AppColors.rating,
-      borderColor: AppColors.rating,
-      textColor: AppColors.textPrimary,
-    );
   }
+  static showCustomErrorToast({required String message}) {
+    BotToast.showCustomNotification(
+      duration: const Duration(seconds: 4),
+      toastBuilder: (cancelFunc) {
+        return Container(
+          margin: const EdgeInsets.only(bottom: 34,
+              right:20 ,left: 20),
+          padding: const EdgeInsets.symmetric(horizontal:  18,vertical: 16),
+          decoration: BoxDecoration(
+            color: const Color(0xFFFB2C36),
 
-  /// دالة خاصة لبناء الـ SnackBar
-  static void _show(
-      BuildContext context,
-      String message,
-      IconData icon,
-      Color iconColor, {
-        Color? borderColor,
-        Color? textColor,
-      })
-  {
-    // نخفي أي SnackBar موجود قبل ما نعرض الجديد
-    ScaffoldMessenger.of(context).clearSnackBars();
-
-    ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(
-        content: Row(
-          children: [
-            // أيقونة الحالة
-            Container(
-              width: 24,
-              height: 24,
-              decoration: BoxDecoration(
-                shape: BoxShape.circle,
-                color: iconColor.withOpacity(0.15),
-              ),
-              child: Icon(
-                icon,
-                color: iconColor,
-                size: 16,
-              ),
-            ),
-            const SizedBox(width: 12),
-            // الرسالة النصية
-            Expanded(
-              child: Text(
-                message,
-                style: AppTypo.subtitle.copyWith(
-                  color: textColor ?? AppColors.textPrimary,
-                ),
-                maxLines: 2,
-                overflow: TextOverflow.ellipsis,
-              ),
-            ),
-            // زر الإغلاق
-            GestureDetector(
-              onTap: () {
-                ScaffoldMessenger.of(context).hideCurrentSnackBar();
-              },
-              child: const Icon(
-                Icons.close,
-                color: AppColors.textSecondary,
-                size: 18,
-              ),
-            ),
-          ],
-        ),
-        backgroundColor: AppColors.cardBackground,
-        behavior: SnackBarBehavior.floating,
-        margin: const EdgeInsets.all(16),
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(12),
-          side: BorderSide(
-            color: borderColor ?? AppColors.glassBorder,
-            width: 1.0,
+            borderRadius: BorderRadius.circular(16),
           ),
-        ),
-        duration: const Duration(seconds: 3),
-        dismissDirection: DismissDirection.horizontal,
-        elevation: 0,
-        padding: const EdgeInsets.symmetric(
-          horizontal: 16,
-          vertical: 14,
-        ),
-      ),
+          child: Row(
+            children: [
+              SvgAsset(Assets.images.svg.signUp.errorIcon),
+              const SizedBox(width: 12),
+              Expanded(
+                child: Text(
+                  message,
+                  style: GoogleFonts.cairo(
+                    color: Colors.white,
+                    fontSize: 14,
+                    fontWeight: FontWeight.w400,
+                  ),
+                  // textDirection: TextDirection.rtl,
+                ),
+              ),
+              // IconButton(
+              //   icon: const Icon(Icons.close, color: Colors.red, size: 20),
+              //   onPressed: cancelFunc,
+              // )
+            ],
+          ),
+        );
+      },
+      onlyOne: true,
+      align: const Alignment(0, 0.9), // أسفل الشاشة
+      animationDuration: const Duration(milliseconds: 300),
     );
   }
 }

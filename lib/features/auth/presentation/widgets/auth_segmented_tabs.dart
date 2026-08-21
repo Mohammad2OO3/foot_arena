@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:footarena/common/extensions/extensions.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 import '../../../../common/design/design.dart';
@@ -32,7 +33,7 @@ class AuthSegmentedTabs extends StatelessWidget {
           fontSize: 18,
         ),
         indicator: BoxDecoration(
-          color: PColors.primary,
+          color: context.primarySwatch,
           borderRadius: BorderRadius.circular(12),
         ),
         tabs: const [

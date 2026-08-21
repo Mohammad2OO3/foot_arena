@@ -22,6 +22,7 @@ class TitleText extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
+      mainAxisSize: MainAxisSize.min,
       children: [
         (withDot)
             ? Row(
@@ -31,15 +32,16 @@ class TitleText extends StatelessWidget {
                   Space.hS1,
                   Text(
                     title,
-                    style: style ?? context.textTheme.titleMedium,
+                    style: style ??
+                        context.titleLarge(fontSize: 14),
                   )
                 ],
               )
             : Text(
                 title,
-                style: style ?? context.textTheme.titleMedium,
+                style: style ?? context.titleSmall(),
               ),
-        spaceWidget ?? Container(),
+        spaceWidget ?? Space.vS2,
         child,
         Space.vM1,
       ],

@@ -24,8 +24,8 @@ class CustomErrorWidget extends StatelessWidget {
           children: [
             Text(
               errorMessage ?? "Unknown error",
-              style: context.textTheme.bodyLarge?.copyWith(
-                color: context.primaryColor,
+              style: context.bodyLarge(
+                color: context.primarySwatch,
                 fontSize: 20,
               ),
             ),

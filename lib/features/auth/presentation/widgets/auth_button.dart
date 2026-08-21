@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:footarena/common/extensions/extensions.dart';
 
-import '../../../../common/design/src/theme/colors.dart';
 
 class AuthButton extends StatelessWidget {
   final String label;
@@ -23,7 +23,7 @@ class AuthButton extends StatelessWidget {
       child: ElevatedButton(
         onPressed: onPressed,
         style: ElevatedButton.styleFrom(
-          backgroundColor: PColors.primary,
+          backgroundColor: context.primarySwatch,
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(16),
           ),

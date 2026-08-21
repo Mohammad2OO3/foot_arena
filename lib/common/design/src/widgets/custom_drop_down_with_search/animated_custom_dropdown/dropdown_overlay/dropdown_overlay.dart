@@ -304,7 +304,7 @@ class _DropdownOverlayState<T> extends State<_DropdownOverlay<T>> {
                                       width: 25,
                                       height: 25,
                                       child: CircularProgressIndicator(
-                                        color: context.primaryColor,
+                                        color: context.primarySwatch,
                                         strokeWidth: 3,
                                       ),
                                     )),

@@ -13,6 +13,8 @@ import 'package:dio/dio.dart' as _i361;
 import 'package:get_it/get_it.dart' as _i174;
 import 'package:injectable/injectable.dart' as _i526;
 
+import '../../common/design/src/theme/theme/theme_notifier.dart' as _i291;
+import '../../common/extensions/src/image_provider.dart' as _i290;
 import '../unified_api/dio/api_client.dart' as _i357;
 import '../unified_api/dio/logger_interceptor.dart' as _i614;
 import 'injection.dart' as _i464;
@@ -26,6 +28,10 @@ _i174.GetIt $initGetIt(
   final gh = _i526.GetItHelper(getIt, environment, environmentFilter);
   final injectableModule = _$InjectableModule();
   gh.singleton<_i361.Dio>(() => injectableModule.dio);
+  gh.lazySingleton<_i291.AppThemeNotifier>(() => _i291.AppThemeNotifier());
+  gh.lazySingleton<_i290.ImageProviderHelper>(
+    () => _i290.ImageProviderHelper(),
+  );
   gh.lazySingleton<_i614.LoggerInterceptor>(() => _i614.LoggerInterceptor());
   gh.lazySingleton<_i357.ApiClient>(
     () => _i357.ApiClient(

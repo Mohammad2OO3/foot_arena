@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:footarena/common/extensions/extensions.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 import '../../../../common/design/design.dart';
@@ -15,7 +16,7 @@ class ForgotPasswordButton extends StatelessWidget {
         child: Text(
           'Forgot Password?',
           style: GoogleFonts.tajawal(
-            color: PColors.primary,
+            color: context.primarySwatch,
             fontSize: 13,
             fontWeight: FontWeight.w500,
           ),

@@ -1,6 +1,7 @@
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
+import 'package:footarena/common/extensions/extensions.dart';
 
 import '../../../../common/design/design.dart';
 import 'auth_bottom_text.dart';
@@ -45,10 +46,10 @@ class AuthGlassCard extends StatelessWidget {
         child: Container(
           padding: const EdgeInsets.all(28),
           decoration: BoxDecoration(
-            color: PColors.secondary.withOpacity(0.55),
+            color: context.secondaryColor.withOpacity(0.55),
             borderRadius: BorderRadius.circular(24),
             border: Border.all(
-              color: PColors.primary.withOpacity(0.12),
+              color: context.primarySwatch.withOpacity(0.12),
             ),
           ),
           child: Column(

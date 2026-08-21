@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:footarena/common/extensions/extensions.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 import '../../../../common/design/design.dart';
@@ -18,9 +19,9 @@ class ProfileSubmitButton extends StatelessWidget {
       width: double.infinity,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(16),
-        gradient: const LinearGradient(
+        gradient:  LinearGradient(
           colors: [
-            PColors.primary,
+            context.primarySwatch,
             Color(0xFF00C853),
           ],
         ),

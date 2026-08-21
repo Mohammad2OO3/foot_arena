@@ -1,4 +1,12 @@
+import 'dart:async';
+
+import 'package:bot_toast/bot_toast.dart';
+import '../../design/src/widgets/svg_asset.dart';
+import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
+import '../../design/src/theme/assets.gen.dart';
 import '../../helper/src/locale_keys.dart';
+import '../../models/accessories_model.dart';
 
 extension Validator on String? {
   String? get isValidEmail {
@@ -17,8 +25,9 @@ extension Validator on String? {
     bool hasUpperCase = password.contains(RegExp(r'[A-Z]'));
     bool hasLowerCase = password.contains(RegExp(r'[a-z]'));
     bool hasDigits = password.contains(RegExp(r'\d'));
-    bool hasSpecialCharacters =
-        password.contains(RegExp(r'[!@#$%^&*(),.?":{}|<>]'));
+    bool hasSpecialCharacters = password.contains(
+      RegExp(r'[!@#$%^&*(),.?":{}|<>]'),
+    );
     bool hasMinimumLength = password.length >= 8;
 
     return hasUpperCase &&
@@ -28,31 +37,267 @@ extension Validator on String? {
         hasMinimumLength;
   }
 
+  bool _isPasswordStrong2(String password) {
+    bool hasDigits = password.contains(RegExp(r'\d'));
+    bool hasMinimumLength = password.length >= 8;
+
+    return hasDigits && hasMinimumLength;
+  }
+
   String? get validatePassword {
     if (this == null || this!.isEmpty) {
       return LocaleKeys.validationPasswordtooshort.tr();
-    } else if (!_isPasswordStrong(this!)) {
-      return LocaleKeys.validationPasswordnotstrong.tr();
     }
+    if (this!.length <= 7) {
+      return LocaleKeys.validationPasswordtooshort.tr();
+    }
+    // else
+    //   if (!_isPasswordStrong2(this!)) {
+    //   return LocaleKeys.validationPasswordnotstrong.tr();
+    // }
     return null;
+  }
+
+  String? get isRatingText {
+    return (this == null || this!.isEmpty)
+        ? null
+        : (this!.length < 2)
+        ? LocaleKeys.validationFieldNameTooShort.tr()
+        : (this!.length > 40)
+        ? LocaleKeys.validationFieldNameTooLong.tr()
+        : null;
   }
 
   String? get isNotShortText {
     return (this == null || this!.isEmpty)
         ? LocaleKeys.validationRequiredfield.tr()
+        : (this!.length < 2)
+        ? LocaleKeys.validationFieldtooshort.tr()
+        : null;
+  }
+
+  String? get isNotEnderThreeText {
+    return (this == null || this!.isEmpty)
+        ? LocaleKeys.validationRequiredfield.tr()
+        : (this!.length < 3)
+        ? LocaleKeys.validationFieldtooshort.tr()
+        : null;
+  }
+
+  String? get isNotEnderFourText {
+    return (this == null || this!.isEmpty)
+        ? LocaleKeys.validationRequiredfield.tr()
+        : (this!.length < 3)
+        ? LocaleKeys.validationFieldNameTooLongFour.tr()
+        : null;
+  }
+
+  String? get isPlate {
+    return (this == null || this!.isEmpty)
+        ? LocaleKeys.validationRequiredfield.tr()
         : (this!.length < 4)
-            ? LocaleKeys.validationFieldtooshort.tr()
-            : null;
+        ? LocaleKeys.validationFieldtooshort.tr()
+        : (this!.length > 17)
+        ? LocaleKeys.validationPlateTooLong.tr()
+        : null;
+  }
+
+  String? get isNameText {
+    return (this == null || this!.isEmpty)
+        ? LocaleKeys.validationRequiredfield.tr()
+        : (this!.length < 2)
+        ? LocaleKeys.validationFieldNameTooShort.tr()
+        : (this!.length > 15)
+        ? LocaleKeys.validationFieldNameTooLong.tr()
+        : null;
+  }
+
+  String? get isNameOptionText {
+    return (this == null || this!.isEmpty)
+        ? null
+        : (this!.length < 2)
+        ? LocaleKeys.validationFieldNameTooShort.tr()
+        : (this!.length > 15)
+        ? LocaleKeys.validationFieldNameTooLong.tr()
+        : null;
+  }
+
+  String? get isNotShortTextPhone {
+    return (this == null || this!.isEmpty)
+        ? LocaleKeys.validationRequiredfield.tr()
+        : (this!.length < 8)
+        ? LocaleKeys.validationFieldtooshort.tr()
+        : null;
+  }
+
+  String? get isPhoneNumber {
+    if (this == null || this!.trim().isEmpty) {
+      return LocaleKeys.validationRequiredfield.tr();
+    }
+    if (this!.length < 8) {
+      return LocaleKeys.validationFieldtooshort.tr();
+    }
+    return null;
+  }
+
+  String? isName(String controllerVal) {
+    return (controllerVal.length < 8) ? '' : null;
+  }
+
+
+
+  String? isValidPin(bool valid) {
+    return (this!.length == 6 && valid == true)
+        ? null
+        : LocaleKeys.validationRequiredfield.tr();
+  }
+
+  String? get isNotEmpty {
+    return (this == null || this!.isEmpty)
+        ? LocaleKeys.validationRequiredfield.tr()
+        : (this!.length < 1)
+        ? LocaleKeys.validationFieldtooshort.tr()
+        : null;
   }
 
   String? isConfirmPassword(String password) {
     return (this == null || this!.isEmpty)
         ? LocaleKeys.validationRequiredfield.tr()
         : (this != password)
-            ? LocaleKeys.validationPasswordsdonotmatch.tr()
-            : null;
+        ? LocaleKeys.validationPasswordsdonotmatch.tr()
+        : null;
   }
 
+  String? validateDateGroupedField({
+    required TextEditingController controller1, // يوم
+    required TextEditingController controller2, // شهر
+    required TextEditingController controller3, // سنة
+    required TextEditingController currentController, // الحقل الحالي
+  })
+  {
+    final dayStr = controller1.text.trim();
+    final monthStr = controller2.text.trim();
+    final yearStr = controller3.text.trim();
+
+    final values = [dayStr, monthStr, yearStr];
+    final filledCount = values.where((v) => v.isNotEmpty).length;
+
+    // ✅ الحالة 1: كلها فارغة → لا يوجد خطأ
+    if (filledCount == 0) return null;
+
+    // ✅ الحالة 2: كلها ممتلئة → تحقق من صحة القيم
+    if (filledCount == 3) {
+      final allNumbers = values.every((v) => int.tryParse(v) != null);
+      if (!allNumbers) {
+        if (currentController.text.isNotEmpty) {
+          showCustomErrorToast(LocaleKeys.validationFieldErrorDate.tr());
+          return '';
+        }
+        return null;
+      }
+
+      final day = int.tryParse(dayStr) ?? 0;
+      final month = int.tryParse(monthStr) ?? 0;
+      final year = int.tryParse(yearStr) ?? 0;
+
+      final nowYear = DateTime.now().year;
+      final minYear = nowYear - 100;
+      final maxYear = nowYear - 15;
+
+      if (month < 1 || month > 12) {
+        if (currentController == controller2) {
+          showCustomErrorToast(LocaleKeys.validationInvalidMonth.tr());
+          return '';
+        }
+        return null;
+      }
+
+      if (year < minYear || year > maxYear) {
+        if (currentController == controller3) {
+          showCustomErrorToast(LocaleKeys.validationInvalidYear.tr());
+          return '';
+        }
+        return null;
+      }
+
+      final maxDay = DateTime(year, month + 1, 0).day;
+      if (day < 1 || day > maxDay) {
+        if (currentController == controller1) {
+          showCustomErrorToast(
+            LocaleKeys.validationInvalidDay.tr(
+              namedArgs: {"max": maxDay.toString()},
+            ),
+          );
+          return '';
+        }
+        return null;
+      }
+
+      return null; // ✅ التاريخ صحيح
+    }
+
+    // ❌ الحالة 3: تم ملء بعض الحقول فقط
+    // → الخطأ يجب أن يظهر على الفارغة فقط
+    if (currentController.text.isEmpty) {
+      showCustomErrorToast(LocaleKeys.authPleaseFillAllOrNever.tr());
+      return '';
+    }
+
+    return null;
+  }
+
+  String? isNotEmptyDropDown(ValueNotifier<bool> val) {
+    if (this == null || this!.isEmpty) {
+      val.value = true;
+      showCustomErrorToast(LocaleKeys.accessoriesDetailsPleaseGiveCount.tr());
+      return '';
+    } else {
+      val.value = false;
+      return null;
+    }
+  }
+
+  void showCustomErrorToast(String message) {
+    BotToast.showCustomNotification(
+      duration: const Duration(seconds: 4),
+      toastBuilder: (cancelFunc) {
+        return Container(
+          margin: const EdgeInsets.only(bottom: 34, right: 20, left: 20),
+          padding: const EdgeInsets.symmetric(horizontal: 18, vertical: 16),
+          decoration: BoxDecoration(
+            color: const Color(0xFFFB2C36),
+
+            borderRadius: BorderRadius.circular(16),
+          ),
+          child: Row(
+            children: [
+              SvgAsset(Assets.images.svg.signUp.errorIcon),
+              const SizedBox(width: 12),
+              Expanded(
+                child: Text(
+                  message,
+                  style: GoogleFonts.cairo(
+                    color: Colors.white,
+                    fontSize: 14,
+                    fontWeight: FontWeight.w400,
+                  ),
+                  // textDirection: TextDirection.rtl,
+                ),
+              ),
+              // IconButton(
+              //   icon: const Icon(Icons.close, color: Colors.red, size: 20),
+              //   onPressed: cancelFunc,
+              // )
+            ],
+          ),
+        );
+      },
+      onlyOne: true,
+      align: const Alignment(0, 0.9),
+      // أسفل الشاشة
+      animationDuration: const Duration(milliseconds: 300),
+    );
+  }
   // bool get isValidPhone {
   //   return RegExp(
   //     r'^((\+|00)963|0)9\d{8}$',
@@ -116,4 +361,59 @@ extension Validator on String? {
   //     multiLine: false,
   //   ).hasMatch(this);
   // }
+}
+
+extension VariantValidation on Variant? {
+  String? validate(ValueNotifier<bool> errorNotifier) {
+    if (this == null) {
+      errorNotifier.value = true;
+      showCustomErrorToast(LocaleKeys.accessoriesDetailsPleaseGiveCount.tr());
+      return '';
+    }
+
+    errorNotifier.value = false;
+    return null;
+  }
+
+  void showCustomErrorToast(String message) {
+    BotToast.showCustomNotification(
+      duration: const Duration(seconds: 4),
+      toastBuilder: (cancelFunc) {
+        return Container(
+          margin: const EdgeInsets.only(bottom: 34, right: 20, left: 20),
+          padding: const EdgeInsets.symmetric(horizontal: 18, vertical: 16),
+          decoration: BoxDecoration(
+            color: const Color(0xFFFB2C36),
+
+            borderRadius: BorderRadius.circular(16),
+          ),
+          child: Row(
+            children: [
+              SvgAsset(Assets.images.svg.signUp.errorIcon),
+              const SizedBox(width: 12),
+              Expanded(
+                child: Text(
+                  message,
+                  style: GoogleFonts.cairo(
+                    color: Colors.white,
+                    fontSize: 14,
+                    fontWeight: FontWeight.w400,
+                  ),
+                  // textDirection: TextDirection.rtl,
+                ),
+              ),
+              // IconButton(
+              //   icon: const Icon(Icons.close, color: Colors.red, size: 20),
+              //   onPressed: cancelFunc,
+              // )
+            ],
+          ),
+        );
+      },
+      onlyOne: true,
+      align: const Alignment(0, 0.9),
+      // أسفل الشاشة
+      animationDuration: const Duration(milliseconds: 300),
+    );
+  }
 }
