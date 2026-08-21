@@ -1,0 +1,31 @@
+{
+    "validation": {
+        "requiredField": "This field is required.",
+        "invalidEmailAddress": "Please enter a valid email address.",
+        "passwordTooShort": "Password must be at least 8 characters long.",
+        "passwordsDoNotMatch": "Passwords do not match.",
+        "invalidPhoneNumber": "Please enter a valid phone number.",
+        "fieldTooShort": "This field must be at least {4} characters long.",
+        "fieldTooLong": "This field must not exceed {100} characters long.",
+        "invalidCharacters": "Some characters are not allowed.",
+        "addNote": "Please Add Note !!",
+        "passwordNotStrong": "The password is not strong enough, it must contain uppercase and lowercase letters, numbers, and special characters."
+    },
+    "errorMassege": {
+        "success": "Success",
+        "badRequestError": "Bad Request",
+        "noContent": "No Content",
+        "forbiddenError": "Forbidden",
+        "unauthorizedError": "Unauthorized",
+        "notFoundError": "Not Found",
+        "conflictError": "Conflict",
+        "blockedError": "Blocked",
+        "internalServerError": "Internal Server Error",
+        "notAllowed": "Not Allowed",
+        "unknownError": "Unknown Error",
+        "timeoutError": "Timeout Error",
+        "defaultError": "Default Error",
+        "cacheError": "Cache Error",
+        "noInternetError": "No Internet Connection"
+    }
+}
