@@ -32,7 +32,7 @@ class AuthSegmentedTabs extends StatelessWidget {
           fontSize: 18,
         ),
         indicator: BoxDecoration(
-          color: PColors.neonGreen,
+          color: PColors.primary,
           borderRadius: BorderRadius.circular(12),
         ),
         tabs: const [

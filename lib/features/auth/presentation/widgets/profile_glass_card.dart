@@ -49,10 +49,10 @@ class ProfileGlassCard extends StatelessWidget {
           child: Container(
             padding: const EdgeInsets.all(24),
             decoration: BoxDecoration(
-              color: PColors.deepNavy.withOpacity(0.55),
+              color: PColors.secondary.withOpacity(0.55),
               borderRadius: BorderRadius.circular(28),
               border: Border.all(
-                color: PColors.neonGreen.withOpacity(0.12),
+                color: PColors.primary.withOpacity(0.12),
               ),
             ),
             child: Column(

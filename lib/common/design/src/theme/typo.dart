@@ -7,7 +7,7 @@ class AppTypo  {
   static const TextStyle screenTitle = TextStyle(
     fontSize: 24,
     fontWeight: FontWeight.bold,
-    color: AppColors.textPrimary,
+    color: PColors.textPrimary,
     letterSpacing: -0.3,
     height: 1.2,
   );
@@ -17,7 +17,7 @@ class AppTypo  {
   static const TextStyle sectionHeader = TextStyle(
     fontSize: 18,
     fontWeight: FontWeight.bold,
-    color: AppColors.textPrimary,
+    color: PColors.textPrimary,
     letterSpacing: -0.2,
     height: 1.3,
   );
@@ -27,7 +27,7 @@ class AppTypo  {
   static const TextStyle cardTitle = TextStyle(
     fontSize: 16,
     fontWeight: FontWeight.w600,
-    color: AppColors.textPrimary,
+    color: PColors.textPrimary,
     height: 1.2,
   );
 
@@ -36,7 +36,7 @@ class AppTypo  {
   static const TextStyle subtitle = TextStyle(
     fontSize: 14,
     fontWeight: FontWeight.normal,
-    color: AppColors.textSecondary,
+    color: PColors.textSecondary,
     height: 1.4,
   );
 
@@ -44,21 +44,21 @@ class AppTypo  {
   static const TextStyle buttonLarge = TextStyle(
     fontSize: 16,
     fontWeight: FontWeight.bold,
-    color: AppColors.textPrimary,
+    color: PColors.textPrimary,
     letterSpacing: 0.5,
   );
 
   static const TextStyle buttonMedium = TextStyle(
     fontSize: 14,
     fontWeight: FontWeight.bold,
-    color: AppColors.textPrimary,
+    color: PColors.textPrimary,
     letterSpacing: 0.3,
   );
 
   static const TextStyle buttonSmall = TextStyle(
     fontSize: 12,
     fontWeight: FontWeight.bold,
-    color: AppColors.textPrimary,
+    color: PColors.textPrimary,
     letterSpacing: 0.2,
   );
 
@@ -66,7 +66,7 @@ class AppTypo  {
   static const TextStyle buttonOnNeon = TextStyle(
     fontSize: 14,
     fontWeight: FontWeight.bold,
-    color: AppColors.background,
+    color: PColors.background,
     letterSpacing: 0.3,
   );
 
@@ -74,7 +74,7 @@ class AppTypo  {
   static const TextStyle caption = TextStyle(
     fontSize: 11,
     fontWeight: FontWeight.w500,
-    color: AppColors.textSecondary,
+    color: PColors.textSecondary,
     letterSpacing: 0.5,
   );
 
@@ -82,7 +82,7 @@ class AppTypo  {
   static const TextStyle rating = TextStyle(
     fontSize: 14,
     fontWeight: FontWeight.w700,
-    color: AppColors.rating,
+    color: PColors.rating,
     letterSpacing: 0.2,
   );
 
@@ -90,13 +90,13 @@ class AppTypo  {
   static const TextStyle statValue = TextStyle(
     fontSize: 18,
     fontWeight: FontWeight.bold,
-    color: AppColors.primary,
+    color: PColors.primary,
   );
 
   static const TextStyle statLabel = TextStyle(
     fontSize: 12,
     fontWeight: FontWeight.normal,
-    color: AppColors.textSecondary,
+    color: PColors.textSecondary,
   );
 
   AppTypo ._();

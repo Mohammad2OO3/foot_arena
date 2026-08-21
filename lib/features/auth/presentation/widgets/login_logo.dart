@@ -14,13 +14,13 @@ class LoginLogo extends StatelessWidget {
         shape: BoxShape.circle,
         gradient: const RadialGradient(
           colors: [
-            PColors.neonGreen,
+            PColors.primary,
             Color(0xFF00C853),
           ],
         ),
         boxShadow: [
           BoxShadow(
-            color: PColors.neonGreen.withOpacity(0.25),
+            color: PColors.primary.withOpacity(0.25),
             blurRadius: 40,
             spreadRadius: 6,
           ),

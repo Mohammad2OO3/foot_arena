@@ -15,7 +15,7 @@ class ForgotPasswordButton extends StatelessWidget {
         child: Text(
           'Forgot Password?',
           style: GoogleFonts.tajawal(
-            color: PColors.neonGreen,
+            color: PColors.primary,
             fontSize: 13,
             fontWeight: FontWeight.w500,
           ),

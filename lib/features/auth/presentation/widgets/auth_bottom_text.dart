@@ -33,7 +33,7 @@ class AuthBottomText extends StatelessWidget {
           child: Text(
             isLoginTab ? 'Sign Up' : 'Login',
             style: GoogleFonts.tajawal(
-              color: PColors.neonGreen,
+              color: PColors.primary,
               fontSize: 14,
               fontWeight: FontWeight.bold,
             ),

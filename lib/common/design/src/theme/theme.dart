@@ -15,29 +15,29 @@ class AppTheme {
 
       // ========== Color Scheme ==========
       colorScheme: const ColorScheme.dark(
-        primary: AppColors.primary,
-        onPrimary: AppColors.background,
-        primaryContainer: AppColors.primaryDark,
-        secondary: AppColors.secondary,
-        onSecondary: AppColors.textPrimary,
-        secondaryContainer: AppColors.secondaryDark,
-        tertiary: AppColors.accent,
-        onTertiary: AppColors.textPrimary,
-        surface: AppColors.cardBackground,
-        onSurface: AppColors.textPrimary,
-        surfaceContainerHighest: AppColors.subtleSurface,
-        error: AppColors.accent,
-        onError: AppColors.textPrimary,
-        outline: AppColors.textSecondary,
+        primary: PColors.primary,
+        onPrimary: PColors.background,
+        primaryContainer: PColors.primaryDark,
+        secondary: PColors.secondary,
+        onSecondary: PColors.textPrimary,
+        secondaryContainer: PColors.secondaryDark,
+        tertiary: PColors.accent,
+        onTertiary: PColors.textPrimary,
+        surface: PColors.cardBackground,
+        onSurface: PColors.textPrimary,
+        surfaceContainerHighest: PColors.subtleSurface,
+        error: PColors.accent,
+        onError: PColors.textPrimary,
+        outline: PColors.textSecondary,
       ),
 
       // ========== Scaffold ==========
-      scaffoldBackgroundColor: AppColors.background,
+      scaffoldBackgroundColor: PColors.background,
 
       // ========== AppBar ==========
       appBarTheme: const AppBarTheme(
         backgroundColor: Colors.transparent,
-        foregroundColor: AppColors.textPrimary,
+        foregroundColor: PColors.textPrimary,
         elevation: 0,
         centerTitle: false,
         titleTextStyle: AppTypo .screenTitle,
@@ -47,12 +47,12 @@ class AppTheme {
 
       // ========== Card ==========
       cardTheme: CardThemeData(
-        color: AppColors.cardBackground,
+        color: PColors.cardBackground,
         elevation: 0,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(AppConst.radiusCard),
           side: BorderSide(
-            color: AppColors.glassBorder,
+            color: PColors.glassBorder,
             width: 1.0,
           ),
         ),
@@ -68,9 +68,9 @@ class AppTheme {
       // ========== Outlined Button ==========
       outlinedButtonTheme: OutlinedButtonThemeData(
         style: OutlinedButton.styleFrom(
-          foregroundColor: AppColors.primary,
+          foregroundColor: PColors.primary,
           minimumSize: const Size(double.infinity, AppConst.inputHeight),
-          side: const BorderSide(color: AppColors.primary, width: 1.5),
+          side: const BorderSide(color: PColors.primary, width: 1.5),
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(AppConst.radiusInput),
           ),
@@ -84,7 +84,7 @@ class AppTheme {
       // ========== Text Button ==========
       textButtonTheme: TextButtonThemeData(
         style: TextButton.styleFrom(
-          foregroundColor: AppColors.primary,
+          foregroundColor: PColors.primary,
           textStyle: const TextStyle(
             fontSize: 14,
             fontWeight: FontWeight.w600,
@@ -95,9 +95,9 @@ class AppTheme {
       // ========== Input Decoration ==========
       inputDecorationTheme: InputDecorationTheme(
         filled: true,
-        fillColor: AppColors.cardBackground,
+        fillColor: PColors.cardBackground,
         hintStyle: const TextStyle(
-          color: AppColors.textSecondary,
+          color: PColors.textSecondary,
           fontSize: 14,
         ),
         contentPadding: const EdgeInsets.all(16),
@@ -108,28 +108,28 @@ class AppTheme {
         enabledBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(AppConst.radiusInput),
           borderSide: BorderSide(
-            color: AppColors.glassBorder,
+            color: PColors.glassBorder,
             width: 1.0,
           ),
         ),
         focusedBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(AppConst.radiusInput),
           borderSide: const BorderSide(
-            color: AppColors.primary,
+            color: PColors.primary,
             width: 1.5,
           ),
         ),
         errorBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(AppConst.radiusInput),
           borderSide: const BorderSide(
-            color: AppColors.accent,
+            color: PColors.accent,
             width: 1.0,
           ),
         ),
         focusedErrorBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(AppConst.radiusInput),
           borderSide: const BorderSide(
-            color: AppColors.accent,
+            color: PColors.accent,
             width: 1.5,
           ),
         ),
@@ -137,26 +137,26 @@ class AppTheme {
 
       // ========== Search Bar Theme (Material 3) ==========
       searchBarTheme: SearchBarThemeData(
-        backgroundColor: WidgetStateProperty.all(AppColors.cardBackground),
+        backgroundColor: WidgetStateProperty.all(PColors.cardBackground),
         elevation: WidgetStateProperty.all(0),
         shape: WidgetStateProperty.all(
           RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(AppConst.radiusInput),
             side: BorderSide(
-              color: AppColors.glassBorder,
+              color: PColors.glassBorder,
               width: 1.0,
             ),
           ),
         ),
         hintStyle: WidgetStateProperty.all(
           const TextStyle(
-            color: AppColors.textSecondary,
+            color: PColors.textSecondary,
             fontSize: 14,
           ),
         ),
         textStyle: WidgetStateProperty.all(
           const TextStyle(
-            color: AppColors.textPrimary,
+            color: PColors.textPrimary,
             fontSize: 14,
           ),
         ),
@@ -171,9 +171,9 @@ class AppTheme {
 
       // ========== Bottom Navigation Bar ==========
       bottomNavigationBarTheme: const BottomNavigationBarThemeData(
-        backgroundColor: AppColors.cardBackground,
-        selectedItemColor: AppColors.primary,
-        unselectedItemColor: AppColors.textSecondary,
+        backgroundColor: PColors.cardBackground,
+        selectedItemColor: PColors.primary,
+        unselectedItemColor: PColors.textSecondary,
         type: BottomNavigationBarType.fixed,
         elevation: 0,
         selectedLabelStyle: TextStyle(
@@ -188,16 +188,16 @@ class AppTheme {
 
       // ========== SnackBar ==========
       snackBarTheme: SnackBarThemeData(
-        backgroundColor: AppColors.cardBackground,
+        backgroundColor: PColors.cardBackground,
         contentTextStyle: const TextStyle(
-          color: AppColors.textPrimary,
+          color: PColors.textPrimary,
           fontSize: 14,
         ),
         behavior: SnackBarBehavior.floating,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(AppConst.radiusInput),
           side: BorderSide(
-            color: AppColors.glassBorder,
+            color: PColors.glassBorder,
             width: 1.0,
           ),
         ),
@@ -205,12 +205,12 @@ class AppTheme {
 
       // ========== Dialog ==========
       dialogTheme: DialogThemeData(
-        backgroundColor: AppColors.cardBackground,
+        backgroundColor: PColors.cardBackground,
         elevation: 0,
         shape: RoundedRectangleBorder(
           borderRadius: const BorderRadius.all(Radius.circular(AppConst.radiusCard)),
           side: const BorderSide(
-            color: AppColors.glassBorder,
+            color: PColors.glassBorder,
             width: 1.0,
           ),
         ),
@@ -219,33 +219,33 @@ class AppTheme {
       ),
       // ========== Bottom Sheet ==========
       bottomSheetTheme: const BottomSheetThemeData(
-        backgroundColor: AppColors.cardBackground,
+        backgroundColor: PColors.cardBackground,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.vertical(
             top: Radius.circular(AppConst.radiusCard),
           ),
         ),
-        modalBackgroundColor: AppColors.cardBackground,
+        modalBackgroundColor: PColors.cardBackground,
       ),
 
       // ========== Chip Theme ==========
       chipTheme: ChipThemeData(
-        backgroundColor: AppColors.cardBackground,
-        selectedColor: AppColors.primary.withOpacity(0.15),
+        backgroundColor: PColors.cardBackground,
+        selectedColor: PColors.primary.withOpacity(0.15),
         labelStyle: const TextStyle(
           fontSize: 14,
           fontWeight: FontWeight.w600,
-          color: AppColors.textPrimary,
+          color: PColors.textPrimary,
         ),
         secondaryLabelStyle: const TextStyle(
           fontSize: 14,
           fontWeight: FontWeight.w600,
-          color: AppColors.primary,
+          color: PColors.primary,
         ),
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(AppConst.radiusChip),
           side: BorderSide(
-            color: AppColors.glassBorder,
+            color: PColors.glassBorder,
             width: 1.0,
           ),
         ),
@@ -257,13 +257,13 @@ class AppTheme {
 
       // ========== Slider Theme ==========
       sliderTheme: SliderThemeData(
-        activeTrackColor: AppColors.primary,
-        inactiveTrackColor: AppColors.primary.withOpacity(0.2),
-        thumbColor: AppColors.primary,
-        overlayColor: AppColors.primary.withOpacity(0.1),
-        valueIndicatorColor: AppColors.primary,
+        activeTrackColor: PColors.primary,
+        inactiveTrackColor: PColors.primary.withOpacity(0.2),
+        thumbColor: PColors.primary,
+        overlayColor: PColors.primary.withOpacity(0.1),
+        valueIndicatorColor: PColors.primary,
         valueIndicatorTextStyle: const TextStyle(
-          color: AppColors.background,
+          color: PColors.background,
           fontSize: 12,
           fontWeight: FontWeight.bold,
         ),
@@ -274,17 +274,17 @@ class AppTheme {
         fillColor: WidgetStateProperty.resolveWith<Color>(
               (Set<WidgetState> states) {
             if (states.contains(WidgetState.selected)) {
-              return AppColors.primary;
+              return PColors.primary;
             }
-            return AppColors.textSecondary;
+            return PColors.textSecondary;
           },
         ),
-        checkColor: WidgetStateProperty.all(AppColors.background),
+        checkColor: WidgetStateProperty.all(PColors.background),
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(4),
         ),
         side: const BorderSide(
-          color: AppColors.textSecondary,
+          color: PColors.textSecondary,
           width: 1.5,
         ),
       ),
@@ -294,9 +294,9 @@ class AppTheme {
         fillColor: WidgetStateProperty.resolveWith<Color>(
               (Set<WidgetState> states) {
             if (states.contains(WidgetState.selected)) {
-              return AppColors.primary;
+              return PColors.primary;
             }
-            return AppColors.textSecondary;
+            return PColors.textSecondary;
           },
         ),
       ),
@@ -306,33 +306,33 @@ class AppTheme {
         thumbColor: WidgetStateProperty.resolveWith<Color>(
               (Set<WidgetState> states) {
             if (states.contains(WidgetState.selected)) {
-              return AppColors.primary;
+              return PColors.primary;
             }
-            return AppColors.textSecondary;
+            return PColors.textSecondary;
           },
         ),
         trackColor: WidgetStateProperty.resolveWith<Color>(
               (Set<WidgetState> states) {
             if (states.contains(WidgetState.selected)) {
-              return AppColors.primary.withOpacity(0.3);
+              return PColors.primary.withOpacity(0.3);
             }
-            return AppColors.textSecondary.withOpacity(0.2);
+            return PColors.textSecondary.withOpacity(0.2);
           },
         ),
       ),
 
       // ========== Progress Indicator ==========
       progressIndicatorTheme: const ProgressIndicatorThemeData(
-        color: AppColors.primary,
-        linearTrackColor: AppColors.cardBackground,
-        circularTrackColor: AppColors.cardBackground,
+        color: PColors.primary,
+        linearTrackColor: PColors.cardBackground,
+        circularTrackColor: PColors.cardBackground,
       ),
 
       // ========== Tab Bar ==========
       tabBarTheme:   TabBarThemeData(
-        labelColor: AppColors.primary,
-        unselectedLabelColor: AppColors.textSecondary,
-        indicatorColor: AppColors.primary,
+        labelColor: PColors.primary,
+        unselectedLabelColor: PColors.textSecondary,
+        indicatorColor: PColors.primary,
         dividerColor: Colors.transparent,
         labelStyle: TextStyle(
           fontSize: 14,
@@ -365,7 +365,7 @@ class AppTheme {
 
       // ========== Icon Theme ==========
       iconTheme: const IconThemeData(
-        color: AppColors.textPrimary,
+        color: PColors.textPrimary,
         size: AppConst.iconLg,
       ),
 
@@ -377,23 +377,23 @@ class AppTheme {
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(AppConst.radiusCard),
         ),
-        tileColor: AppColors.cardBackground,
-        textColor: AppColors.textPrimary,
-        iconColor: AppColors.textSecondary,
+        tileColor: PColors.cardBackground,
+        textColor: PColors.textPrimary,
+        iconColor: PColors.textSecondary,
       ),
 
       // ========== Tooltip ==========
       tooltipTheme: TooltipThemeData(
         decoration: BoxDecoration(
-          color: AppColors.cardBackground,
+          color: PColors.cardBackground,
           borderRadius: BorderRadius.circular(AppConst.radiusTag),
           border: Border.all(
-            color: AppColors.glassBorder,
+            color: PColors.glassBorder,
             width: 1.0,
           ),
         ),
         textStyle: const TextStyle(
-          color: AppColors.textPrimary,
+          color: PColors.textPrimary,
           fontSize: 12,
         ),
       ),

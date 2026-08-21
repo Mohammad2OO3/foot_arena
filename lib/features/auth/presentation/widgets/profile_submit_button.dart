@@ -20,7 +20,7 @@ class ProfileSubmitButton extends StatelessWidget {
         borderRadius: BorderRadius.circular(16),
         gradient: const LinearGradient(
           colors: [
-            PColors.neonGreen,
+            PColors.primary,
             Color(0xFF00C853),
           ],
         ),
