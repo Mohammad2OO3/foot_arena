@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-class AppColors {
+class PColors {
   // ========== Brand Colors ==========
   static const Color background = Color(0xFF0A1124);
   static const Color primary = Color(0xFF00E676);
@@ -46,5 +46,5 @@ class AppColors {
     end: Alignment.bottomRight,
   );
 
-  AppColors._();
+  PColors._();
 }

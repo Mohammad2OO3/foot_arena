@@ -57,7 +57,8 @@ class Toaster {
       Color iconColor, {
         Color? borderColor,
         Color? textColor,
-      }) {
+      })
+  {
     // نخفي أي SnackBar موجود قبل ما نعرض الجديد
     ScaffoldMessenger.of(context).clearSnackBars();
 
