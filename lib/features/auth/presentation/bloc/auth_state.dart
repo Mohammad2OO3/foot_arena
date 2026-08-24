@@ -1,27 +1,25 @@
 part of 'auth_bloc.dart';
 
-abstract class AuthState {}
+class AuthState {
+  final DataStateModel<AuthResponse?> loginData;
+  final DataStateModel<void> logOutData;
+  final DataStateModel<void> signData;
 
-class AuthInitial extends AuthState {}
+  AuthState({
+    this.loginData = const DataStateModel.setDefultValue(defultValue: null),
+    this.logOutData = const DataStateModel.setDefultValue(defultValue: null),
+    this.signData = const DataStateModel.setDefultValue(defultValue: null),
+  });
 
-class AuthLoading extends AuthState {}
-
-class AuthSuccess extends AuthState {
-  final User user;
-
-  AuthSuccess(this.user);
-}
-
-class AuthProfileRequired extends AuthState {
-
-
-  final User user;
-
-  AuthProfileRequired(this.user);
-}
-
-class AuthFailure extends AuthState {
-  final String message;
-
-  AuthFailure(this.message);
+  AuthState copyWith({
+    DataStateModel<AuthResponse?>? loginData,
+    DataStateModel<void>? signData,
+    DataStateModel<void>? logOutData,
+  }) {
+    return AuthState(
+      loginData: loginData ?? this.loginData,
+      signData: signData ?? this.signData,
+      logOutData: logOutData ?? this.logOutData,
+    );
+  }
 }

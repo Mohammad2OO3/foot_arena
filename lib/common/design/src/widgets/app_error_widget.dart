@@ -23,7 +23,7 @@ class AppErrorWidget extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Assets.images.png.error.emptyCleaningImage.image(),
+            // Assets.images.png.error.emptyCleaningImage.image(),
             const SizedBox(height: 24),
             Text(
               LocaleKeys.errorLoadFailed.tr(),
@@ -70,7 +70,7 @@ class AppErrorWidgetReFresh extends StatelessWidget {
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Assets.images.png.error.emptyCleaningImage.image(),
+                    // Assets.images.png.error.emptyCleaningImage.image(),
                     const SizedBox(height: 24),
                     Text(
                       LocaleKeys.errorLoadFailed.tr(),
@@ -130,10 +130,10 @@ class AppErrorWidgetNullReFresh extends StatelessWidget {
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                  image==null?Assets.images.png.error.emptyMyCars.image(
-                    width: context.width*.63
-                  )  :Image.asset(image!,
-                      width: context.width*.63),
+                  // image==null?Assets.images.png.error.emptyMyCars.image(
+                  //   width: context.width*.63
+                  // )  :Image.asset(image!,
+                  //     width: context.width*.63),
                     const SizedBox(height: 24),
                     Text(
                       errorMessage,

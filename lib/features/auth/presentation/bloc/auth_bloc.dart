@@ -1,76 +1,108 @@
+import 'dart:async';
 import 'package:bloc/bloc.dart';
-import 'package:footarena/features/auth/domain/use_cases/complete_profile_usecase.dart';
-import 'package:footarena/features/auth/domain/use_cases/login_usecase.dart';
-import 'package:footarena/features/auth/domain/use_cases/signup_usecase.dart';
-
+import '../../../../common/helper/src/app_varibles.dart';
+import '../../../../common/helper/src/data_state_model.dart';
+import '../../../../common/helper/src/helper_func.dart';
+import '../../../../core/di/injection.dart';
+import '../../../../core/unified_api/dio/api_client.dart';
+import '../../../../core/use_case/use_case.dart';
 import '../../data/models/auth_response.dart';
-
+import 'package:injectable/injectable.dart';
+import '../../domain/use_cases/log_out_use_case.dart';
+import '../../domain/use_cases/login_usecase.dart';
+import '../../domain/use_cases/signup_use_case.dart';
 
 part 'auth_event.dart';
+
 part 'auth_state.dart';
 
-
+@injectable
 class AuthBloc extends Bloc<AuthEvent, AuthState> {
-  final LoginUseCase loginUseCase;
-  final SignupUseCase signupUseCase;
-  final CompleteProfileUseCase completeProfileUseCase;
+  final LoginUseCase _loginUseCase;
+  final LogOutUseCase _logOutUseCase;
+  final SignupUseCase _signupUseCase;
 
-  AuthBloc({
-    required this.loginUseCase,
-    required this.signupUseCase,
-    required this.completeProfileUseCase,
-  }) : super(AuthInitial()) {
-
-    on<LoginRequested>(_login);
-    on<SignupRequested>(_signup);
-    on<CompleteProfileRequested>(_completeProfile);
+  AuthBloc(
+    this._loginUseCase,
+    this._signupUseCase,
+    this._logOutUseCase,
+  ) : super(AuthState()) {
+    on<LoginEvent>(_login);
+    on<LogOutEvent>(_logOut);
+    on<SignupEvent>(_signup);
   }
 
-  Future<void> _login(
-      LoginRequested event,
-      Emitter<AuthState> emit,
-      ) async {
-    emit(AuthLoading());
+  FutureOr<void> _login(LoginEvent event, Emitter<AuthState> emit) async {
+    emit(state.copyWith(loginData: state.loginData.setLoading()));
 
-    try {
-      final user = await loginUseCase(event.email, event.password);
+    final val = await _loginUseCase(event.params);
 
-      emit(AuthSuccess(user));
+    val.fold(
+      (l) {
+        emit(
+          state.copyWith(
+            loginData: state.loginData.setFaild(errorMessage: l.message),
+          ),
+        );
+      },
+      (r) {
+        emit(state.copyWith(loginData: state.loginData.setSuccess(data: r)));
+        AppVariables.token = r.data!.token;
+        AppVariables.user = r.data!.user!;
+        getIt<ApiClient>().resetHeader();
 
-    } catch (e) {
-      emit(AuthFailure("Login failed"));
-    }
+      },
+    );
+    if (emit.isDone) return;
+
+    emit(state.copyWith( loginData: state.loginData.resetData()));
   }
 
-  Future<void> _signup(
-      SignupRequested event,
-      Emitter<AuthState> emit,
-      ) async {
-    emit(AuthLoading());
+  FutureOr<void> _logOut(LogOutEvent event, Emitter<AuthState> emit) async {
+    emit(state.copyWith(logOutData: state.logOutData.setLoading()));
 
-    try {
-      final user = await signupUseCase(event.email, event.password);
+    final val = await _logOutUseCase(NoParams());
 
-      emit(AuthProfileRequired(user));
+    val.fold(
+      (l) {
+        emit(
+          state.copyWith(
+            logOutData: state.logOutData.setFaild(errorMessage: l.message),
+          ),
+        );
+      },
+      (r) {
+        emit(state.copyWith(logOutData: state.logOutData.setSuccess()));
+        HelperFunc.logout();
+      },
+    );
+    if (emit.isDone) return;
 
-    } catch (e) {
-      emit(AuthFailure("Signup failed"));
-    }
+    emit(state.copyWith( logOutData: state.logOutData.resetData()));
   }
 
-  Future<void> _completeProfile(
-      CompleteProfileRequested event,
-      Emitter<AuthState> emit,
-      ) async {
-    emit(AuthLoading());
+  FutureOr<void> _signup(SignupEvent event, Emitter<AuthState> emit) async {
+    emit(state.copyWith(signData: state.signData.setLoading()));
 
-    try {
-      final user = await completeProfileUseCase(event.user);
+    final val = await _signupUseCase(event.params);
 
-      emit(AuthSuccess(user));
+    val.fold(
+      (l) {
+        emit(
+          state.copyWith(
+            signData: state.signData.setFaild(errorMessage: l.message),
+          ),
+        );
+      },
+      (r) {
+        emit(state.copyWith(signData: state.signData.setSuccess()));
+      },
+    );
 
-    } catch (e) {
-      emit(AuthFailure("Profile update failed"));
-    }
+    if (emit.isDone) return;
+
+    emit(state.copyWith(signData: state.signData.resetData()));
   }
+
+
 }

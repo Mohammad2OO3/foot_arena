@@ -10,6 +10,7 @@ class AuthTextField extends StatelessWidget {
     this.isPassword = false,
     this.obscure = false,
     this.onToggleObscure,
+    this.validator,
   });
 
   final TextEditingController controller;
@@ -18,6 +19,7 @@ class AuthTextField extends StatelessWidget {
 
   final bool isPassword;
   final bool obscure;
+  final String? Function(String? text)? validator;
 
   final VoidCallback? onToggleObscure;
 
@@ -31,7 +33,7 @@ class AuthTextField extends StatelessWidget {
           color: Colors.white.withOpacity(0.07),
         ),
       ),
-      child: TextField(
+      child: TextFormField(
         controller: controller,
         obscureText: isPassword ? obscure : false,
         style: GoogleFonts.tajawal(
@@ -61,9 +63,10 @@ class AuthTextField extends StatelessWidget {
           ),
           contentPadding: const EdgeInsets.symmetric(
             horizontal: 20,
-            vertical: 18,
+            vertical: 14,
           ),
         ),
+        validator: validator,
       ),
     );
   }

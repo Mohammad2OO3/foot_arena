@@ -16,6 +16,8 @@ class LoginTitle extends StatelessWidget {
             color: Colors.white,
             letterSpacing: 1.5,
           ),
+          textAlign: .center,
+
         ),
         const SizedBox(height: 10),
         Text(
@@ -26,6 +28,7 @@ class LoginTitle extends StatelessWidget {
             color: Colors.white.withOpacity(0.8),
             letterSpacing: 2.4,
           ),
+          textAlign: .center,
         ),
       ],
     );

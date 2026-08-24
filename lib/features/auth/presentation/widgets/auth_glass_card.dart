@@ -1,9 +1,7 @@
 import 'dart:ui';
-
 import 'package:flutter/material.dart';
 import 'package:footarena/common/extensions/extensions.dart';
-
-import '../../../../common/design/design.dart';
+import 'package:footarena/features/auth/presentation/bloc/auth_bloc.dart';
 import 'auth_bottom_text.dart';
 import 'auth_button.dart';
 import 'auth_segmented_tabs.dart';
@@ -21,7 +19,8 @@ class AuthGlassCard extends StatelessWidget {
     required this.obscureConfirmPassword,
     required this.onTogglePassword,
     required this.onToggleConfirmPassword,
-    required this.onSubmit,
+    required this.authBloc,
+    required this.onTap,
   });
 
   final TabController tabController;
@@ -35,7 +34,8 @@ class AuthGlassCard extends StatelessWidget {
 
   final VoidCallback onTogglePassword;
   final VoidCallback onToggleConfirmPassword;
-  final VoidCallback onSubmit;
+  final AuthBloc authBloc;
+  final VoidCallback onTap;
 
   @override
   Widget build(BuildContext context) {
@@ -58,12 +58,14 @@ class AuthGlassCard extends StatelessWidget {
                 tabController: tabController,
               ),
 
-              const SizedBox(height: 28),
+              const SizedBox(height: 24),
 
               AuthTextField(
                 controller: emailController,
                 hint: 'Email Address',
                 icon: Icons.mail_outline_rounded,
+                validator: (text) => text.isValidEmail,
+
               ),
 
               const SizedBox(height: 16),
@@ -76,6 +78,7 @@ class AuthGlassCard extends StatelessWidget {
                 isPassword: true,
                 obscure: obscurePassword,
                 onToggleObscure: onTogglePassword,
+                validator: (text) => text.validatePassword,
               ),
 
               if (tabController.index == 1) ...[
@@ -89,6 +92,8 @@ class AuthGlassCard extends StatelessWidget {
                   obscure: obscureConfirmPassword,
                   onToggleObscure:
                   onToggleConfirmPassword,
+                  validator: (text) => text.validatePassword,
+
                 ),
               ],
 
@@ -99,26 +104,24 @@ class AuthGlassCard extends StatelessWidget {
 
                 const ForgotPasswordButton(),
 
-              const SizedBox(height: 20),
+              const SizedBox(height: 8),
               AuthButton(
                 label: tabController.index == 0
                     ? 'Login'
                     : 'Create Account',
                 isLogin: tabController.index == 0,
-                onPressed: onSubmit,
+                onPressed: onTap,
               ),
 
-              const SizedBox(height: 24),
-
-              AuthBottomText(
-                isLoginTab:
-                tabController.index == 0,
-                onTap: () {
-                  tabController.animateTo(
-                    tabController.index == 0 ? 1 : 0,
-                  );
-                },
-              ),
+              //
+              // AuthBottomText(
+              //   isLoginTab:
+              //   tabController.index == 0,
+              //
+              //   onTap: (){
+              //
+              //   }
+              // ),
             ],
           ),
         ),

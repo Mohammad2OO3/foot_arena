@@ -114,6 +114,9 @@ class OnBoardingScreen extends StatelessWidget {
                       horizontal: width * 0.1,
                     ),
                     child: InkWell(
+                      borderRadius: BorderRadius.circular(
+                        isTablet ? 40 : width * 0.08,
+                      ),
                       onTap: () {
                         if (state.currentIndex == pages.length - 1) {
                           context.pushNamed('login');

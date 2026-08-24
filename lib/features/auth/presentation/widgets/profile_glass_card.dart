@@ -2,6 +2,8 @@ import 'dart:ui';
 
 import 'package:flutter/material.dart';
 import 'package:footarena/common/extensions/extensions.dart';
+import 'package:footarena/features/auth/domain/use_cases/signup_use_case.dart';
+import 'package:footarena/features/auth/presentation/bloc/auth_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 import '../../../../common/design/design.dart';
@@ -19,10 +21,15 @@ class ProfileGlassCard extends StatelessWidget {
   final TextEditingController weightController;
   final TextEditingController yearsPlayedController;
   final TextEditingController ratingController;
+  final AuthBloc authBloc;
+  final String email;
+  final String password;
+  final String confirmPassword;
 
   final String position;
   final List<String> positions;
   final Function(String) onPositionChanged;
+  final GlobalKey<FormState> globalKey;
 
   const ProfileGlassCard({
     super.key,
@@ -36,7 +43,12 @@ class ProfileGlassCard extends StatelessWidget {
     required this.ratingController,
     required this.position,
     required this.positions,
+    required this.authBloc,
     required this.onPositionChanged,
+    required this.globalKey,
+    required this.email,
+    required this.password,
+    required this.confirmPassword,
   });
 
   @override
@@ -66,18 +78,22 @@ class ProfileGlassCard extends StatelessWidget {
                   controller: firstNameController,
                   hint: 'First Name',
                   icon: Icons.person,
+                  validator: (text) => text.isNameText,
                 ),
 
                 ProfileTextField(
                   controller: lastNameController,
                   hint: 'Last Name',
                   icon: Icons.person_outline,
+                  validator: (text) => text.isNameText,
                 ),
 
                 ProfileTextField(
                   controller: phoneController,
                   hint: 'Phone',
                   icon: Icons.phone,
+
+                  validator: (text) => text.isPhoneNumber,
                 ),
 
                 Row(
@@ -87,6 +103,8 @@ class ProfileGlassCard extends StatelessWidget {
                         controller: ageController,
                         hint: 'Age',
                         icon: Icons.cake,
+                        validator: (text) => text.isNotEmpty,
+                        keyInputType: TextInputType.number,
                       ),
                     ),
                     const SizedBox(width: 20),
@@ -95,6 +113,8 @@ class ProfileGlassCard extends StatelessWidget {
                         controller: heightController,
                         hint: 'Height',
                         icon: Icons.height,
+                        validator: (text) => text.isNotEmpty,
+                        keyInputType: TextInputType.number,
                       ),
                     ),
                   ],
@@ -107,6 +127,8 @@ class ProfileGlassCard extends StatelessWidget {
                         controller: weightController,
                         hint: 'Weight',
                         icon: Icons.monitor_weight,
+                        validator: (text) => text.isNotEmpty,
+                        keyInputType: TextInputType.number,
                       ),
                     ),
                     const SizedBox(width: 20),
@@ -115,6 +137,8 @@ class ProfileGlassCard extends StatelessWidget {
                         controller: yearsPlayedController,
                         hint: 'Years',
                         icon: Icons.sports_soccer,
+                        validator: (text) => text.isNotEmpty,
+                        keyInputType: TextInputType.number,
                       ),
                     ),
                   ],
@@ -126,26 +150,36 @@ class ProfileGlassCard extends StatelessWidget {
                   onChanged: onPositionChanged,
                 ),
 
-                ProfileTextField(
-                  controller: ratingController,
-                  hint: 'Rating',
-                  icon: Icons.star,
-                ),
-
+                // ProfileTextField(
+                //   controller: ratingController,
+                //   hint: 'Rating',
+                //   icon: Icons.star,
+                //   validator: (text) => text.isNotEmpty,
+                // ),
                 const SizedBox(height: 50),
 
                 ProfileSubmitButton(
                   onPressed: () {
-                    final isValid = _validate(context);
+                    if (!(globalKey.currentState?.validate() ?? false)) return;
 
-                    if (!isValid) return;
-
-                    Navigator.pushAndRemoveUntil(
-                      context,
-                      MaterialPageRoute(
-                        builder: (_) => const HomeScreen(),
+                    authBloc.add(
+                      SignupEvent(
+                        params: SignUpParams(
+                          email: email,
+                          password: password,
+                          confirmPassword: confirmPassword,
+                          firstName: firstNameController.text,
+                          lastName: lastNameController.text,
+                          phone: phoneController.text,
+                          position: position,
+                          age: int.parse(ageController.text),
+                          height: int.parse(heightController.text),
+                          weight: int.parse(weightController.text),
+                          experienceYears: int.parse(
+                            yearsPlayedController.text,
+                          ),
+                        ),
                       ),
-                          (route) => false,
                     );
                   },
                 ),

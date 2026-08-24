@@ -5,12 +5,17 @@ class ProfileTextField extends StatelessWidget {
   final TextEditingController controller;
   final String hint;
   final IconData icon;
+  final TextInputType? keyInputType;
+  final String? Function(String? text)? validator;
+
 
   const ProfileTextField({
     super.key,
     required this.controller,
     required this.hint,
     required this.icon,
+     this.validator,
+     this.keyInputType,
   });
 
   @override
@@ -24,8 +29,10 @@ class ProfileTextField extends StatelessWidget {
           color: Colors.white.withOpacity(0.07),
         ),
       ),
-      child: TextField(
+      child: TextFormField(
+        validator:validator,
         controller: controller,
+        keyboardType: keyInputType,
         style: GoogleFonts.tajawal(color: Colors.white),
         decoration: InputDecoration(
           border: InputBorder.none,

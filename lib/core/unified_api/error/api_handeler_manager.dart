@@ -5,12 +5,14 @@ import 'error_handeler.dart';
 import 'failure.dart';
 
 mixin HandlingApiManager {
-  Future<T> wrapHandlingApi<T>(
-      {required Future<Response> Function() tryCall,
-      required FromJson<T> jsonConvert}) async {
+  Future<T> wrapHandlingApi<T>({
+    required Future<Response> Function() tryCall,
+    required FromJson<T> jsonConvert,
+  }) async {
     try {
       final response = await tryCall();
-      if (response.statusCode == ResponseCode.SUCCESS) {
+      if (response.statusCode == ResponseCode.SUCCESS ||
+          response.statusCode == ResponseCode.NO_CONTENT) {
         return jsonConvert(response.data);
       } else {
         throw ServerFailure(

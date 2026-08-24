@@ -83,10 +83,10 @@ class AppDropDown<T> extends StatelessWidget {
 
         value: items.contains(value) ? value : null,
         isExpanded: true,
-        icon: SvgAsset(
-          Assets.images.svg.dropDownImage,
-
-        ),
+        // icon: SvgAsset(
+        //   Assets.images.svg.dropDownImage,
+        //
+        // ),
           decoration: baseDecoration.copyWith(
             enabled: enable,
             fillColor: Colors.white,

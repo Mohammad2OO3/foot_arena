@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:footarena/features/splash/page/splash_screen.dart';
 
 import '../features/auth/presentation/pages/CompleteProfileScreen.dart';
 import '../features/auth/presentation/pages/login_screen.dart';
@@ -13,6 +14,7 @@ class RouteName {
   static const login = "login";
   static const completeProfile = "complete_profile";
   static const home = "home";
+  static const splash = "splash";
   static const findPlayersTeams = "FindPlayersTeamsScreen";
 }
 
@@ -26,6 +28,11 @@ class RouteManager {
           settings: routeSettings,
           builder: (_) => OnBoardingScreen(),
         );
+        case RouteName.splash:
+        return MaterialPageRoute(
+          settings: routeSettings,
+          builder: (_) => SplashScreen(),
+        );
 
       case RouteName.login:
         return MaterialPageRoute(
@@ -36,7 +43,9 @@ class RouteManager {
       case RouteName.completeProfile:
         return MaterialPageRoute(
           settings: routeSettings,
-          builder: (_) => const CompleteProfileScreen(),
+          builder: (_) => CompleteProfileScreen(
+            args: routeSettings.arguments as CompleteProfileParams,
+          ),
         );
 
       case RouteName.home:

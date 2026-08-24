@@ -1,12 +1,31 @@
+import '../../../../common/helper/src/typedef.dart';
+import 'package:injectable/injectable.dart';
+import '../../../../core/use_case/use_case.dart';
 import '../../data/models/auth_response.dart';
-import '../../data/repositories/auth_repo_impl.dart';
+import '../repositories/auth_repository.dart';
 
-class LoginUseCase {
-  final AuthRepository repo;
+@lazySingleton
+class LoginUseCase implements UseCase<AuthResponse, LoginParams> {
+  final AuthRepository _authRepositories;
 
-  LoginUseCase(this.repo);
+  LoginUseCase({required AuthRepository authRepositories})
+      : _authRepositories = authRepositories;
 
-  Future<User> call(String email, String password) {
-    return repo.login(email, password);
+  @override
+  DataResponse<AuthResponse> call(LoginParams params) async =>
+      await _authRepositories.login(params.getBody());
+}
+
+class LoginParams with Params {
+  final String email;
+  final String password;
+
+  LoginParams({required this.email, required this.password});
+
+  @override
+  BodyMap getBody() {
+    // TODO: implement getBody
+    return {"email": email, "password": password}
+      ..removeWhere((key, value) => value == null);
   }
 }

@@ -19,7 +19,7 @@ void main() async {
 
       path: 'assets/translations',
 
-      fallbackLocale: const Locale('ar'),
+      startLocale: const Locale('en'),
 
       child: ChangeNotifierProvider<AppThemeNotifier>(
         create: (_) => getIt<AppThemeNotifier>(),
@@ -49,7 +49,7 @@ class MainApp extends StatelessWidget {
             debugShowCheckedModeBanner: false,
             builder: BotToastInit(),
             navigatorObservers: [BotToastNavigatorObserver()],
-            initialRoute: RouteName.onBoard,
+            initialRoute: RouteName.splash,
             onGenerateRoute: RouteManager.onGenerateRoute,
           );
         },

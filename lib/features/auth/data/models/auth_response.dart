@@ -1,30 +1,34 @@
-class User {
-  final String? id;
-  final String email;
+import '../../../../common/models/user_model.dart';
 
-  final String? firstName;
-  final String? lastName;
+AuthResponse authResponseFromJson(str) => AuthResponse.fromJson(str);
 
-  final String? phone;
-  final int? age;
-  final double? height;
-  final double? weight;
+class AuthResponse {
+  final Data? data;
 
-  final String? position;
-  final int? yearsPlayed;
-  final int? rating;
+  AuthResponse({this.data});
 
-  User({
-    this.id,
-    required this.email,
-    this.firstName,
-    this.lastName,
-    this.phone,
-    this.age,
-    this.height,
-    this.weight,
-    this.position,
-    this.yearsPlayed,
-    this.rating,
-  });
+  AuthResponse copyWith({Data? data}) => AuthResponse(data: data ?? this.data);
+
+  factory AuthResponse.fromJson(Map<String, dynamic> json) => AuthResponse(
+    data: json["data"] == null ? null : Data.fromJson(json["data"]),
+  );
+
+  Map<String, dynamic> toJson() => {"data": data?.toJson()};
+}
+
+class Data {
+  final UserModel? user;
+  final String? token;
+
+  Data({this.user, this.token});
+
+  Data copyWith({UserModel? user, String? token}) =>
+      Data(user: user ?? this.user, token: token ?? this.token);
+
+  factory Data.fromJson(Map<String, dynamic> json) => Data(
+    user: json["user"] == null ? null : UserModel.fromJson(json["user"]),
+    token: json["token"],
+  );
+
+  Map<String, dynamic> toJson() => {"user": user?.toJson(), "token": token};
 }

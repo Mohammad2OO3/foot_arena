@@ -43,8 +43,7 @@ class Toaster {
           ),
           child: Row(
             children: [
-              SvgAsset(Assets.images.svg.signUp.errorIcon),
-              const SizedBox(width: 12),
+
               Expanded(
                 child: Text(
                   message,

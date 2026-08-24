@@ -17,10 +17,10 @@ class EmptyDataWidget extends StatelessWidget {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Image.asset(
-            image ?? Assets.images.png.error.emptyCleaningImage.keyName,
-            height: height ?? context.height * .4,
-          ),
+          // Image.asset(
+          //   image ?? Assets.images.png.error.emptyCleaningImage.keyName,
+          //   height: height ?? context.height * .4,
+          // ),
           SizedBox(height: 24),
           Text(
             LocaleKeys.errorMassegeNocontent.tr(),
@@ -48,10 +48,10 @@ class EmptyMessagesDataWidget extends StatelessWidget {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          SvgAsset(
-            Assets.images.svg.emptyMessages,
-            height: context.height * .4,
-          ),
+          // SvgAsset(
+          //   Assets.images.svg.emptyMessages,
+          //   height: context.height * .4,
+          // ),
           Text(
             LocaleKeys.errorMassegeNocontent.tr(),
             style: context.titleLarge(),
@@ -83,10 +83,10 @@ class EmptyDataSubWidget extends StatelessWidget {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Image.asset(
-            image ?? Assets.images.png.error.emptyCleaningImage.keyName,
-            height: height ?? context.height * .4,
-          ),
+          // Image.asset(
+          //   image ?? Assets.images.png.error.emptyCleaningImage.keyName,
+          //   height: height ?? context.height * .4,
+          // ),
           SizedBox(height: 24),
           Text(
            title,

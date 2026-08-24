@@ -94,6 +94,9 @@ class ErrorHandler implements Exception {
                 statusCode:
                     error.response?.statusCode ?? ResponseCode.BAD_REQUEST);
         }
+      case DioExceptionType.transformTimeout:
+        // TODO: Handle this case.
+        throw UnimplementedError();
     }
   }
 }

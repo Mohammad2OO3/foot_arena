@@ -1,25 +1,40 @@
+import 'package:dio/dio.dart';
+import '../../../../common/helper/src/app_varibles.dart';
+import '../../../../common/helper/src/typedef.dart';
+import '../../../../core/unified_api/api_variables.dart';
+import '../../../../core/unified_api/dio/api_client.dart';
+import '../../../../core/unified_api/error/api_handeler_manager.dart';
 import '../models/auth_response.dart';
-import '../repositories/auth_repo_impl.dart';
+import 'package:injectable/injectable.dart';
 
-class AuthRepositoryImpl implements AuthRepository {
-  @override
-  Future<User> login(String email, String password) async {
-    await Future.delayed(const Duration(milliseconds: 800));
+@lazySingleton
+class AuthRemoteData with HandlingApiManager {
+  final ApiClient _apiClient;
 
-    return User(email: email, id: "1");
-  }
+  AuthRemoteData({required ApiClient apiClient}) : _apiClient = apiClient;
 
-  @override
-  Future<User> signup(String email, String password) async {
-    await Future.delayed(const Duration(milliseconds: 800));
+  Future<AuthResponse> logIn(BodyMap params) async => wrapHandlingApi(
+    tryCall: () => _apiClient.post(
+      ApiVariables.login(),
+      data: params,
+      options: Options(headers: {'fcm-token': AppVariables.fcmToken}),
+    ),
+    jsonConvert: authResponseFromJson,
+  );
 
-    return User(email: email);
-  }
+  Future<AuthResponse> signUp(BodyMap params) async => wrapHandlingApi(
+    tryCall: () => _apiClient.post(
+      ApiVariables.signup(),
+      data: params,
+      options: Options(headers: {'fcm-token': AppVariables.fcmToken}),
+    ),
+    jsonConvert: authResponseFromJson,
+  );
 
-  @override
-  Future<User> completeProfile(User user) async {
-    await Future.delayed(const Duration(milliseconds: 800));
+  Future<void> logOut() async => wrapHandlingApi(
+    tryCall: () => _apiClient.post(ApiVariables.logOut()),
+    jsonConvert: (_){},
+  );
 
-    return user;
-  }
+
 }

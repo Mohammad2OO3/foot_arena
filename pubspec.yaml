@@ -50,8 +50,12 @@ dev_dependencies:
   flutter_gen_runner: ^5.14.1
 
 flutter_gen:
-  flutter_svg: true
   output: lib/common/design/src/theme/
+  line_length: 80
+
+  integrations:
+    flutter_svg: true
+
   assets:
     enabled: true
 
@@ -61,6 +65,7 @@ flutter_gen:
 
 flutter:
   uses-material-design: true
+  generate: true
 
   # To add assets to your application, add an assets section, like this:
   assets:

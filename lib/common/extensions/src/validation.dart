@@ -271,8 +271,7 @@ extension Validator on String? {
           ),
           child: Row(
             children: [
-              SvgAsset(Assets.images.svg.signUp.errorIcon),
-              const SizedBox(width: 12),
+
               Expanded(
                 child: Text(
                   message,
@@ -389,7 +388,6 @@ extension VariantValidation on Variant? {
           ),
           child: Row(
             children: [
-              SvgAsset(Assets.images.svg.signUp.errorIcon),
               const SizedBox(width: 12),
               Expanded(
                 child: Text(

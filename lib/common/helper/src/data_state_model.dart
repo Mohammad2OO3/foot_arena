@@ -1,4 +1,3 @@
-
 import 'package:bot_toast/bot_toast.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -58,8 +57,7 @@ class DataStateModel<T> {
     VoidCallback? onLoading,
     VoidCallback? onFailed,
     required VoidCallback onSuccess,
-  })
-  {
+  }) {
     Toaster.closeAllLoading();
     if (status == BlocStatus.loading) {
       Toaster.showLoading();
@@ -78,8 +76,6 @@ class DataStateModel<T> {
             ),
             child: Row(
               children: [
-                SvgAsset(Assets.images.svg.signUp.errorIcon),
-                const SizedBox(width: 12),
                 Expanded(
                   child: Text(
                     errorMessage,
@@ -115,12 +111,10 @@ class DataStateModel<T> {
     VoidCallback? onLoading,
     VoidCallback? onFailed,
     required VoidCallback onSuccess,
-  })
-  {
+  }) {
     Toaster.closeAllLoading();
     if (status == BlocStatus.loading) {
-    }
-    else if (status == BlocStatus.failed) {
+    } else if (status == BlocStatus.failed) {
       BotToast.showCustomNotification(
         duration: const Duration(seconds: 4),
         toastBuilder: (cancelFunc) {
@@ -134,8 +128,6 @@ class DataStateModel<T> {
             ),
             child: Row(
               children: [
-                SvgAsset(Assets.images.svg.signUp.errorIcon),
-                const SizedBox(width: 12),
                 Expanded(
                   child: Text(
                     errorMessage,
@@ -162,8 +154,7 @@ class DataStateModel<T> {
       );
 
       onFailed?.call();
-    }
-    else if (status == BlocStatus.success) {
+    } else if (status == BlocStatus.success) {
       onSuccess();
     }
   }
@@ -173,8 +164,7 @@ class DataStateModel<T> {
     Widget? failedWidget,
     VoidCallback? onTapRetry,
     required Widget Function(T data) onSuccess,
-  })
-  {
+  }) {
     if (failedWidget == null && onTapRetry == null) {
       throw ArgumentError(
         'Either failed widget or onTapRetry must be provided.',

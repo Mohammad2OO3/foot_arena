@@ -15,6 +15,23 @@ import 'package:injectable/injectable.dart' as _i526;
 
 import '../../common/design/src/theme/theme/theme_notifier.dart' as _i291;
 import '../../common/extensions/src/image_provider.dart' as _i290;
+import '../../features/auth/data/data_sources/remote_auth_data_source.dart'
+    as _i774;
+import '../../features/auth/data/repositories/auth_repo_impl.dart' as _i662;
+import '../../features/auth/domain/repositories/auth_repository.dart' as _i787;
+import '../../features/auth/domain/use_cases/log_out_use_case.dart' as _i446;
+import '../../features/auth/domain/use_cases/login_usecase.dart' as _i1012;
+import '../../features/auth/domain/use_cases/signup_use_case.dart' as _i571;
+import '../../features/auth/presentation/bloc/auth_bloc.dart' as _i797;
+import '../../features/splash/data/data_sources/version_remote_data.dart'
+    as _i328;
+import '../../features/splash/data/repositories/version_repositories_imp.dart'
+    as _i837;
+import '../../features/splash/domain/repositories/version_repositories.dart'
+    as _i16;
+import '../../features/splash/domain/use_cases/get_version_use_case.dart'
+    as _i1023;
+import '../../features/splash/page/cubit/splash_cubit.dart' as _i547;
 import '../unified_api/dio/api_client.dart' as _i357;
 import '../unified_api/dio/logger_interceptor.dart' as _i614;
 import 'injection.dart' as _i464;
@@ -27,6 +44,7 @@ _i174.GetIt $initGetIt(
 }) {
   final gh = _i526.GetItHelper(getIt, environment, environmentFilter);
   final injectableModule = _$InjectableModule();
+  gh.factory<_i547.SplashCubit>(() => _i547.SplashCubit());
   gh.singleton<_i361.Dio>(() => injectableModule.dio);
   gh.lazySingleton<_i291.AppThemeNotifier>(() => _i291.AppThemeNotifier());
   gh.lazySingleton<_i290.ImageProviderHelper>(
@@ -37,6 +55,40 @@ _i174.GetIt $initGetIt(
     () => _i357.ApiClient(
       gh<_i361.Dio>(),
       loggingInterceptor: gh<_i614.LoggerInterceptor>(),
+    ),
+  );
+  gh.lazySingleton<_i774.AuthRemoteData>(
+    () => _i774.AuthRemoteData(apiClient: gh<_i357.ApiClient>()),
+  );
+  gh.lazySingleton<_i328.VersionRemoteData>(
+    () => _i328.VersionRemoteData(apiClient: gh<_i357.ApiClient>()),
+  );
+  gh.lazySingleton<_i787.AuthRepository>(
+    () => _i662.AuthRepositoriesImp(remoteData: gh<_i774.AuthRemoteData>()),
+  );
+  gh.lazySingleton<_i16.VersionRepositories>(
+    () =>
+        _i837.VersionRepositoriesImp(remoteData: gh<_i328.VersionRemoteData>()),
+  );
+  gh.lazySingleton<_i446.LogOutUseCase>(
+    () => _i446.LogOutUseCase(authRepositories: gh<_i787.AuthRepository>()),
+  );
+  gh.lazySingleton<_i1012.LoginUseCase>(
+    () => _i1012.LoginUseCase(authRepositories: gh<_i787.AuthRepository>()),
+  );
+  gh.lazySingleton<_i571.SignupUseCase>(
+    () => _i571.SignupUseCase(authRepositories: gh<_i787.AuthRepository>()),
+  );
+  gh.lazySingleton<_i1023.GetVersionUseCase>(
+    () => _i1023.GetVersionUseCase(
+      authRepositories: gh<_i16.VersionRepositories>(),
+    ),
+  );
+  gh.factory<_i797.AuthBloc>(
+    () => _i797.AuthBloc(
+      gh<_i1012.LoginUseCase>(),
+      gh<_i571.SignupUseCase>(),
+      gh<_i446.LogOutUseCase>(),
     ),
   );
   return getIt;
