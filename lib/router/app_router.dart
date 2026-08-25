@@ -1,11 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:footarena/features/splash/page/splash_screen.dart';
 
+import '../core/di/injection.dart'; // تأكد من مسار الـ injection لديك
 import '../features/auth/presentation/pages/CompleteProfileScreen.dart';
 import '../features/auth/presentation/pages/login_screen.dart';
-import '../features/community/presentation/pages/FindPlayersTeamsScreen.dart';
-import '../features/home/presentation/pages/home_screen.dart';
+import '../features/community/presentation/pages/community_page.dart';
 import '../features/onboarding/pages/onboarding.dart';
+import '../features/profile/presentation/bloc/profile_bloc.dart';
+import '../features/profile/presentation/bloc/profile_event.dart';
+import '../features/profile/presentation/pages/profile_page.dart';
+import '../main_wrapper_screen.dart';
 
 class RouteName {
   RouteName._();
@@ -15,7 +20,8 @@ class RouteName {
   static const completeProfile = "complete_profile";
   static const home = "home";
   static const splash = "splash";
-  static const findPlayersTeams = "FindPlayersTeamsScreen";
+  static const communityPage = "CommunityPage";
+  static const profile = "profile"; // مسار شاشة البروفايل
 }
 
 class RouteManager {
@@ -28,7 +34,8 @@ class RouteManager {
           settings: routeSettings,
           builder: (_) => OnBoardingScreen(),
         );
-        case RouteName.splash:
+
+      case RouteName.splash:
         return MaterialPageRoute(
           settings: routeSettings,
           builder: (_) => SplashScreen(),
@@ -51,19 +58,28 @@ class RouteManager {
       case RouteName.home:
         return MaterialPageRoute(
           settings: routeSettings,
-          builder: (_) => const HomeScreen(),
+          builder: (_) => const MainWrapperScreen(),
         );
 
-      case RouteName.findPlayersTeams:
+      case RouteName.communityPage:
         return MaterialPageRoute(
           settings: routeSettings,
-          builder: (_) => const FindPlayersTeamsScreen(),
+          builder: (_) => const CommunityPage(),
+        );
+
+      case RouteName.profile:
+        return MaterialPageRoute(
+          settings: routeSettings,
+          builder: (_) => BlocProvider<ProfileBloc>(
+            create: (context) => getIt<ProfileBloc>()..add(FetchProfileDataEvent()),
+            child: const ProfilePage(),
+          ),
         );
 
       default:
         return MaterialPageRoute(
           builder: (_) =>
-              const Scaffold(body: Center(child: Text('Page not found'))),
+          const Scaffold(body: Center(child: Text('Page not found'))),
         );
     }
   }

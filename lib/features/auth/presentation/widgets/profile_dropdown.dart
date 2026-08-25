@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 
-import '../../../../common/design/design.dart';
-
 class ProfileDropdown extends StatelessWidget {
   final String value;
   final List<String> items;

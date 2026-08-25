@@ -3,7 +3,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:google_fonts/google_fonts.dart';
-import '../../design/src/theme/assets.gen.dart';
+
 import '../../design/src/theme/toaster.dart';
 import '../../design/src/widgets.dart';
 import '../../enums/enums.dart';

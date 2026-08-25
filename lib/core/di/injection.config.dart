@@ -23,6 +23,15 @@ import '../../features/auth/domain/use_cases/log_out_use_case.dart' as _i446;
 import '../../features/auth/domain/use_cases/login_usecase.dart' as _i1012;
 import '../../features/auth/domain/use_cases/signup_use_case.dart' as _i571;
 import '../../features/auth/presentation/bloc/auth_bloc.dart' as _i797;
+import '../../features/profile/data/data_sources/profile_remote_data_source.dart'
+    as _i1012;
+import '../../features/profile/data/repositories/profile_repository_impl.dart'
+    as _i334;
+import '../../features/profile/domain/repositories/profile_repository.dart'
+    as _i894;
+import '../../features/profile/domain/use_cases/get_profile_data_use_case.dart'
+    as _i238;
+import '../../features/profile/presentation/bloc/profile_bloc.dart' as _i469;
 import '../../features/splash/data/data_sources/version_remote_data.dart'
     as _i328;
 import '../../features/splash/data/repositories/version_repositories_imp.dart'
@@ -51,10 +60,26 @@ _i174.GetIt $initGetIt(
     () => _i290.ImageProviderHelper(),
   );
   gh.lazySingleton<_i614.LoggerInterceptor>(() => _i614.LoggerInterceptor());
+  gh.lazySingleton<_i1012.ProfileRemoteDataSource>(
+    () => _i1012.ProfileRemoteDataSourceImpl(),
+  );
+  gh.lazySingleton<_i894.ProfileRepository>(
+    () => _i334.ProfileRepositoryImpl(
+      remoteDataSource: gh<_i1012.ProfileRemoteDataSource>(),
+    ),
+  );
   gh.lazySingleton<_i357.ApiClient>(
     () => _i357.ApiClient(
       gh<_i361.Dio>(),
       loggingInterceptor: gh<_i614.LoggerInterceptor>(),
+    ),
+  );
+  gh.lazySingleton<_i238.GetProfileDataUseCase>(
+    () => _i238.GetProfileDataUseCase(gh<_i894.ProfileRepository>()),
+  );
+  gh.factory<_i469.ProfileBloc>(
+    () => _i469.ProfileBloc(
+      getProfileDataUseCase: gh<_i238.GetProfileDataUseCase>(),
     ),
   );
   gh.lazySingleton<_i774.AuthRemoteData>(

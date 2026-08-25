@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../../../extensions/extensions.dart';
 import '../../../helper/src/locale_keys.dart';
-import '../../design.dart';
+
 
 class AppErrorWidget extends StatelessWidget {
   const AppErrorWidget({

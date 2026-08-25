@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:footarena/common/extensions/extensions.dart';
 
-import '../../../../common/design/design.dart';
 
 class LoginLogo extends StatelessWidget {
   const LoginLogo({super.key});

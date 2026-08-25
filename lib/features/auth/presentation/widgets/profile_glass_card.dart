@@ -6,8 +6,6 @@ import 'package:footarena/features/auth/domain/use_cases/signup_use_case.dart';
 import 'package:footarena/features/auth/presentation/bloc/auth_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-import '../../../../common/design/design.dart';
-import '../../../home/presentation/pages/home_screen.dart';
 import 'profile_text_field.dart';
 import 'profile_dropdown.dart';
 import 'profile_submit_button.dart';

@@ -1,10 +1,7 @@
-import 'dart:async';
 
 import 'package:bot_toast/bot_toast.dart';
-import '../../design/src/widgets/svg_asset.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import '../../design/src/theme/assets.gen.dart';
 import '../../helper/src/locale_keys.dart';
 import '../../models/accessories_model.dart';
 

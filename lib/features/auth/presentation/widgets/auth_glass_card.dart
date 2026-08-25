@@ -2,7 +2,7 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:footarena/common/extensions/extensions.dart';
 import 'package:footarena/features/auth/presentation/bloc/auth_bloc.dart';
-import 'auth_bottom_text.dart';
+
 import 'auth_button.dart';
 import 'auth_segmented_tabs.dart';
 import 'auth_text_field.dart';

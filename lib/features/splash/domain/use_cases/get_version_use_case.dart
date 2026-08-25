@@ -1,4 +1,3 @@
-import 'package:dio/dio.dart';
 
 import '../../../../common/helper/src/typedef.dart';
 import 'package:injectable/injectable.dart';

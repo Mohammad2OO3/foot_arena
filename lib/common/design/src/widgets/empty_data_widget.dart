@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:footarena/common/design/src/widgets/svg_asset.dart';
 import '../../../extensions/src/context_extensions.dart';
 import '../../../helper/src/locale_keys.dart';
-import '../theme/assets.gen.dart';
 import '../theme/const.dart';
 
 class EmptyDataWidget extends StatelessWidget {

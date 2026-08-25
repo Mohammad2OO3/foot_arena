@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:footarena/common/extensions/extensions.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-import '../../../../common/design/design.dart';
 
 class ProfileSubmitButton extends StatelessWidget {
   final VoidCallback onPressed;
