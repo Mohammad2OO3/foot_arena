@@ -1,22 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:footarena/common/models/challenge_model.dart';
+
+import '../bloc/community_bloc.dart';
 
 class MatchCard extends StatelessWidget {
-  final String format;
-  final String day;
-  final String title;
-  final String time;
-  final String playersCount;
-  final String level;
+ final ChallengeModel challengeModel;
+ final CommunityBloc communityBloc;
 
-  const MatchCard({
-    super.key,
-    required this.format,
-    required this.day,
-    required this.title,
-    required this.time,
-    required this.playersCount,
-    required this.level,
-  });
+  const MatchCard({super.key, required this.challengeModel, required this.communityBloc});
 
   @override
   Widget build(BuildContext context) {
@@ -41,23 +32,23 @@ class MatchCard extends StatelessWidget {
                       color: const Color(0xFF00C853).withOpacity(0.2),
                       borderRadius: BorderRadius.circular(8),
                     ),
-                    child: Text(format, style: const TextStyle(color: Color(0xFF00C853), fontSize: 12)),
+                    child: Text(challengeModel.field?.name ??'Filed', style: const TextStyle(color: Color(0xFF00C853), fontSize: 12)),
                   ),
                   const SizedBox(width: 8),
-                  Text(day, style: const TextStyle(color: Colors.grey, fontSize: 13)),
+                  Text(challengeModel.matchDate??'10/10', style: const TextStyle(color: Colors.grey, fontSize: 13)),
                 ],
               ),
-              Text(time, style: const TextStyle(color: Color(0xFF00C853), fontWeight: FontWeight.bold)),
+              Text(challengeModel.matchDate??'9:00', style: const TextStyle(color: Color(0xFF00C853), fontWeight: FontWeight.bold)),
             ],
           ),
           const SizedBox(height: 8),
-          Text(title, style: const TextStyle(color: Colors.white, fontSize: 18, fontWeight: FontWeight.bold)),
+          Text(challengeModel.field?.name ??'Filed', style: const TextStyle(color: Colors.white, fontSize: 18, fontWeight: FontWeight.bold)),
           const SizedBox(height: 12),
           Row(
             children: [
               const Icon(Icons.group_outlined, color: Colors.grey, size: 16),
               const SizedBox(width: 4),
-              Text(playersCount, style: const TextStyle(color: Colors.white)),
+              Text(((challengeModel.teamA?.membersCount??0)+(challengeModel.teamB?.membersCount??0)).toString(), style: const TextStyle(color: Colors.white)),
               const SizedBox(width: 12),
               Container(
                 padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
@@ -65,11 +56,14 @@ class MatchCard extends StatelessWidget {
                   color: Colors.white10,
                   borderRadius: BorderRadius.circular(12),
                 ),
-                child: Text(level, style: const TextStyle(color: Colors.grey, fontSize: 12)),
+                child: Text(12.toString(), style: const TextStyle(color: Colors.grey, fontSize: 12)),
               ),
               const Spacer(),
               ElevatedButton(
-                onPressed: () {},
+                onPressed: () {
+                  // communityBloc.add(AcceptChallengeEvent(params: params));
+                  //
+                },
                 style: ElevatedButton.styleFrom(
                   backgroundColor: const Color(0xFF00C853).withOpacity(0.2),
                   foregroundColor: const Color(0xFF00C853),

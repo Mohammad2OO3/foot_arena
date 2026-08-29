@@ -3,14 +3,15 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:footarena/features/community/presentation/bloc/community_bloc.dart';
 
 class CommunityTabBar extends StatelessWidget {
-  final CommunityBloc _communityBloc;
+  final CommunityBloc communityBloc;
 
-  const CommunityTabBar({super.key, required CommunityBloc communityBloc})
-    : _communityBloc = communityBloc;
+  const CommunityTabBar({super.key, required this.communityBloc});
+
 
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<CommunityBloc, CommunityState>(
+      bloc: communityBloc,
       builder: (context, state) {
         return Container(
           padding: const EdgeInsets.all(4),
@@ -26,12 +27,12 @@ class CommunityTabBar extends StatelessWidget {
                 CommunityTab.matches,
                 state.selectedTab,
               ),
-              _buildTabItem(
-                context,
-                "Players",
-                CommunityTab.players,
-                state.selectedTab,
-              ),
+              // _buildTabItem(
+              //   context,
+              //   "Players",
+              //   CommunityTab.players,
+              //   state.selectedTab,
+              // ),
               _buildTabItem(
                 context,
                 "Teams",
@@ -54,8 +55,23 @@ class CommunityTabBar extends StatelessWidget {
     final isSelected = selectedTab == tab;
     return Expanded(
       child: GestureDetector(
-        onTap: () {
-          _communityBloc.add(ChangeTabEvent(selectedTab: tab));
+        onTap: isSelected?null:() {
+          communityBloc.add(ChangeTabEvent(selectedTab: tab));
+          if(tab==CommunityTab.matches){
+
+            communityBloc.add(GetAllChallengeEvent());
+
+
+          } if (tab==CommunityTab.teams){
+
+            communityBloc.add(GetAllTeamEvent());
+
+          }else{
+
+          }
+
+
+
         },
         child: Container(
           padding: const EdgeInsets.symmetric(vertical: 10),

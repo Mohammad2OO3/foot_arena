@@ -110,13 +110,13 @@ class ThemeCollection {
         style: OutlinedButton.styleFrom(
           padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 10),
           backgroundColor: palette.scaffoldBackground,
-          foregroundColor: palette.primary,
-          side: BorderSide(color: palette.primary),
+          foregroundColor: palette.secondary,
+          side: BorderSide(color: palette.secondary),
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(50),
           ),
           textStyle: TextStyle(
-            color: palette.primary,
+            color: palette.secondary,
             fontWeight: FontWeight.w600,
             fontSize: 14,
           ),

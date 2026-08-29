@@ -1,10 +1,7 @@
 import 'dart:async';
-
 import 'package:bloc/bloc.dart';
 import 'package:injectable/injectable.dart';
-
 import '../../../../common/helper/src/data_state_model.dart';
-import '../../../../common/helper/src/typedef.dart';
 import '../../../../core/use_case/use_case.dart';
 import '../../data/model/challenge_response.dart';
 import '../../data/model/get_all_challenge_response.dart';
@@ -145,13 +142,7 @@ class CommunityBloc extends Bloc<CommunityEvent, CommunityState> {
       },
     );
 
-    if (emit.isDone) return;
 
-    emit(
-      state.copyWith(
-        getAllTeamData: state.getAllTeamData.resetData(),
-      ),
-    );
   }
 
   FutureOr<void> _getTeamDetails(
@@ -187,13 +178,6 @@ class CommunityBloc extends Bloc<CommunityEvent, CommunityState> {
       },
     );
 
-    if (emit.isDone) return;
-
-    emit(
-      state.copyWith(
-        getTeamDetailsData: state.getTeamDetailsData.resetData(),
-      ),
-    );
   }
 
   FutureOr<void> _getMyTeam(
@@ -229,13 +213,7 @@ class CommunityBloc extends Bloc<CommunityEvent, CommunityState> {
       },
     );
 
-    if (emit.isDone) return;
 
-    emit(
-      state.copyWith(
-        getMyTeamData: state.getMyTeamData.resetData(),
-      ),
-    );
   }
 
   FutureOr<void> _addTeam(
@@ -362,14 +340,7 @@ class CommunityBloc extends Bloc<CommunityEvent, CommunityState> {
       },
     );
 
-    if (emit.isDone) return;
 
-    emit(
-      state.copyWith(
-        getAllRequestToJointData:
-        state.getAllRequestToJointData.resetData(),
-      ),
-    );
   }
 
   FutureOr<void> _requestToJoint(
@@ -543,13 +514,7 @@ class CommunityBloc extends Bloc<CommunityEvent, CommunityState> {
       },
     );
 
-    if (emit.isDone) return;
 
-    emit(
-      state.copyWith(
-        getAllChallengeData: state.getAllChallengeData.resetData(),
-      ),
-    );
   }
 
   FutureOr<void> _getChallengeDetails(
@@ -588,14 +553,7 @@ class CommunityBloc extends Bloc<CommunityEvent, CommunityState> {
       },
     );
 
-    if (emit.isDone) return;
 
-    emit(
-      state.copyWith(
-        getChallengeDetailsData:
-        state.getChallengeDetailsData.resetData(),
-      ),
-    );
   }
 
   FutureOr<void> _addChallenge(
@@ -720,14 +678,7 @@ class CommunityBloc extends Bloc<CommunityEvent, CommunityState> {
       },
     );
 
-    if (emit.isDone) return;
 
-    emit(
-      state.copyWith(
-        cancelChallengeData:
-        state.cancelChallengeData.resetData(),
-      ),
-    );
   }
 
   FutureOr<void> _rejectChallenge(

@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:footarena/common/design/design.dart';
 import '../../../../core/di/injection.dart';
 import '../bloc/community_bloc.dart';
 import '../widgets/community_tab_bar.dart';
 import '../widgets/match_card.dart';
-import '../widgets/player_card.dart';
 import '../widgets/team_card.dart';
 
 class CommunityPage extends StatefulWidget {
@@ -19,7 +19,7 @@ class _CommunityPageState extends State<CommunityPage> {
 
   @override
   void initState() {
-    _communityBloc = getIt<CommunityBloc>();
+    _communityBloc = getIt<CommunityBloc>()..add(GetAllChallengeEvent());
     // TODO: implement initState
     super.initState();
   }
@@ -47,96 +47,95 @@ class _CommunityPageState extends State<CommunityPage> {
               CommunityTabBar(communityBloc: _communityBloc),
               const SizedBox(height: 16),
               Expanded(
-                child: BlocBuilder<CommunityBloc, CommunityState>(
+                child: BlocConsumer<CommunityBloc, CommunityState>(
+                  listener: (context,state){
+                    state.requestToJointData.listenerFunction(onSuccess: (){
+
+                    });
+                    state.addChallengeData.listenerFunction(onSuccess: (){
+
+                    });
+                  },
+                  bloc: _communityBloc,
                   builder: (context, state) {
                     switch (state.selectedTab) {
                       case CommunityTab.matches:
-                        return ListView(
-                          children: const [
-                            MatchCard(
-                              format: "6v6",
-                              day: "Tonight",
-                              title: "Arena Pro Stadium",
-                              time: "8:00 PM",
-                              playersCount: "8/12",
-                              level: "Intermediate",
-                            ),
-                            MatchCard(
-                              format: "6v6",
-                              day: "Tomorrow",
-                              title: "Victory Ground",
-                              time: "6:00 PM",
-                              playersCount: "10/12",
-                              level: "Advanced",
-                            ),
-                            MatchCard(
-                              format: "6v6",
-                              day: "Apr 28",
-                              title: "Champions Field",
-                              time: "7:00 PM",
-                              playersCount: "6/12",
-                              level: "Beginner",
-                            ),
-                          ],
+                        return state.getAllChallengeData.builder(
+                          onSuccess: (data) {
+                            return
+                              data!.data!.isEmpty?
+                                  EmptyWidget()
+                                  :
+                              ListView(
+                              children: data.data!
+                                  .map(
+                                    (e) => MatchCard(
+                                        challengeModel:e,
+                                      communityBloc: _communityBloc,
+                                    ),
+                                  )
+                                  .toList(),
+                            );
+                          },
+                          onTapRetry: () =>
+                              _communityBloc.add(GetAllChallengeEvent()),
+
+
+
                         );
-                      case CommunityTab.players:
-                        return GridView.count(
-                          crossAxisCount: 2,
-                          crossAxisSpacing: 12,
-                          mainAxisSpacing: 12,
-                          childAspectRatio: 0.72,
-                          children: const [
-                            PlayerCard(
-                              name: "Alex Martinez",
-                              position: "Striker",
-                              rating: "4.8",
-                              level: "Advanced",
-                            ),
-                            PlayerCard(
-                              name: "Jordan Smith",
-                              position: "Midfielder",
-                              rating: "4.6",
-                              level: "Intermediate",
-                            ),
-                            PlayerCard(
-                              name: "Sam Wilson",
-                              position: "Defender",
-                              rating: "4.5",
-                              level: "Advanced",
-                            ),
-                            PlayerCard(
-                              name: "Taylor Brown",
-                              position: "Goalkeeper",
-                              rating: "4.9",
-                              level: "Expert",
-                            ),
-                          ],
-                        );
+                      // case CommunityTab.players:
+                      //   return GridView.count(
+                      //     crossAxisCount: 2,
+                      //     crossAxisSpacing: 12,
+                      //     mainAxisSpacing: 12,
+                      //     childAspectRatio: 0.72,
+                      //     children: const [
+                      //       PlayerCard(
+                      //         name: "Alex Martinez",
+                      //         position: "Striker",
+                      //         rating: "4.8",
+                      //         level: "Advanced",
+                      //       ),
+                      //       PlayerCard(
+                      //         name: "Jordan Smith",
+                      //         position: "Midfielder",
+                      //         rating: "4.6",
+                      //         level: "Intermediate",
+                      //       ),
+                      //       PlayerCard(
+                      //         name: "Sam Wilson",
+                      //         position: "Defender",
+                      //         rating: "4.5",
+                      //         level: "Advanced",
+                      //       ),
+                      //       PlayerCard(
+                      //         name: "Taylor Brown",
+                      //         position: "Goalkeeper",
+                      //         rating: "4.9",
+                      //         level: "Expert",
+                      //       ),
+                      //     ],
+                      //   );
                       case CommunityTab.teams:
-                        return ListView(
-                          children: const [
-                            TeamCard(
-                              name: "Thunder FC",
-                              members: "12 players",
-                              rating: "4.7",
-                              status: "Ready",
-                              logo: Icons.bolt,
-                            ),
-                            TeamCard(
-                              name: "Phoenix United",
-                              members: "9 players",
-                              rating: "4.5",
-                              status: "Need Players",
-                              logo: Icons.local_fire_department,
-                            ),
-                            TeamCard(
-                              name: "Storm Riders",
-                              members: "11 players",
-                              rating: "4.8",
-                              status: "Ready",
-                              logo: Icons.cyclone,
-                            ),
-                          ],
+                        return state.getAllTeamData.builder(
+                          onSuccess: (data) {
+                            return
+                              data!.data!.isEmpty?
+                              EmptyWidget()
+                                  :
+                              ListView(
+                              children: data.data!
+                                  .map(
+                                    (e) => TeamCard(
+                                    communityBloc: _communityBloc,
+                                    teamModel: e,
+                                    ),
+                                  )
+                                  .toList(),
+                            );
+                          },
+                          onTapRetry: () =>
+                              _communityBloc.add(GetAllTeamEvent()),
                         );
                     }
                   },

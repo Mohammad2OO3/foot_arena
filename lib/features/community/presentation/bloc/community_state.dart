@@ -1,6 +1,8 @@
 part of 'community_bloc.dart';
 
-enum CommunityTab { matches, players, teams }
+enum CommunityTab { matches,
+  // players,
+  teams }
 
 class CommunityState {
   final CommunityTab selectedTab;

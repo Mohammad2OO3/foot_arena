@@ -30,7 +30,7 @@ class LightPalette implements AppColorPalette {
 
   @override
   // TODO: implement scaffoldBackground
-  Color get scaffoldBackground => const Color.fromARGB(255, 255 ,255 ,255);
+  Color get scaffoldBackground => const Color(0xFF0C100E);
 
 
   @override

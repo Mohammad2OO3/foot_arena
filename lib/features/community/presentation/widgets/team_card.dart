@@ -1,20 +1,23 @@
 import 'package:flutter/material.dart';
+import 'package:footarena/common/models/team_model.dart';
+
+import '../bloc/community_bloc.dart';
 
 class TeamCard extends StatelessWidget {
-  final String name;
-  final String members;
-  final String rating;
-  final String status;
-  final IconData logo;
+  final TeamModel teamModel;
+  final CommunityBloc communityBloc;
 
   const TeamCard({
     super.key,
-    required this.name,
-    required this.members,
-    required this.rating,
-    required this.status,
-    required this.logo,
+    required this.teamModel,
+    required this.communityBloc,
   });
+
+  // name: e.name??"Team Name",
+  // members: e.membersCount.toString(),
+  //
+  // status: e.pendingJoinRequestsCount??'status',
+  // logo: Icons.bolt,
 
   @override
   Widget build(BuildContext context) {
@@ -36,36 +39,59 @@ class TeamCard extends StatelessWidget {
                   color: const Color(0xFF00C853).withOpacity(0.15),
                   borderRadius: BorderRadius.circular(12),
                 ),
-                child: Icon(logo, color: const Color(0xFF00C853)),
+                child: Icon(Icons.bolt, color: const Color(0xFF00C853)),
               ),
               const SizedBox(width: 12),
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(name, style: const TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 16)),
+                  Text(
+                    teamModel.name ?? "Team Name",
+                    style: const TextStyle(
+                      color: Colors.white,
+                      fontWeight: FontWeight.bold,
+                      fontSize: 16,
+                    ),
+                  ),
                   const SizedBox(height: 4),
                   Row(
                     children: [
                       const Icon(Icons.group, color: Colors.grey, size: 14),
                       const SizedBox(width: 4),
-                      Text(members, style: const TextStyle(color: Colors.grey, fontSize: 12)),
-                      const SizedBox(width: 10),
-                      const Icon(Icons.star, color: Colors.amber, size: 14),
-                      const SizedBox(width: 4),
-                      Text(rating, style: const TextStyle(color: Colors.white, fontSize: 12)),
+                      Text(
+                        teamModel.membersCount.toString(),
+                        style: const TextStyle(
+                          color: Colors.grey,
+                          fontSize: 12,
+                        ),
+                      ),
+                      // const SizedBox(width: 10),
+                      // const Icon(Icons.star, color: Colors.amber, size: 14),
+                      // const SizedBox(width: 4),
+                      // Text(rating, style: const TextStyle(color: Colors.white, fontSize: 12)),
+                      //
                     ],
                   ),
                   const SizedBox(height: 4),
                   Container(
-                    padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 2),
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 8,
+                      vertical: 2,
+                    ),
                     decoration: BoxDecoration(
                       color: Colors.white10,
                       borderRadius: BorderRadius.circular(8),
                     ),
-                    child: Text(status, style: const TextStyle(color: Color(0xFF00C853), fontSize: 10)),
-                  )
+                    child: Text(
+                      teamModel.pendingJoinRequestsCount ?? 'status',
+                      style: const TextStyle(
+                        color: Color(0xFF00C853),
+                        fontSize: 10,
+                      ),
+                    ),
+                  ),
                 ],
-              )
+              ),
             ],
           ),
           const SizedBox(height: 12),
@@ -73,7 +99,9 @@ class TeamCard extends StatelessWidget {
             children: [
               Expanded(
                 child: ElevatedButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    communityBloc.add(RequestToJointEvent(id: teamModel.id!));
+                  },
                   style: ElevatedButton.styleFrom(
                     backgroundColor: const Color(0xFF00C853).withOpacity(0.15),
                     foregroundColor: const Color(0xFF00C853),
@@ -86,16 +114,12 @@ class TeamCard extends StatelessWidget {
               Expanded(
                 child: OutlinedButton.icon(
                   onPressed: () {},
-                  icon: const Icon(Icons.sports_mma_outlined, size: 16),
+                  icon: const Icon(Icons.sports_mma_outlined),
                   label: const Text("Challenge"),
-                  style: OutlinedButton.styleFrom(
-                    foregroundColor: Colors.white,
-                    side: const BorderSide(color: Colors.white24),
-                  ),
                 ),
               ),
             ],
-          )
+          ),
         ],
       ),
     );
