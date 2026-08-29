@@ -2,9 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:footarena/features/community/presentation/bloc/community_bloc.dart';
 
-
 class CommunityTabBar extends StatelessWidget {
-  const CommunityTabBar({super.key});
+  final CommunityBloc _communityBloc;
+
+  const CommunityTabBar({super.key, required CommunityBloc communityBloc})
+    : _communityBloc = communityBloc;
 
   @override
   Widget build(BuildContext context) {
@@ -18,9 +20,24 @@ class CommunityTabBar extends StatelessWidget {
           ),
           child: Row(
             children: [
-              _buildTabItem(context, "Matches", CommunityTab.matches, state.selectedTab),
-              _buildTabItem(context, "Players", CommunityTab.players, state.selectedTab),
-              _buildTabItem(context, "Teams", CommunityTab.teams, state.selectedTab),
+              _buildTabItem(
+                context,
+                "Matches",
+                CommunityTab.matches,
+                state.selectedTab,
+              ),
+              _buildTabItem(
+                context,
+                "Players",
+                CommunityTab.players,
+                state.selectedTab,
+              ),
+              _buildTabItem(
+                context,
+                "Teams",
+                CommunityTab.teams,
+                state.selectedTab,
+              ),
             ],
           ),
         );
@@ -28,12 +45,17 @@ class CommunityTabBar extends StatelessWidget {
     );
   }
 
-  Widget _buildTabItem(BuildContext context, String label, CommunityTab tab, CommunityTab selectedTab) {
+  Widget _buildTabItem(
+    BuildContext context,
+    String label,
+    CommunityTab tab,
+    CommunityTab selectedTab,
+  ) {
     final isSelected = selectedTab == tab;
     return Expanded(
       child: GestureDetector(
         onTap: () {
-          context.read<CommunityBloc>().add(ChangeTabEvent(tab));
+          _communityBloc.add(ChangeTabEvent(selectedTab: tab));
         },
         child: Container(
           padding: const EdgeInsets.symmetric(vertical: 10),

@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import '../../data/models/user_profile_model.dart';
+import 'package:footarena/common/models/user_model.dart';
 
 class ProfileHeaderWidget extends StatelessWidget {
-  final UserProfileModel profile;
+  final UserModel profile;
   const ProfileHeaderWidget({super.key, required this.profile});
 
   @override
@@ -34,22 +34,22 @@ class ProfileHeaderWidget extends StatelessWidget {
           decoration: BoxDecoration(color: const Color(0xFF111827), borderRadius: BorderRadius.circular(24)),
           child: Column(
             children: [
-              Text(profile.name, style: const TextStyle(color: Colors.white, fontSize: 22, fontWeight: FontWeight.bold)),
+              Text(profile.firstName??'User Name', style: const TextStyle(color: Colors.white, fontSize: 22, fontWeight: FontWeight.bold)),
               const SizedBox(height: 4),
-              Text(profile.position, style: const TextStyle(color: Color(0xFF00C853), fontSize: 16, fontWeight: FontWeight.w500)),
+              Text(profile.position??'Position', style: const TextStyle(color: Color(0xFF00C853), fontSize: 16, fontWeight: FontWeight.w500)),
               const SizedBox(height: 20),
-              Row(
-                children: [
-                  Expanded(child: _buildStatCard("${profile.matchesCount}", "Matches")),
-                  const SizedBox(width: 12),
-                  Expanded(child: _buildStatCard("${profile.teamsCount}", "Teams")),
-                ],
-              ),
+              // Row(
+              //   children: [
+              //     Expanded(child: _buildStatCard("${profile.matchesCount}", "Matches")),
+              //     const SizedBox(width: 12),
+              //     Expanded(child: _buildStatCard("${profile.teamsCount}", "Teams")),
+              //   ],
+              // ),
               const SizedBox(height: 24),
               _buildInfoRow(Icons.calendar_today_outlined, "Age", "${profile.age} years"),
               _buildInfoRow(Icons.straighten_outlined, "Height", "${profile.height} cm"),
               _buildInfoRow(Icons.fitness_center_outlined, "Weight", "${profile.weight} kg"),
-              _buildInfoRow(Icons.location_on_outlined, "Position", profile.position),
+              _buildInfoRow(Icons.location_on_outlined, "Position", profile.position??'Position'),
               _buildInfoRow(Icons.emoji_events_outlined, "Experience", "${profile.experienceYears} years"),
             ],
           ),

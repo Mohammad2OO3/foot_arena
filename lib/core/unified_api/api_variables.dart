@@ -1,4 +1,6 @@
 import 'dart:developer';
+import 'package:footarena/features/field/domin/use_cases/get_all_field_slot_use_case.dart';
+
 import '../../common/extensions/src/log_colors_extension.dart';
 import '../../common/helper/src/typedef.dart';
 
@@ -33,6 +35,8 @@ class ApiVariables {
 
   static Uri signup() => _auth(path: "register");
 
+  static Uri getProfile() => _auth(path: "me");
+
   static Uri confirm() => _auth(path: "verify-email");
 
   static Uri forget() => _auth(path: "password/request-code");
@@ -44,12 +48,15 @@ class ApiVariables {
   static Uri logOut() => _auth(path: "logout");
 
 
-  ////product
-  static Uri searchProduct() => _mainUri(path: "v2/tracking/lookup");
-  static Uri getProductDetails(String id) => _mainUri(path: "v2/tracking/tracked-shipments/$id");
-  static Uri getAllProduct(QueryParams params) => _mainUri(path: "v2/tracking/tracked-shipments", queryParameters: params);
-  static Uri trackShipment() => _mainUri(path: "tracked-shipments");
 
+  //////////////////////////////
+
+  static Uri getAllField() => _mainUri(path: "fields");
+
+  static Uri getFieldDetails(int id) => _mainUri(path: "fields/$id");
+
+  static Uri getAllSlots(int id, QueryParams params) =>
+      _mainUri(path: "fields/$id/slots", queryParameters: params);
 
   static Uri _user({required String path, QueryParams? queryParameters}) =>
       _mainUri(path: 'user/$path', queryParameters: queryParameters);
@@ -67,113 +74,32 @@ class ApiVariables {
 
   static Uri updateMyPassword() => _user(path: "updateMyPassword");
 
-  //cars
 
-  static Uri _cars({String? path, QueryParams? queryParameters}) => _mainUri(
-    path: path == null ? 'cars' : 'cars/$path',
-    queryParameters: queryParameters,
-  );
+    //community
 
-  static Uri getCars(QueryParams params) => _cars(queryParameters: params);
+  static Uri getAllTeam() => _mainUri(path: "teams");
+  static Uri getMyTeam() => _mainUri(path: "teams/my");
+  static Uri addTeam() => _mainUri(path: "teams");
+  static Uri getTeamDetails(int id) => _mainUri(path: "teams/$id");
+  static Uri transferTeamDetails(int id) => _mainUri(path: "teams/$id/transfer-captaincy");
+  ////
+  static Uri getAllRequestToJoint(int id) => _mainUri(path: "teams/$id/join-requests");
+  static Uri requestToJoint(int id) => _mainUri(path: "teams/$id/join-requests");
+  static Uri acceptRequestToJoint(int id) => _mainUri(path: "team-join-requests/$id/accept");
+  static Uri rejectRequestToJoint(int id) => _mainUri(path: "team-join-requests/$id/reject");
+  ////
+  static Uri getAllChallenge() => _mainUri(path: "challenges");
+  static Uri getChallengeDetails(int id) => _mainUri(path: "challenges/$id");
+  static Uri addChallenge() => _mainUri(path: "challenges");
+  static Uri acceptChallenge(int id) => _mainUri(path: "challenges/$id/accept");
+  static Uri rejectChallenge(int id) => _mainUri(path: "challenges/$id/reject");
+  static Uri cancelChallenge(int id) => _mainUri(path: "challenges/$id/cancel");
 
-  static Uri postCar() => _cars();
-
-  static Uri getCarDetails(int id) => _cars(path: '$id');
-
-  static Uri deleteCar(int id) => _cars(path: '$id');
-
-  static Uri updateCar(int id) => _cars(path: '$id');
-
-  static Uri setDefaultCar(int id) => _cars(path: '$id/set-default');
-
-  static Uri updateLocationCar(int id) => _cars(path: '$id/update-location');
-
-  static Uri getDefaultCar() => _cars(path: '/default');
-
-  static Uri getCities() => _mainUri(path: 'cities');
-
-  static Uri getAttributes() => _mainUri(path: 'brands');
-
-  ///////cart
-  static Uri getCart() => _mainUri(path: 'cart');
-
-  static Uri _cart(String path) => _mainUri(path: 'cart/$path');
-
-  static Uri addToCart() => _cart('add');
-
-  static Uri putCart() => _cart('update');
-
-  static Uri deleteCart() => _cart('remove');
-
-  static Uri clearCart() => _cart('clear');
-
-  static Uri checkOutCart() => _cart('checkout');
-
-  static Uri checkStockCart() => _cart('check-stock');
-
-  //////////service
-
-  static Uri getAdvert() => _mainUri(path: 'getAdvert');
-
-  static Uri _service({String? path, QueryParams? queryParams}) {
-    final fullPath = path == null ? 'service/' : 'service/$path';
-    return _mainUri(path: fullPath, queryParameters: queryParams ?? {});
-  }
-
-  static Uri getAllService(QueryParams queryParams) =>
-      _service(queryParams: queryParams);
-
-  static Uri getOneService(int id) => _service(path: '$id');
-
-  ////////category
-
-  static Uri _category({String? path, QueryParams? queryParams}) {
-    final fullPath = path == null ? 'category/' : 'category/$path';
-    return _mainUri(path: fullPath, queryParameters: queryParams ?? {});
-  }
-
-  static Uri getAllCategory(QueryParams queryParams) =>
-      _category(queryParams: queryParams, path: 'all');
-
-  //accessories
-
-  static Uri getAllAccess(QueryParams queryParams) =>
-      _mainUri(queryParameters: queryParams, path: 'accessories');
-
-  static Uri getAccessDetails(int id) => _mainUri(path: 'accessories/$id');
-
-  //service
-
-  static Uri getAllServices() => _mainUri(path: 'services');
-
-  static Uri getService(int id) => _mainUri(path: 'services/$id');
-
-  //banners
-  static Uri getBanners() => _mainUri(path: 'carousels');
+ // https://foot-arena.eidosteam.com/api/v1/teams/{team}
 
   //////////////////////////////////////////////////////////////////////////
 
-  //order
-  static Uri _orders({String? path, QueryParams? params}) =>
-      _mainUri(path: 'orders${path ?? ''}', queryParameters: params);
 
-  static Uri getAllOrders(QueryParams params) => _orders(params: params);
-
-  static Uri postOrder() => _orders();
-
-  static Uri getOrder(int id) => _orders(path: '/$id');
-
-  static Uri deleteOrder(int id) => _orders(path: '/$id');
-
-  static Uri checkOutOrder(int id) => _orders(path: '/$id/checkout');
-
-  //packages
-  static Uri _package({String? path, QueryParams? params}) =>
-      _mainUri(path: 'packages${path ?? ''}', queryParameters: params);
-
-  static Uri getAllPackages() => _package();
-
-  static Uri getPackage(int id) => _package(path: '/$id');
 
   ///notification
 

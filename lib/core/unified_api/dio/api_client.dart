@@ -1,6 +1,9 @@
 import 'package:dio/dio.dart';
+import 'package:dio/io.dart';
 import 'package:injectable/injectable.dart';
 
+import '../../../common/helper/src/app_varibles.dart';
+import '../../../common/helper/src/helper_func.dart';
 import 'logger_interceptor.dart';
 
 @lazySingleton
@@ -8,41 +11,50 @@ class ApiClient {
   final LoggerInterceptor loggingInterceptor;
   late Dio dio;
 
-  ApiClient(
-    Dio dioC, {
-    required this.loggingInterceptor,
-  }) {
+  ApiClient(Dio dioC, {required this.loggingInterceptor}) {
     dio = dioC;
-    dio
-      ..options.connectTimeout = const Duration(milliseconds: 30000)
-      ..options.receiveTimeout = const Duration(milliseconds: 30000)
-      ..httpClientAdapter
-      ..options.headers = {
-        'Accept': 'application/json',
+
+    dio.httpClientAdapter = IOHttpClientAdapter()
+      ..onHttpClientCreate = (client) {
+        client.badCertificateCallback = (cert, host, port) => true;
+        return client;
       };
-    dio.interceptors.clear();
-    dio.interceptors.addAll([
-      loggingInterceptor,
-    ]);
+
+    dio.options
+      ..connectTimeout = const Duration(seconds: 30)
+      ..receiveTimeout = const Duration(seconds: 30)
+      ..headers = {
+        'Accept': 'application/json',
+        if (HelperFunc.isAuth())
+          "Authorization": "Bearer ${AppVariables.token}",
+      };
+
+    dio.interceptors
+      ..clear()
+      ..add(loggingInterceptor);
   }
+
   resetHeader() {
+    dio.options.headers.clear();
     dio
       ..options.connectTimeout = const Duration(milliseconds: 30000)
       ..options.receiveTimeout = const Duration(milliseconds: 30000)
       ..httpClientAdapter
       ..options.headers = {
+        'Lang': AppVariables.getCurrentLang(),
         'Accept': 'application/json',
+        if (HelperFunc.isAuth())
+          "Authorization": "Bearer ${AppVariables.token}",
       };
-    dio.interceptors.add(loggingInterceptor);
   }
 
   Future<Response> get(
-    Uri uri, {
-    Options? options,
-    CancelToken? cancelToken,
-    ProgressCallback? onReceiveProgress,
-    data,
-  }) async {
+      Uri uri, {
+        Options? options,
+        CancelToken? cancelToken,
+        ProgressCallback? onReceiveProgress,
+        data,
+      }) async {
     return await dio.getUri(
       uri,
       data: data,
@@ -52,12 +64,15 @@ class ApiClient {
     );
   }
 
-  Future<Response> post(Uri uri,
-      {data,
-      Options? options,
-      CancelToken? cancelToken,
-      ProgressCallback? onSendProgress,
-      ProgressCallback? onReceiveProgress}) async {
+  Future<Response> post(
+      Uri uri, {
+        data,
+        Options? options,
+        CancelToken? cancelToken,
+        ProgressCallback? onSendProgress,
+        ProgressCallback? onReceiveProgress,
+      })
+  async {
     return await dio.postUri(
       uri,
       data: data,
@@ -68,12 +83,14 @@ class ApiClient {
     );
   }
 
-  Future<Response> put(Uri uri,
-      {data,
-      Options? options,
-      CancelToken? cancelToken,
-      ProgressCallback? onSendProgress,
-      ProgressCallback? onReceiveProgress}) async {
+  Future<Response> put(
+      Uri uri, {
+        data,
+        Options? options,
+        CancelToken? cancelToken,
+        ProgressCallback? onSendProgress,
+        ProgressCallback? onReceiveProgress,
+      }) async {
     return await dio.putUri(
       uri,
       data: data,
@@ -84,13 +101,31 @@ class ApiClient {
     );
   }
 
+  Future<Response> patch(
+      Uri uri, {
+        data,
+        Options? options,
+        CancelToken? cancelToken,
+        ProgressCallback? onSendProgress,
+        ProgressCallback? onReceiveProgress,
+      }) async {
+    return await dio.patchUri(
+      uri,
+      data: data,
+      options: options,
+      cancelToken: cancelToken,
+      onSendProgress: onSendProgress,
+      onReceiveProgress: onReceiveProgress,
+    );
+  }
+
   Future<Response> delete(
-    Uri uri, {
-    data,
-    Map<String, dynamic>? queryParameters,
-    Options? options,
-    CancelToken? cancelToken,
-  }) async {
+      Uri uri, {
+        data,
+        Map<String, dynamic>? queryParameters,
+        Options? options,
+        CancelToken? cancelToken,
+      }) async {
     return await dio.deleteUri(
       uri,
       data: data,
