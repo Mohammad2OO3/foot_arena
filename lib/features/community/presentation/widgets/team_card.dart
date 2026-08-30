@@ -7,6 +7,9 @@ class TeamCard extends StatelessWidget {
   final TeamModel teamModel;
   final CommunityBloc communityBloc;
 
+
+
+
   const TeamCard({
     super.key,
     required this.teamModel,
