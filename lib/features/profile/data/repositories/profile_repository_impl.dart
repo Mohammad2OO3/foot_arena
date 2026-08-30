@@ -19,7 +19,12 @@ class ProfileRepositoryImpl
     return wrapHandlingException(tryCall: () => _remoteData.getProfile());
   }
 
-  // @override
+  @override
+  DataResponse<UserResponse> editUserProfile(BodyMap bodyMap) async {
+    return wrapHandlingException(tryCall: () => _remoteData.editProfile(bodyMap));
+  }
+
+// @override
   // Future<UserProfileModel> getUserProfile() => remoteDataSource.getUserProfile();
   //
   // @override

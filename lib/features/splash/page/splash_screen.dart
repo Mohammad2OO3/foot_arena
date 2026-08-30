@@ -57,7 +57,7 @@ class _SplashScreenState extends State<SplashScreen> {
         body: Container(
           width: context.width,
           height: context.height,
-          // color: context.primarySwatch,
+           color: Colors.white,
           child: Stack(
             alignment: Alignment.bottomCenter,
             children: [

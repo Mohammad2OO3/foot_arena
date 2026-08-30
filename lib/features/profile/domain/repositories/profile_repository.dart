@@ -1,11 +1,9 @@
 import 'package:footarena/common/helper/helper.dart';
-
-import '../../data/models/user_match_model.dart';
 import '../../data/models/user_response.dart';
-import '../../data/models/user_team_model.dart';
 
 abstract class ProfileRepository {
   DataResponse<UserResponse> getUserProfile();
+  DataResponse<UserResponse> editUserProfile(BodyMap bodyMap);
   // Future<List<UserMatchModel>> getUserMatches();
   // Future<List<UserTeamModel>> getUserTeams();
 }

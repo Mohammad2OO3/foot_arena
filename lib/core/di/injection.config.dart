@@ -78,6 +78,8 @@ import '../../features/profile/data/repositories/profile_repository_impl.dart'
     as _i334;
 import '../../features/profile/domain/repositories/profile_repository.dart'
     as _i894;
+import '../../features/profile/domain/use_cases/edit_profile_data_use_case.dart'
+    as _i1055;
 import '../../features/profile/domain/use_cases/get_user_profile_use_case.dart'
     as _i903;
 import '../../features/profile/presentation/bloc/profile_bloc.dart' as _i469;
@@ -158,6 +160,11 @@ _i174.GetIt $initGetIt(
   gh.lazySingleton<_i1019.GetFieldDetailsUseCase>(
     () => _i1019.GetFieldDetailsUseCase(
       repositories: gh<_i333.FieldRepositories>(),
+    ),
+  );
+  gh.lazySingleton<_i1055.EditProfileDataUseCase>(
+    () => _i1055.EditProfileDataUseCase(
+      profileRepository: gh<_i894.ProfileRepository>(),
     ),
   );
   gh.lazySingleton<_i903.GetUserProfileUseCase>(
@@ -269,13 +276,16 @@ _i174.GetIt $initGetIt(
   gh.lazySingleton<_i571.SignupUseCase>(
     () => _i571.SignupUseCase(authRepositories: gh<_i787.AuthRepository>()),
   );
+  gh.factory<_i469.ProfileBloc>(
+    () => _i469.ProfileBloc(
+      gh<_i903.GetUserProfileUseCase>(),
+      gh<_i1055.EditProfileDataUseCase>(),
+    ),
+  );
   gh.lazySingleton<_i1023.GetVersionUseCase>(
     () => _i1023.GetVersionUseCase(
       authRepositories: gh<_i16.VersionRepositories>(),
     ),
-  );
-  gh.factory<_i469.ProfileBloc>(
-    () => _i469.ProfileBloc(gh<_i903.GetUserProfileUseCase>()),
   );
   gh.factory<_i797.AuthBloc>(
     () => _i797.AuthBloc(
