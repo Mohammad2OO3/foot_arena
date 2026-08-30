@@ -8,19 +8,17 @@ class TeamCard extends StatelessWidget {
   final CommunityBloc communityBloc;
 
 
-
-
   const TeamCard({
     super.key,
     required this.teamModel,
     required this.communityBloc,
   });
 
-  // name: e.name??"Team Name",
-  // members: e.membersCount.toString(),
-  //
-  // status: e.pendingJoinRequestsCount??'status',
-  // logo: Icons.bolt,
+// name: e.name??"Team Name",
+// members: e.membersCount.toString(),
+//
+// status: e.pendingJoinRequestsCount??'status',
+// logo: Icons.bolt,
 
   @override
   Widget build(BuildContext context) {
@@ -68,11 +66,11 @@ class TeamCard extends StatelessWidget {
                           fontSize: 12,
                         ),
                       ),
-                      // const SizedBox(width: 10),
-                      // const Icon(Icons.star, color: Colors.amber, size: 14),
-                      // const SizedBox(width: 4),
-                      // Text(rating, style: const TextStyle(color: Colors.white, fontSize: 12)),
-                      //
+// const SizedBox(width: 10),
+// const Icon(Icons.star, color: Colors.amber, size: 14),
+// const SizedBox(width: 4),
+// Text(rating, style: const TextStyle(color: Colors.white, fontSize: 12)),
+//
                     ],
                   ),
                   const SizedBox(height: 4),
@@ -117,6 +115,7 @@ class TeamCard extends StatelessWidget {
               Expanded(
                 child: OutlinedButton.icon(
                   onPressed: () {},
+
                   icon: const Icon(Icons.sports_mma_outlined),
                   label: const Text("Challenge"),
                 ),
