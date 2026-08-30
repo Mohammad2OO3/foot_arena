@@ -55,7 +55,7 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
   ) async {
     emit(state.copyWith(editProfileData: state.editProfileData.setLoading()));
 
-    final val = await _getUserProfileUseCase(NoParams());
+    final val = await _editProfileDataUseCase(event.params);
 
     val.fold(
       (l) {

@@ -5,15 +5,16 @@ import '../../data/models/user_response.dart';
 import '../repositories/profile_repository.dart';
 
 @lazySingleton
-class EditProfileDataUseCase implements UseCase<UserResponse, NoParams> {
+class EditProfileDataUseCase
+    implements UseCase<UserResponse, EditProfileDataParams> {
   final ProfileRepository _profileRepository;
 
   EditProfileDataUseCase({required ProfileRepository profileRepository})
-      : _profileRepository = profileRepository;
+    : _profileRepository = profileRepository;
 
   @override
-  DataResponse<UserResponse> call(NoParams params) async =>
-      await _profileRepository.getUserProfile();
+  DataResponse<UserResponse> call(EditProfileDataParams params) async =>
+      await _profileRepository.editUserProfile(params.getBody());
 }
 
 class EditProfileDataParams with Params {
