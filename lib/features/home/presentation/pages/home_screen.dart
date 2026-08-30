@@ -14,8 +14,8 @@ class HomeScreen extends StatelessWidget {
       location: 'Downtown, 2.5 km away',
       hourlyPrice: 45,
       halfHourPrice: 25,
-      imageUrl: 'https://images.unsplash.com/photo-1508098682722-e99c43a406b2',
-      isFavorite: true,
+      imageUrl: 'https://images.unsplash.com/photo-1575361204480-aadea25e6e68',
+
     ),
     PitchModel(
       id: '2',
@@ -25,7 +25,7 @@ class HomeScreen extends StatelessWidget {
       hourlyPrice: 55,
       halfHourPrice: 30,
       imageUrl: 'https://images.unsplash.com/photo-1575361204480-aadea25e6e68',
-      isFavorite: false,
+
     ),
     PitchModel(
       id: '3',
@@ -35,7 +35,7 @@ class HomeScreen extends StatelessWidget {
       hourlyPrice: 40,
       halfHourPrice: 22,
       imageUrl: 'https://images.unsplash.com/photo-1529900748604-07564a03e7a6',
-      isFavorite: true,
+
     ),
   ];
 
@@ -106,7 +106,7 @@ class PitchModel {
   final double hourlyPrice;
   final double halfHourPrice;
   final String imageUrl;
-  final bool isFavorite;
+
 
   const PitchModel({
     required this.id,
@@ -116,6 +116,6 @@ class PitchModel {
     required this.hourlyPrice,
     required this.halfHourPrice,
     required this.imageUrl,
-    this.isFavorite = false,
+
   });
 }

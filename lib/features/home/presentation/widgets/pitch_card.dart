@@ -42,25 +42,7 @@ class PitchCard extends StatelessWidget {
                     child: const Icon(Icons.sports_soccer, size: 50, color: Colors.white24),
                   ),
                 ),
-                Positioned(
-                  top: 12,
-                  right: 12,
-                  child: GestureDetector(
-                    onTap: onFavoriteTap,
-                    child: Container(
-                      padding: const EdgeInsets.all(8),
-                      decoration: const BoxDecoration(
-                        color: Colors.black45,
-                        shape: BoxShape.circle,
-                      ),
-                      child: Icon(
-                        pitch.isFavorite ? Icons.favorite : Icons.favorite_border,
-                        color: pitch.isFavorite ? Colors.redAccent : Colors.white,
-                        size: 20,
-                      ),
-                    ),
-                  ),
-                ),
+               
               ],
             ),
 
