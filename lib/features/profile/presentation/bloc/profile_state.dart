@@ -48,17 +48,24 @@ import 'package:footarena/features/profile/data/models/user_response.dart';
 
 class ProfileState {
   final DataStateModel<UserResponse?> getProfileData;
+  final DataStateModel<UserResponse?> editProfileData;
 
   ProfileState({
-    this.getProfileData = const DataStateModel.setDefultValue(defultValue: null),
+    this.getProfileData = const DataStateModel.setDefultValue(
+      defultValue: null,
+    ),
+    this.editProfileData = const DataStateModel.setDefultValue(
+      defultValue: null,
+    ),
   });
-
 
   ProfileState copyWith({
     DataStateModel<UserResponse?>? getProfileData,
+    DataStateModel<UserResponse?>? editProfileData,
   }) {
     return ProfileState(
       getProfileData: getProfileData ?? this.getProfileData,
+      editProfileData: editProfileData ?? this.editProfileData,
     );
   }
 }

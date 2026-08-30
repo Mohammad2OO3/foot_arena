@@ -47,6 +47,7 @@
 //   }
 // }
 import 'package:dio/dio.dart';
+import 'package:footarena/common/helper/helper.dart';
 import 'package:footarena/features/profile/data/models/user_response.dart';
 import '../../../../common/helper/src/app_varibles.dart';
 import '../../../../core/unified_api/api_variables.dart';
@@ -63,6 +64,10 @@ class ProfileRemoteDataSource with HandlingApiManager {
 
   Future<UserResponse> getProfile() async => wrapHandlingApi(
     tryCall: () => _apiClient.get(ApiVariables.getProfile()),
+    jsonConvert: userResponseFromJson,
+  );
+  Future<UserResponse> editProfile(BodyMap bodyMap) async => wrapHandlingApi(
+    tryCall: () => _apiClient.post(ApiVariables.getProfile(),data: bodyMap),
     jsonConvert: userResponseFromJson,
   );
 }
