@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:footarena/common/models/field_model.dart';
 
 import '../pages/home_screen.dart';
 
 class PitchCard extends StatelessWidget {
-  final PitchModel pitch;
+  final FieldModel pitch;
   final VoidCallback? onTap;
   final VoidCallback? onFavoriteTap;
 
@@ -29,22 +30,27 @@ class PitchCard extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             // Image Stack
-            Stack(
-              children: [
-                Image.network(
-                  pitch.imageUrl,
-                  height: 190,
-                  width: double.infinity,
-                  fit: BoxFit.cover,
-                  errorBuilder: (_, __, ___) => Container(
-                    height: 190,
-                    color: Colors.grey[900],
-                    child: const Icon(Icons.sports_soccer, size: 50, color: Colors.white24),
+            pitch.mainImage == null || pitch.mainImage!.path == null
+                ? SizedBox()
+                : Stack(
+                    children: [
+                      Image.network(
+                        pitch.mainImage!.path!,
+                        height: 190,
+                        width: double.infinity,
+                        fit: BoxFit.cover,
+                        errorBuilder: (_, __, ___) => Container(
+                          height: 190,
+                          color: Colors.grey[900],
+                          child: const Icon(
+                            Icons.sports_soccer,
+                            size: 50,
+                            color: Colors.white24,
+                          ),
+                        ),
+                      ),
+                    ],
                   ),
-                ),
-               
-              ],
-            ),
 
             // Content Details
             Padding(
@@ -53,7 +59,7 @@ class PitchCard extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    pitch.name,
+                    pitch.name ?? 'Field Name',
                     style: const TextStyle(
                       color: Colors.white,
                       fontSize: 18,
@@ -62,30 +68,37 @@ class PitchCard extends StatelessWidget {
                   ),
                   const SizedBox(height: 8),
 
+                  //
+                  // Row(
+                  //   children: [
+                  //     const Icon(Icons.star_rounded, color: Colors.amber, size: 20),
+                  //     const SizedBox(width: 4),
+                  //     Text(
+                  //       pitch.rating.toString(),
+                  //       style: const TextStyle(
+                  //         color: Colors.white,
+                  //         fontWeight: FontWeight.w600,
+                  //         fontSize: 14,
+                  //       ),
+                  //     ),
+                  //   ],
+                  // ),
+                  // const SizedBox(height: 8),
                   Row(
                     children: [
-                      const Icon(Icons.star_rounded, color: Colors.amber, size: 20),
-                      const SizedBox(width: 4),
-                      Text(
-                        pitch.rating.toString(),
-                        style: const TextStyle(
-                          color: Colors.white,
-                          fontWeight: FontWeight.w600,
-                          fontSize: 14,
-                        ),
+                      const Icon(
+                        Icons.location_on_outlined,
+                        color: Colors.white54,
+                        size: 18,
                       ),
-                    ],
-                  ),
-                  const SizedBox(height: 8),
-
-                  Row(
-                    children: [
-                      const Icon(Icons.location_on_outlined, color: Colors.white54, size: 18),
                       const SizedBox(width: 4),
                       Expanded(
                         child: Text(
-                          pitch.location,
-                          style: const TextStyle(color: Colors.white54, fontSize: 13),
+                          pitch.location!,
+                          style: const TextStyle(
+                            color: Colors.white54,
+                            fontSize: 13,
+                          ),
                           overflow: TextOverflow.ellipsis,
                         ),
                       ),
@@ -93,46 +106,23 @@ class PitchCard extends StatelessWidget {
                   ),
                   const SizedBox(height: 16),
 
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      RichText(
-                        text: TextSpan(
-                          children: [
-                            TextSpan(
-                              text: '\$${pitch.hourlyPrice.toStringAsFixed(0)}',
-                              style: const TextStyle(
-                                color: Color(0xFF00E676),
-                                fontWeight: FontWeight.bold,
-                                fontSize: 16,
-                              ),
-                            ),
-                            const TextSpan(
-                              text: '/hour',
-                              style: TextStyle(color: Colors.white54, fontSize: 13),
-                            ),
-                          ],
+                  RichText(
+                    text: TextSpan(
+                      children: [
+                        TextSpan(
+                          text: '\$${pitch.pricePerSlot}',
+                          style: const TextStyle(
+                            color: Color(0xFF00E676),
+                            fontWeight: FontWeight.bold,
+                            fontSize: 16,
+                          ),
                         ),
-                      ),
-                      RichText(
-                        text: TextSpan(
-                          children: [
-                            TextSpan(
-                              text: '\$${pitch.halfHourPrice.toStringAsFixed(0)}',
-                              style: const TextStyle(
-                                color: Color(0xFF00E676),
-                                fontWeight: FontWeight.bold,
-                                fontSize: 16,
-                              ),
-                            ),
-                            const TextSpan(
-                              text: '/half',
-                              style: TextStyle(color: Colors.white54, fontSize: 13),
-                            ),
-                          ],
+                        const TextSpan(
+                          text: '/hour',
+                          style: TextStyle(color: Colors.white54, fontSize: 13),
                         ),
-                      ),
-                    ],
+                      ],
+                    ),
                   ),
                 ],
               ),

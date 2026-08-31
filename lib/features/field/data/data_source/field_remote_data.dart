@@ -32,7 +32,7 @@ class ProductRemoteData with HandlingApiManager {
   ) async {
     return wrapHandlingApi(
       tryCall: () => _apiClient.get(
-        ApiVariables.getAllSlots(params.field, params.getParams()),
+        ApiVariables.getAllSlots(params.fieldId, params.getParams()),
       ),
       jsonConvert: getAllFiledSlotResponseFromJson,
     );

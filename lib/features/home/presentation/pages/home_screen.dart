@@ -1,43 +1,29 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:footarena/common/extensions/extensions.dart';
+import 'package:footarena/core/di/injection.dart';
+import 'package:footarena/features/field/presentation/bloc/field_bloc.dart';
 import 'package:footarena/features/home/presentation/pages/pitch_details_page.dart';
+import 'package:footarena/router/app_router.dart';
 import '../widgets/home_header.dart';
 import '../widgets/pitch_card.dart';
 
-class HomeScreen extends StatelessWidget {
+class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
 
-  final List<PitchModel> samplePitches = const [
-    PitchModel(
-      id: '1',
-      name: 'Arena Verde',
-      rating: 4.8,
-      location: 'Downtown, 2.5 km away',
-      hourlyPrice: 45,
-      halfHourPrice: 25,
-      imageUrl: 'https://images.unsplash.com/photo-1575361204480-aadea25e6e68',
+  @override
+  State<HomeScreen> createState() => _HomeScreenState();
+}
 
-    ),
-    PitchModel(
-      id: '2',
-      name: 'Stadium Pro',
-      rating: 4.9,
-      location: 'North District, 4 km away',
-      hourlyPrice: 55,
-      halfHourPrice: 30,
-      imageUrl: 'https://images.unsplash.com/photo-1575361204480-aadea25e6e68',
+class _HomeScreenState extends State<HomeScreen> {
+  late final FieldBloc fieldBloc;
 
-    ),
-    PitchModel(
-      id: '3',
-      name: 'Green Valley',
-      rating: 4.6,
-      location: 'West Side, 3.2 km away',
-      hourlyPrice: 40,
-      halfHourPrice: 22,
-      imageUrl: 'https://images.unsplash.com/photo-1529900748604-07564a03e7a6',
-
-    ),
-  ];
+  @override
+  void initState() {
+    fieldBloc = getIt<FieldBloc>()..add(GetAllFieldEvent());
+    // TODO: implement initState
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -67,27 +53,36 @@ class HomeScreen extends StatelessWidget {
                   ),
                 ),
               ),
-
               // Pitch Cards List
-              ListView.builder(
-                shrinkWrap: true,
-                physics: const NeverScrollableScrollPhysics(),
-                padding: const EdgeInsets.symmetric(horizontal: 16),
-                itemCount: samplePitches.length,
-                itemBuilder: (context, index) {
-                  return PitchCard(
-                    pitch: samplePitches[index],
-                    onTap: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-
-
-                          builder: (context) => PitchDetailsPage(pitch: samplePitches[index]),
-                        ),
+              BlocBuilder<FieldBloc, FieldState>(
+                bloc: fieldBloc,
+                builder: (context, state) {
+                  return state.getAllFieldData.builder(
+                    onSuccess: (_) {
+                      return ListView(
+                        shrinkWrap: true,
+                        physics: const NeverScrollableScrollPhysics(),
+                        padding: const EdgeInsets.symmetric(horizontal: 16),
+                        children: state.getAllFieldData.data!.data!
+                            .map(
+                              (e) => PitchCard(
+                                pitch: e,
+                                onTap: () {
+                                  context.pushNamed(
+                                    RouteName.pitchDetailsPage,
+                                    arguments: PitchDetailsScreenParams(
+                                      id: e.id!,
+                                      fieldBloc: fieldBloc,
+                                    ),
+                                  );
+                                },
+                                onFavoriteTap: () {},
+                              ),
+                            )
+                            .toList(),
                       );
                     },
-                    onFavoriteTap: () {},
+                    onTapRetry: () => fieldBloc..add(GetAllFieldEvent()),
                   );
                 },
               ),
@@ -98,6 +93,7 @@ class HomeScreen extends StatelessWidget {
     );
   }
 }
+
 class PitchModel {
   final String id;
   final String name;
@@ -107,7 +103,6 @@ class PitchModel {
   final double halfHourPrice;
   final String imageUrl;
 
-
   const PitchModel({
     required this.id,
     required this.name,
@@ -116,6 +111,5 @@ class PitchModel {
     required this.hourlyPrice,
     required this.halfHourPrice,
     required this.imageUrl,
-
   });
 }

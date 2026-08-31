@@ -1,6 +1,4 @@
 part of 'field_bloc.dart';
-
-@immutable
 sealed class FieldEvent {}
 
 class GetAllFieldEvent extends FieldEvent{}

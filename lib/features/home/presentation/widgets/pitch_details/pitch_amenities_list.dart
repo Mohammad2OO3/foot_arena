@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:footarena/common/models/field_model.dart';
 
 class PitchAmenitiesList extends StatelessWidget {
-  const PitchAmenitiesList({super.key});
+  final Features features;
+
+  const PitchAmenitiesList({super.key, required this.features});
 
   @override
   Widget build(BuildContext context) {
@@ -10,18 +13,43 @@ class PitchAmenitiesList extends StatelessWidget {
       children: [
         const Text(
           'Amenities',
-          style: TextStyle(color: Colors.white, fontSize: 18, fontWeight: FontWeight.bold),
+          style: TextStyle(
+            color: Colors.white,
+            fontSize: 18,
+            fontWeight: FontWeight.bold,
+          ),
         ),
         const SizedBox(height: 16),
         SingleChildScrollView(
           scrollDirection: Axis.horizontal,
           child: Row(
-            children: const [
-              _AmenityItem(icon: Icons.lightbulb_outlined, label: 'Lights'),
-              _AmenityItem(icon: Icons.shower_outlined, label: 'Locker Rooms'),
-              _AmenityItem(icon: Icons.wc, label: 'Restrooms'),
-              _AmenityItem(icon: Icons.directions_car_outlined, label: 'Parking'),
-              _AmenityItem(icon: Icons.wb_sunny_outlined, label: 'Open'),
+            children: [
+              features.hasLighting == true
+                  ? _AmenityItem(
+                      icon: Icons.lightbulb_outlined,
+                      label: 'Lights',
+                    )
+                  : SizedBox(),
+              features.withShowers == true
+                  ? _AmenityItem(
+                      icon: Icons.shower_outlined,
+                      label: 'Locker Rooms',
+                    )
+                  : SizedBox(),
+
+              features.hasWater == true
+                  ? _AmenityItem(icon: Icons.wc, label: 'Restrooms')
+                  : SizedBox(),
+
+              features.hasWater == true
+                  ? _AmenityItem(
+                      icon: Icons.directions_car_outlined,
+                      label: 'Parking',
+                    )
+                  : SizedBox(),
+
+              //
+              // _AmenityItem(icon: Icons.wb_sunny_outlined, label: 'Open'),
             ],
           ),
         ),
@@ -51,7 +79,10 @@ class _AmenityItem extends StatelessWidget {
             child: Icon(icon, color: const Color(0xFF00E676), size: 24),
           ),
           const SizedBox(height: 8),
-          Text(label, style: const TextStyle(color: Colors.white54, fontSize: 12)),
+          Text(
+            label,
+            style: const TextStyle(color: Colors.white54, fontSize: 12),
+          ),
         ],
       ),
     );

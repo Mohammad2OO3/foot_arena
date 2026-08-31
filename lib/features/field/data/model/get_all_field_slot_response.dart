@@ -58,11 +58,21 @@ class SlotModel {
     isAvailable: isAvailable ?? this.isAvailable,
   );
 
+  // دالة مساعدة لحذف الثواني من نص الوقت
+  static String? _formatTime(String? time) {
+    if (time == null || time.isEmpty) return null;
+    final parts = time.split(':');
+    if (parts.length >= 2) {
+      return "${parts[0]}:${parts[1]}"; // يأخذ الساعة والدقيقة فقط
+    }
+    return time;
+  }
+
   factory SlotModel.fromJson(Map<String, dynamic> json) => SlotModel(
     id: json["id"],
     fieldId: json["field_id"],
-    startTime: json["start_time"],
-    endTime: json["end_time"],
+    startTime: _formatTime(json["start_time"]),
+    endTime: _formatTime(json["end_time"]),
     isActive: json["is_active"],
     isAvailable: json["is_available"],
   );

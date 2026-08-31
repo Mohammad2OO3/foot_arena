@@ -4,6 +4,7 @@ import '../../../../common/helper/src/typedef.dart';
 import '../../data/model/get_field_details_response.dart';
 import '../use_cases/get_all_field_slot_use_case.dart';
 
+
 abstract class FieldRepositories {
 
 

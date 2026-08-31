@@ -72,6 +72,7 @@ import '../../features/field/domin/use_cases/get_all_field_use_case.dart'
     as _i522;
 import '../../features/field/domin/use_cases/get_field_details_use_case.dart'
     as _i1019;
+import '../../features/field/presentation/bloc/field_bloc.dart' as _i1010;
 import '../../features/profile/data/data_sources/profile_remote_data_source.dart'
     as _i1012;
 import '../../features/profile/data/repositories/profile_repository_impl.dart'
@@ -175,6 +176,13 @@ _i174.GetIt $initGetIt(
   gh.lazySingleton<_i16.VersionRepositories>(
     () =>
         _i837.VersionRepositoriesImp(remoteData: gh<_i328.VersionRemoteData>()),
+  );
+  gh.factory<_i1010.FieldBloc>(
+    () => _i1010.FieldBloc(
+      gh<_i522.GetAllFieldUseCase>(),
+      gh<_i603.GetAllFieldSlotUseCase>(),
+      gh<_i1019.GetFieldDetailsUseCase>(),
+    ),
   );
   gh.lazySingleton<_i458.AcceptChallengeUseCase>(
     () => _i458.AcceptChallengeUseCase(

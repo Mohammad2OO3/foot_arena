@@ -1,5 +1,4 @@
 import 'dart:async';
-
 import 'package:bloc/bloc.dart';
 import 'package:footarena/common/helper/helper.dart';
 import 'package:footarena/core/use_case/use_case.dart';
@@ -8,7 +7,7 @@ import 'package:footarena/features/field/data/model/get_field_details_response.d
 import 'package:footarena/features/field/domin/use_cases/get_all_field_slot_use_case.dart';
 import 'package:footarena/features/field/domin/use_cases/get_all_field_use_case.dart';
 import 'package:footarena/features/field/domin/use_cases/get_field_details_use_case.dart';
-import 'package:meta/meta.dart';
+import 'package:injectable/injectable.dart';
 
 import '../../data/model/get_all_field_response.dart';
 
@@ -16,6 +15,7 @@ part 'field_event.dart';
 
 part 'field_state.dart';
 
+@injectable
 class FieldBloc extends Bloc<FieldEvent, FieldState> {
   final GetAllFieldUseCase _getAllFieldUseCase;
   final GetAllFieldSlotUseCase _getAllFieldSlotUseCase;

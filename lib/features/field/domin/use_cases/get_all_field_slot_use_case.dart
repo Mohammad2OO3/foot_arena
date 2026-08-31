@@ -19,16 +19,16 @@ class GetAllFieldSlotUseCase
 
 class GetAllFieldSlotParams with Params {
   final String date;
-  final int field;
+  final int fieldId;
 
-  GetAllFieldSlotParams({required this.date, required this.field});
+  GetAllFieldSlotParams({required this.date, required this.fieldId});
 
 
   @override
   QueryParams getParams() {
     // TODO: implement getParams
     return {
-      'field': field.toString(),
+      'field': fieldId.toString(),
       'date': date,
 
     }..removeWhere(

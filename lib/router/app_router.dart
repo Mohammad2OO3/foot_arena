@@ -6,6 +6,7 @@ import '../core/di/injection.dart'; // تأكد من مسار الـ injection �
 import '../features/auth/presentation/pages/CompleteProfileScreen.dart';
 import '../features/auth/presentation/pages/login_screen.dart';
 import '../features/community/presentation/pages/community_page.dart';
+import '../features/home/presentation/pages/pitch_details_page.dart';
 import '../features/onboarding/pages/onboarding.dart';
 import '../features/profile/presentation/bloc/profile_bloc.dart';
 import '../features/profile/presentation/bloc/profile_event.dart';
@@ -21,6 +22,7 @@ class RouteName {
   static const home = "home";
   static const splash = "splash";
   static const communityPage = "CommunityPage";
+  static const pitchDetailsPage = "pitchDetailsPage";
   static const profile = "profile"; // مسار شاشة البروفايل
 }
 
@@ -39,6 +41,13 @@ class RouteManager {
         return MaterialPageRoute(
           settings: routeSettings,
           builder: (_) => SplashScreen(),
+        );
+      case RouteName.pitchDetailsPage:
+        return MaterialPageRoute(
+          settings: routeSettings,
+          builder: (_) => PitchDetailsScreen(
+            args: routeSettings.arguments as PitchDetailsScreenParams,
+          ),
         );
 
       case RouteName.login:
@@ -71,7 +80,8 @@ class RouteManager {
         return MaterialPageRoute(
           settings: routeSettings,
           builder: (_) => BlocProvider<ProfileBloc>(
-            create: (context) => getIt<ProfileBloc>()..add(FetchProfileDataEvent()),
+            create: (context) =>
+                getIt<ProfileBloc>()..add(FetchProfileDataEvent()),
             child: const ProfilePage(),
           ),
         );
@@ -79,7 +89,7 @@ class RouteManager {
       default:
         return MaterialPageRoute(
           builder: (_) =>
-          const Scaffold(body: Center(child: Text('Page not found'))),
+              const Scaffold(body: Center(child: Text('Page not found'))),
         );
     }
   }
