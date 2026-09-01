@@ -29,84 +29,122 @@ class LogOutButton extends StatelessWidget {
       },
       builder: (context, state) {
         return Container(
-          padding: EdgeInsets.symmetric(horizontal: 12),
+          padding: const EdgeInsets.symmetric(horizontal: 12),
           width: double.infinity,
           height: 52,
           child: ElevatedButton(
             onPressed: () {
               showDialog(
                 context: context,
-                builder: (_) {
+                builder: (dialogContext) {
                   return AlertDialog(
+                    backgroundColor: const Color(0xFF111827),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(20),
+                      side: BorderSide(
+                        color: Colors.redAccent.withOpacity(0.3),
+                      ),
+                    ),
                     content: Column(
                       mainAxisSize: MainAxisSize.min,
                       children: [
-                        SizedBox(height: 12),
-                        Text(
-                          "Confirm Logout",
-                          style: context.headlineSmall(
-                            fontSize: 20,
-                            color: context.textColor,
+                        const SizedBox(height: 12),
+                        Container(
+                          padding: const EdgeInsets.all(12),
+                          decoration: BoxDecoration(
+                            color: Colors.redAccent.withOpacity(0.1),
+                            shape: BoxShape.circle,
+                          ),
+                          child: const Icon(
+                            Icons.logout,
+                            color: Colors.redAccent,
+                            size: 28,
                           ),
                         ),
-                        SizedBox(height: 12),
-                        Text(
+                        const SizedBox(height: 16),
+                        const Text(
+                          "Confirm Logout",
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 20,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                        const SizedBox(height: 8),
+                        const Text(
                           "Are you sure you want to log out of the app?",
-                          style: context.bodySmall(
+                          style: TextStyle(
+                            color: Colors.white60,
                             fontSize: 14,
                           ),
                           textAlign: TextAlign.center,
                         ),
-                        SizedBox(height: 24),
+                        const SizedBox(height: 24),
                         Row(
                           children: [
                             Expanded(
                               child: OutlinedButton(
                                 onPressed: () {
-                                  context.pop();
+                                  Navigator.of(dialogContext).pop();
                                 },
-                                child: Text(
+                                style: OutlinedButton.styleFrom(
+                                  side: const BorderSide(color: Colors.white24),
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(12),
+                                  ),
+                                  padding: const EdgeInsets.symmetric(vertical: 12),
+                                ),
+                                child: const Text(
                                   "Cancel",
-                                  style: context
-                                      .headlineSmall(
-                                    color: context
-                                        .primarySwatch,
+                                  style: TextStyle(
+                                    color: Colors.white70,
                                     fontSize: 14,
+                                    fontWeight: FontWeight.w600,
                                   ),
                                 ),
                               ),
                             ),
-                            SizedBox(width: 12),
+                            const SizedBox(width: 12),
                             Expanded(
                               child: ElevatedButton(
-                                child: Text(
-                                  "Log Out",
-                                  style: context
-                                      .headlineSmall(
-                                    color: Colors.white,
-                                    fontSize: 14,
+                                style: ElevatedButton.styleFrom(
+                                  backgroundColor: Colors.redAccent,
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(12),
                                   ),
+                                  padding: const EdgeInsets.symmetric(vertical: 12),
                                 ),
                                 onPressed: () {
-
+                                  Navigator.of(dialogContext).pop();
                                   authBloc.add(LogOutEvent());
                                 },
+                                child: const Text(
+                                  "Log Out",
+                                  style: TextStyle(
+                                    color: Colors.white,
+                                    fontSize: 14,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                ),
                               ),
                             ),
                           ],
                         ),
-                        SizedBox(height: 4),
+                        const SizedBox(height: 4),
                       ],
                     ),
                   );
                 },
               );
             },
-
             style: ElevatedButton.styleFrom(
-              backgroundColor: const Color(0xFF3E1014),
+              backgroundColor: const Color(0xFF111827),
+              elevation: 0,
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(16),
+                side: BorderSide(
+                  color: Colors.redAccent.withOpacity(0.3),
+                ),
               ),
             ),
             child: const Row(
