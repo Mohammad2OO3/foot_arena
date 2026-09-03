@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "105399957774",
+    "project_id": "foot-arena-61f09",
+    "storage_bucket": "foot-arena-61f09.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:105399957774:android:648ad6ea7767b2fa37ff5f",
+        "android_client_info": {
+          "package_name": "com.foot_arena.app"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAEo31fVXXSknakvnapIrpwGbfdI0JgJx8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
