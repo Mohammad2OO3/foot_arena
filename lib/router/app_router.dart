@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:footarena/features/community/presentation/pages/team_details_page.dart';
 import 'package:footarena/features/splash/page/splash_screen.dart';
 
 import '../core/di/injection.dart'; // تأكد من مسار الـ injection لديك
@@ -23,7 +24,10 @@ class RouteName {
   static const splash = "splash";
   static const communityPage = "CommunityPage";
   static const pitchDetailsPage = "pitchDetailsPage";
-  static const profile = "profile"; // مسار شاشة البروفايل
+  static const profile = "profile";
+  static const teamDetails = "TeamDetailsPage";
+
+  // مسار شاشة البروفايل
 }
 
 class RouteManager {
@@ -74,6 +78,12 @@ class RouteManager {
         return MaterialPageRoute(
           settings: routeSettings,
           builder: (_) => const CommunityPage(),
+        );
+        case RouteName.teamDetails:
+        return MaterialPageRoute(
+          settings: routeSettings,
+          builder: (_) => const TeamDetailsPage(),
+
         );
 
       case RouteName.profile:

@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 import 'package:footarena/common/design/design.dart';
 import '../../../../core/di/injection.dart';
+import '../../../../router/app_router.dart';
 import '../bloc/community_bloc.dart';
 import '../widgets/community_tab_bar.dart';
 import '../widgets/match_card.dart';
@@ -48,13 +50,9 @@ class _CommunityPageState extends State<CommunityPage> {
               const SizedBox(height: 16),
               Expanded(
                 child: BlocConsumer<CommunityBloc, CommunityState>(
-                  listener: (context,state){
-                    state.requestToJointData.listenerFunction(onSuccess: (){
-
-                    });
-                    state.addChallengeData.listenerFunction(onSuccess: (){
-
-                    });
+                  listener: (context, state) {
+                    state.requestToJointData.listenerFunction(onSuccess: () {});
+                    state.addChallengeData.listenerFunction(onSuccess: () {});
                   },
                   bloc: _communityBloc,
                   builder: (context, state) {
@@ -62,75 +60,77 @@ class _CommunityPageState extends State<CommunityPage> {
                       case CommunityTab.matches:
                         return state.getAllChallengeData.builder(
                           onSuccess: (data) {
-                            return
-                              data!.data!.isEmpty?
-                                  EmptyWidget()
-                                  :
-                              ListView(
+                            return data!.data!.isEmpty
+                                ? EmptyWidget()
+                                : ListView(
                               children: data.data!
                                   .map(
                                     (e) => MatchCard(
-                                        challengeModel:e,
-                                      communityBloc: _communityBloc,
-                                    ),
-                                  )
+                                  challengeModel: e,
+                                  communityBloc: _communityBloc,
+                                ),
+                              )
                                   .toList(),
                             );
                           },
                           onTapRetry: () =>
                               _communityBloc.add(GetAllChallengeEvent()),
-
-
-
                         );
-                      // case CommunityTab.players:
-                      //   return GridView.count(
-                      //     crossAxisCount: 2,
-                      //     crossAxisSpacing: 12,
-                      //     mainAxisSpacing: 12,
-                      //     childAspectRatio: 0.72,
-                      //     children: const [
-                      //       PlayerCard(
-                      //         name: "Alex Martinez",
-                      //         position: "Striker",
-                      //         rating: "4.8",
-                      //         level: "Advanced",
-                      //       ),
-                      //       PlayerCard(
-                      //         name: "Jordan Smith",
-                      //         position: "Midfielder",
-                      //         rating: "4.6",
-                      //         level: "Intermediate",
-                      //       ),
-                      //       PlayerCard(
-                      //         name: "Sam Wilson",
-                      //         position: "Defender",
-                      //         rating: "4.5",
-                      //         level: "Advanced",
-                      //       ),
-                      //       PlayerCard(
-                      //         name: "Taylor Brown",
-                      //         position: "Goalkeeper",
-                      //         rating: "4.9",
-                      //         level: "Expert",
-                      //       ),
-                      //     ],
-                      //   );
+                    // case CommunityTab.players:
+                    //   return GridView.count(
+                    //     crossAxisCount: 2,
+                    //     crossAxisSpacing: 12,
+                    //     mainAxisSpacing: 12,
+                    //     childAspectRatio: 0.72,
+                    //     children: const [
+                    //       PlayerCard(
+                    //         name: "Alex Martinez",
+                    //         position: "Striker",
+                    //         rating: "4.8",
+                    //         level: "Advanced",
+                    //       ),
+                    //       PlayerCard(
+                    //         name: "Jordan Smith",
+                    //         position: "Midfielder",
+                    //         rating: "4.6",
+                    //         level: "Intermediate",
+                    //       ),
+                    //       PlayerCard(
+                    //         name: "Sam Wilson",
+                    //         position: "Defender",
+                    //         rating: "4.5",
+                    //         level: "Advanced",
+                    //       ),
+                    //       PlayerCard(
+                    //         name: "Taylor Brown",
+                    //         position: "Goalkeeper",
+                    //         rating: "4.9",
+                    //         level: "Expert",
+                    //       ),
+                    //     ],
+                    //   );
                       case CommunityTab.teams:
                         return state.getAllTeamData.builder(
                           onSuccess: (data) {
-                            return
-                              data!.data!.isEmpty?
-                              EmptyWidget()
-                                  :
-                              ListView(
+                            return data!.data!.isEmpty
+                                ? EmptyWidget()
+                                : ListView(
                               children: data.data!
                                   .map(
-                                    (e) => TeamCard(
+                                    (e) => GestureDetector(
+                                  onTap: () {
+                                    // الانتقال لشاشة تفاصيل الفريق مع تمرير المعرف
+                                    context.pushNamed(
+                                      RouteName.teamDetails,
+
+                                    );
+                                  },
+                                  child: TeamCard(
                                     communityBloc: _communityBloc,
                                     teamModel: e,
-                                    ),
-                                  )
+                                  ),
+                                ),
+                              )
                                   .toList(),
                             );
                           },

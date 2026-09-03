@@ -58,16 +58,16 @@ class _ProfilePageState extends State<ProfilePage> {
                         bloc: communityBloc,
                         builder: (context, state) {
                           return state.getMyTeamData.builder(
-                              onSuccess: (data){
-                            return TeamInfoCard(
-                              teamName: data?.data?.name??'Team name',
-                              role: data?.data?.pendingJoinRequestsCount??'Role',
-                              members:data?.data?.membersCount??0,
-                              wins: 0,
-                              rating: 0,
-                            );
-                          },
-                              onTapRetry: ()=>communityBloc.add(GetMyTeamEvent()),
+                            onSuccess: (data){
+                              return TeamInfoCard(
+                                teamName: data?.data?.name??'Team name',
+                                role: data?.data?.pendingJoinRequestsCount??'Role',
+                                members:data?.data?.membersCount??0,
+                                wins: 0,
+                                rating: 0,
+                              );
+                            },
+                            onTapRetry: ()=>communityBloc.add(GetMyTeamEvent()),
                             failedWidget: SizedBox(),
                             loadingWidget: SizedBox(),
                           );
@@ -268,76 +268,7 @@ class TeamInfoCard extends StatelessWidget {
             ],
           ),
 
-          const SizedBox(height: 20),
 
-          Row(
-            children: [
-              Expanded(
-                child: _StatItem(title: 'Members', value: members.toString()),
-              ),
-
-              const SizedBox(width: 14),
-
-              Expanded(
-                child: _StatItem(
-                  title: 'Wins',
-                  value: wins.toString(),
-                  valueColor: const Color(0xFF00D46A),
-                ),
-              ),
-
-              const SizedBox(width: 14),
-
-              Expanded(
-                child: _StatItem(
-                  title: 'Rating',
-                  value: rating.toStringAsFixed(1),
-                  valueColor: const Color(0xFFFFB800),
-                ),
-              ),
-            ],
-          ),
-        ],
-      ),
-    );
-  }
-}
-
-class _StatItem extends StatelessWidget {
-  const _StatItem({
-    required this.title,
-    required this.value,
-    this.valueColor = Colors.white,
-  });
-
-  final String title;
-  final String value;
-  final Color valueColor;
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      height: 105,
-      decoration: BoxDecoration(
-        color: const Color(0xFF1C2A42),
-        borderRadius: BorderRadius.circular(18),
-      ),
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Text(
-            title,
-            style: const TextStyle(color: Color(0xFF9AA9C2), fontSize: 20),
-          ),
-          const SizedBox(height: 12),
-          Text(
-            value,
-            style: TextStyle(
-              color: valueColor,
-              fontSize: 24,
-              fontWeight: FontWeight.w500,
-            ),
-          ),
         ],
       ),
     );
