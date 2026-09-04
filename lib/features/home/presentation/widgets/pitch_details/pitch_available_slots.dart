@@ -11,12 +11,15 @@ class PitchAvailableSlots extends StatefulWidget {
   final FieldBloc fieldBloc;
   final int id;
   final ValueNotifier<SlotModel?> selectedSlot;
+  final ValueNotifier<DateTime?> selectedDateNotifier;
+
 
   const PitchAvailableSlots({
     super.key,
     required this.fieldBloc,
     required this.id,
     required this.selectedSlot,
+    required this.selectedDateNotifier,
   });
 
   @override
@@ -43,7 +46,7 @@ class _PitchAvailableSlotsState extends State<PitchAvailableSlots> {
           builder: (context, state) {
             return state.getAllSlotsData.builder(
               onSuccess: (data) {
-                return data!.data!.isNotEmpty
+                return data!.data!.isNotEmpty||widget.selectedDateNotifier.value!=null
                     ? GridView.builder(
                         shrinkWrap: true,
                         physics: const NeverScrollableScrollPhysics(),
@@ -105,6 +108,7 @@ class _PitchAvailableSlotsState extends State<PitchAvailableSlots> {
                   ),
                 ),
               ),
+              loadingWidget:widget.selectedDateNotifier.value==null? SizedBox():LoadingWidget()
             );
           },
         ),

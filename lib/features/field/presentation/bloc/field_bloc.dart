@@ -32,52 +32,62 @@ class FieldBloc extends Bloc<FieldEvent, FieldState> {
   }
 
   FutureOr<void> _getAllSlots(
-      GetAllSlotEvent event,
-      Emitter<FieldState> emit,
-      )
-  async
-  {
+    GetAllSlotEvent event,
+    Emitter<FieldState> emit,
+  ) async {
     emit(state.copyWith(getAllSlotsData: state.getAllSlotsData.setLoading()));
 
     final val = await _getAllFieldSlotUseCase(event.params);
 
     val.fold(
-          (l) {
+      (l) {
         emit(
           state.copyWith(
             getAllSlotsData: state.getAllSlotsData.setFaild(
-                errorMessage: l.message),
+              errorMessage: l.message,
+            ),
           ),
         );
       },
-          (r) {
-        emit(state.copyWith(
-            getAllSlotsData: state.getAllSlotsData.setSuccess(data: r)));
+      (r) {
+        emit(
+          state.copyWith(
+            getAllSlotsData: state.getAllSlotsData.setSuccess(data: r),
+          ),
+        );
       },
     );
   }
+
   FutureOr<void> _getFieldDetails(
-      GetFieldDetailsEvent event,
-      Emitter<FieldState> emit,
-      )
-  async
-  {
-    emit(state.copyWith(getFieldDetailsData: state.getFieldDetailsData.setLoading()));
+    GetFieldDetailsEvent event,
+    Emitter<FieldState> emit,
+  ) async {
+    emit(
+      state.copyWith(
+        getFieldDetailsData: state.getFieldDetailsData.setLoading(),
+      ),
+    );
 
     final val = await _getFieldDetailsUseCase(event.id);
 
     val.fold(
-          (l) {
+      (l) {
         emit(
           state.copyWith(
             getFieldDetailsData: state.getFieldDetailsData.setFaild(
-                errorMessage: l.message),
+              errorMessage: l.message,
+            ),
           ),
         );
       },
-          (r) {
-        emit(state.copyWith(
-            getFieldDetailsData: state.getFieldDetailsData.setSuccess(data: r)));
+      (r) {
+        emit(
+          state.copyWith(
+            getFieldDetailsData: state.getFieldDetailsData.setSuccess(data: r),
+            getAllSlotsData: state.getAllSlotsData.resetData(),
+          ),
+        );
       },
     );
   }
@@ -85,26 +95,28 @@ class FieldBloc extends Bloc<FieldEvent, FieldState> {
   FutureOr<void> _getAllField(
     GetAllFieldEvent event,
     Emitter<FieldState> emit,
-  )
-async
-{
-  emit(state.copyWith(getAllFieldData: state.getAllFieldData.setLoading()));
+  ) async {
+    emit(state.copyWith(getAllFieldData: state.getAllFieldData.setLoading()));
 
-  final val = await _getAllFieldUseCase(NoParams());
+    final val = await _getAllFieldUseCase(NoParams());
 
-  val.fold(
-        (l) {
-      emit(
-        state.copyWith(
-          getAllFieldData: state.getAllFieldData.setFaild(
-              errorMessage: l.message),
-        ),
-      );
-    },
-        (r) {
-      emit(state.copyWith(
-          getAllFieldData: state.getAllFieldData.setSuccess(data: r)));
-    },
-  );
-}
+    val.fold(
+      (l) {
+        emit(
+          state.copyWith(
+            getAllFieldData: state.getAllFieldData.setFaild(
+              errorMessage: l.message,
+            ),
+          ),
+        );
+      },
+      (r) {
+        emit(
+          state.copyWith(
+            getAllFieldData: state.getAllFieldData.setSuccess(data: r),
+          ),
+        );
+      },
+    );
+  }
 }

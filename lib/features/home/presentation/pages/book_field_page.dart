@@ -88,10 +88,10 @@ class _BookFieldPageState extends State<BookFieldPage> {
           children: [
             BookingHeaderCard(pitch: widget.pitch),
             const SizedBox(height: 24),
-            BookingDatePicker(
-              selectedDate: selectedDate,
-              onTap: () => _selectDate(context),
-            ),
+            // BookingDatePicker(
+            //   selectedDate: selectedDate,
+            //   onTap: () => _selectDate(context),
+            // ),
             const SizedBox(height: 24),
             BookingTimeTile(selectedTime: selectedTime),
             const SizedBox(height: 24),
@@ -118,16 +118,16 @@ class _BookFieldPageState extends State<BookFieldPage> {
                   final bookingCode =
                       "FOOTARENA-3-${DateTime.now().millisecondsSinceEpoch}";
 
-                  showDialog(
-                    context: context,
-                    builder: (context) => BookingSuccessDialog(
-                      fieldName: widget.pitch.name,
-                      dateTime: dateTimeText,
-                      matchType: selectedMatchType,
-                      totalPrice: widget.pitch.hourlyPrice,
-                      bookingCode: bookingCode,
-                    ),
-                  );
+                  // showDialog(
+                  //   context: context,
+                  //   builder: (context) => BookingSuccessDialog(
+                  //     fieldName: widget.pitch.name,
+                  //     dateTime: dateTimeText,
+                  //     matchType: selectedMatchType,
+                  //     totalPrice: widget.pitch.hourlyPrice,
+                  //     bookingCode: bookingCode,
+                  //   ),
+                  // );
                 },
                 style: ElevatedButton.styleFrom(
                   backgroundColor: const Color(0xFF00C853),

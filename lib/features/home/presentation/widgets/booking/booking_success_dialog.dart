@@ -4,15 +4,13 @@ import 'package:qr_flutter/qr_flutter.dart';
 class BookingSuccessDialog extends StatelessWidget {
   final String fieldName;
   final String dateTime;
-  final String matchType;
-  final double totalPrice;
+  final String totalPrice;
   final String bookingCode;
 
   const BookingSuccessDialog({
     super.key,
     required this.fieldName,
     required this.dateTime,
-    required this.matchType,
     required this.totalPrice,
     required this.bookingCode,
   });
@@ -79,12 +77,12 @@ class BookingSuccessDialog extends StatelessWidget {
                   _buildDetailItem('Field', fieldName),
                   const SizedBox(height: 14),
                   _buildDetailItem('Date & Time', dateTime),
-                  const SizedBox(height: 14),
-                  _buildDetailItem('Match Type', matchType),
+                  // const SizedBox(height: 14),
+                  // _buildDetailItem('Match Type', matchType),
                   const SizedBox(height: 14),
                   _buildDetailItem(
                     'Total Price',
-                    '\$${totalPrice.toStringAsFixed(0)}',
+                    '\$$totalPrice',
                     valueColor: const Color(0xFF00E676),
                   ),
                 ],
