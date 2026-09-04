@@ -147,18 +147,14 @@ class LogOutButton extends StatelessWidget {
                 ),
               ),
             ),
-            child: const Row(
+            child:  Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Icon(Icons.logout, color: Colors.redAccent),
                 SizedBox(width: 8),
                 Text(
                   "Logout",
-                  style: TextStyle(
-                    color: Colors.redAccent,
-                    fontSize: 16,
-                    fontWeight: FontWeight.bold,
-                  ),
+                  style: context.headlineMedium(color: Colors.redAccent),
                 ),
               ],
             ),

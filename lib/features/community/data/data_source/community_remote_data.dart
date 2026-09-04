@@ -33,7 +33,7 @@ class CommunityRemoteData with HandlingApiManager {
   );
 
   Future<GetMyTeamResponse> addTeam(BodyMap bodyMap) async => wrapHandlingApi(
-    tryCall: () => _apiClient.post(ApiVariables.getMyTeam(), data: bodyMap),
+    tryCall: () => _apiClient.post(ApiVariables.getAllTeam(), data: bodyMap),
     jsonConvert: getMyTeamResponseFromJson,
   );
 

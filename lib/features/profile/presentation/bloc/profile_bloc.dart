@@ -71,6 +71,7 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
         emit(
           state.copyWith(
             editProfileData: state.editProfileData.setSuccess(data: r),
+            getProfileData: state.getProfileData.copyWith(data: r)
           ),
         );
         AppVariables.user = r.data!;

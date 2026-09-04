@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class EditProfilePositionDropdown extends StatelessWidget {
   final String selectedPosition;
@@ -17,49 +18,55 @@ class EditProfilePositionDropdown extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        const Text(
+        Text(
           'Position',
-          style: TextStyle(
-            color: Color(0xFF2E3E5C),
+          style: GoogleFonts.tajawal(
+            color: Colors.white.withOpacity(0.75),
             fontSize: 14,
             fontWeight: FontWeight.w600,
           ),
         ),
+
         const SizedBox(height: 8),
+
         Container(
-          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 4),
+          padding: const EdgeInsets.symmetric(
+            horizontal: 16,
+            vertical: 4,
+          ),
           decoration: BoxDecoration(
-            color: Colors.white,
+            color: Colors.white.withOpacity(0.06),
             borderRadius: BorderRadius.circular(16),
-            border: Border.all(color: const Color(0xFFE2E8F0)),
-            boxShadow: [
-              BoxShadow(
-                color: Colors.black.withOpacity(0.03),
-                blurRadius: 10,
-                offset: const Offset(0, 4),
-              ),
-            ],
+            border: Border.all(
+              color: Colors.white.withOpacity(0.07),
+            ),
           ),
           child: DropdownButtonHideUnderline(
             child: DropdownButton<String>(
               value: selectedPosition,
               isExpanded: true,
-              icon: const Icon(Icons.keyboard_arrow_down, color: Color(0xFF94A3B8)),
+              dropdownColor: const Color(0xFF1E293B),
+              icon: Icon(
+                Icons.keyboard_arrow_down_rounded,
+                color: Colors.white.withOpacity(0.35),
+              ),
               items: positions.map((String position) {
                 return DropdownMenuItem<String>(
                   value: position,
                   child: Row(
                     children: [
-                      const Icon(Icons.sports_soccer, size: 20, color: Color(0xFF3B82F6)),
-                      const SizedBox(width: 8),
-                      const Icon(Icons.ads_click, size: 18, color: Color(0xFFEC4899)),
+                      Icon(
+                        Icons.sports_soccer,
+                        size: 20,
+                        color: Colors.white.withOpacity(0.35),
+                      ),
                       const SizedBox(width: 10),
                       Text(
                         position,
-                        style: const TextStyle(
-                          color: Color(0xFF1E293B),
+                        style: GoogleFonts.tajawal(
+                          color: Colors.white,
                           fontSize: 15,
-                          fontWeight: FontWeight.w600,
+                          fontWeight: FontWeight.w500,
                         ),
                       ),
                     ],

@@ -1,18 +1,21 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class EditProfileInputField extends StatelessWidget {
   final String label;
-  final String initialValue;
+  final TextEditingController controller;
   final IconData prefixIcon;
   final TextInputType keyboardType;
+  final bool enabled;
   final ValueChanged<String>? onChanged;
 
   const EditProfileInputField({
     super.key,
     required this.label,
-    required this.initialValue,
+    required this.controller,
     required this.prefixIcon,
     this.keyboardType = TextInputType.text,
+    this.enabled = true,
     this.onChanged,
   });
 
@@ -23,49 +26,51 @@ class EditProfileInputField extends StatelessWidget {
       children: [
         Text(
           label,
-          style: const TextStyle(
-            color: Color(0xFF2E3E5C),
+          style: GoogleFonts.tajawal(
+            color: Colors.white.withOpacity(0.75),
             fontSize: 14,
             fontWeight: FontWeight.w600,
           ),
         ),
+
         const SizedBox(height: 8),
+
         Container(
           decoration: BoxDecoration(
-            color: Colors.white,
+            color: Colors.white.withOpacity(0.06),
             borderRadius: BorderRadius.circular(16),
-            boxShadow: [
-              BoxShadow(
-                color: Colors.black.withOpacity(0.03),
-                blurRadius: 10,
-                offset: const Offset(0, 4),
-              ),
-            ],
+            border: Border.all(
+              color: Colors.white.withOpacity(0.07),
+            ),
           ),
           child: TextFormField(
-            initialValue: initialValue,
+            controller: controller,
+            enabled: enabled,
             keyboardType: keyboardType,
             onChanged: onChanged,
-            style: const TextStyle(
-              color: Color(0xFF1E293B),
+            style: GoogleFonts.tajawal(
+              color: Colors.white,
               fontSize: 15,
               fontWeight: FontWeight.w500,
             ),
             decoration: InputDecoration(
-              prefixIcon: Icon(prefixIcon, color: const Color(0xFF94A3B8), size: 20),
-              border: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(16),
-                borderSide: const BorderSide(color: Color(0xFFE2E8F0)),
+              border: InputBorder.none,
+
+              prefixIcon: Icon(
+                prefixIcon,
+                color: Colors.white.withOpacity(0.35),
+                size: 20,
               ),
-              enabledBorder: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(16),
-                borderSide: const BorderSide(color: Color(0xFFE2E8F0)),
+
+              hintStyle: GoogleFonts.tajawal(
+                color: Colors.white.withOpacity(0.25),
+                fontSize: 15,
               ),
-              focusedBorder: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(16),
-                borderSide: const BorderSide(color: Color(0xFF10B981), width: 1.5),
+
+              contentPadding: const EdgeInsets.symmetric(
+                horizontal: 20,
+                vertical: 14,
               ),
-              contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
             ),
           ),
         ),

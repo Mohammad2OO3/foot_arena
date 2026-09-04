@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:footarena/features/community/presentation/pages/add_team_screen.dart';
 import 'package:footarena/features/community/presentation/pages/team_details_page.dart';
 import 'package:footarena/features/splash/page/splash_screen.dart';
 
@@ -11,6 +12,7 @@ import '../features/home/presentation/pages/pitch_details_page.dart';
 import '../features/onboarding/pages/onboarding.dart';
 import '../features/profile/presentation/bloc/profile_bloc.dart';
 import '../features/profile/presentation/bloc/profile_event.dart';
+import '../features/profile/presentation/pages/edit_profile_page.dart';
 import '../features/profile/presentation/pages/profile_page.dart';
 import '../main_wrapper_screen.dart';
 
@@ -25,7 +27,9 @@ class RouteName {
   static const communityPage = "CommunityPage";
   static const pitchDetailsPage = "pitchDetailsPage";
   static const profile = "profile";
+  static const editProfile = "EditProfile";
   static const teamDetails = "TeamDetailsPage";
+  static const addTeamScreen = "AddTeamScreen";
 
   // مسار شاشة البروفايل
 }
@@ -39,6 +43,20 @@ class RouteManager {
         return MaterialPageRoute(
           settings: routeSettings,
           builder: (_) => OnBoardingScreen(),
+        );
+        case RouteName.editProfile:
+        return MaterialPageRoute(
+          settings: routeSettings,
+          builder: (_) => EditProfilePage(
+            args: routeSettings.arguments as EditProfilePageParams,
+          ),
+        );
+      case RouteName.addTeamScreen:
+        return MaterialPageRoute(
+          settings: routeSettings,
+          builder: (_) => AddTeamScreen(
+            args: routeSettings.arguments as AddTeamScreenParams,
+          ),
         );
 
       case RouteName.splash:
@@ -82,7 +100,9 @@ class RouteManager {
         case RouteName.teamDetails:
         return MaterialPageRoute(
           settings: routeSettings,
-          builder: (_) => const TeamDetailsPage(),
+          builder: (_) =>  TeamDetailsPage(
+            args: routeSettings.arguments as TeamDetailsPageParams,
+          ),
 
         );
 

@@ -33,7 +33,7 @@ class AddChallengeParams with Params {
   });
 
   @override
-  QueryParams getParams() {
+  QueryParams getBody() {
     // TODO: implement getParams
     return {
       "opponent_team_id": opponentTeamId.toString(),

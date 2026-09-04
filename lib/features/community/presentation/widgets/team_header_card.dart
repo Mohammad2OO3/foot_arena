@@ -2,14 +2,12 @@ import 'package:flutter/material.dart';
 
 class TeamHeaderCard extends StatelessWidget {
   final String teamName;
-  final String division;
   final String description;
   final String captainName;
 
   const TeamHeaderCard({
     super.key,
     required this.teamName,
-    required this.division,
     required this.description,
     required this.captainName,
   });
@@ -62,14 +60,14 @@ class TeamHeaderCard extends StatelessWidget {
                         fontWeight: FontWeight.bold,
                       ),
                     ),
-                    const SizedBox(height: 4),
-                    Text(
-                      division,
-                      style: const TextStyle(
-                        color: Color(0xFF8C9BAE),
-                        fontSize: 13,
-                      ),
-                    ),
+                    // const SizedBox(height: 4),
+                    // Text(
+                    //   division,
+                    //   style: const TextStyle(
+                    //     color: Color(0xFF8C9BAE),
+                    //     fontSize: 13,
+                    //   ),
+                    // ),
                   ],
                 ),
               ),

@@ -9,5 +9,6 @@ class GetProfileEvent extends ProfileEvent {}
 class EditProfileEvent extends ProfileEvent {
   final EditProfileDataParams params;
 
-  EditProfileEvent(this.params);
+  EditProfileEvent({required this.params});
+
 }

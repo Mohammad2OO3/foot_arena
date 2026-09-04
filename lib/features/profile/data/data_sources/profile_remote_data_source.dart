@@ -67,7 +67,7 @@ class ProfileRemoteDataSource with HandlingApiManager {
     jsonConvert: userResponseFromJson,
   );
   Future<UserResponse> editProfile(BodyMap bodyMap) async => wrapHandlingApi(
-    tryCall: () => _apiClient.post(ApiVariables.getProfile(),data: bodyMap),
+    tryCall: () => _apiClient.patch(ApiVariables.getProfile(),data: bodyMap),
     jsonConvert: userResponseFromJson,
   );
 }

@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:footarena/features/community/presentation/bloc/community_bloc.dart';
+import 'package:footarena/features/community/presentation/pages/add_team_screen.dart';
+import 'package:footarena/features/community/presentation/pages/team_details_page.dart';
 import '../../../../common/extensions/src/context_extensions.dart';
 import '../../../../core/di/injection.dart';
 import '../../../../router/app_router.dart';
@@ -21,12 +23,14 @@ class ProfilePage extends StatefulWidget {
 class _ProfilePageState extends State<ProfilePage> {
   late final AuthBloc authBloc;
   late final CommunityBloc communityBloc;
+  late final ProfileBloc profileBloc;
 
   @override
   void initState() {
     authBloc = getIt<AuthBloc>();
     communityBloc = getIt<CommunityBloc>()
       ..add(GetMyTeamEvent());
+    profileBloc=getIt<ProfileBloc>()..add(GetProfileEvent());
 
     // TODO: implement initState
     super.initState();
@@ -36,8 +40,7 @@ class _ProfilePageState extends State<ProfilePage> {
   Widget build(BuildContext context) {
     return BlocProvider<ProfileBloc>(
       create: (context) =>
-      getIt<ProfileBloc>()
-        ..add(GetProfileEvent()),
+      profileBloc,
       child: Scaffold(
         backgroundColor: Colors.black,
         body: BlocBuilder<ProfileBloc, ProfileState>(
@@ -51,114 +54,108 @@ class _ProfilePageState extends State<ProfilePage> {
                       // الجزء الأعلى (الهيدر + الصور + الإحصائيات)
                       ProfileHeaderWidget(
                         profile: state.getProfileData.data!.data!,
-                      ),
-                      const SizedBox(height: 24),
+                        profileBloc: profileBloc,
 
-                      BlocBuilder<CommunityBloc, CommunityState>(
-                        bloc: communityBloc,
-                        builder: (context, state) {
-                          return state.getMyTeamData.builder(
-                            onSuccess: (data){
-                              return TeamInfoCard(
-                                teamName: data?.data?.name??'Team name',
-                                role: data?.data?.pendingJoinRequestsCount??'Role',
-                                members:data?.data?.membersCount??0,
-                                wins: 0,
-                                rating: 0,
-                              );
-                            },
-                            onTapRetry: ()=>communityBloc.add(GetMyTeamEvent()),
-                            failedWidget: SizedBox(),
-                            loadingWidget: SizedBox(),
-                          );
-                        },
                       ),
-                      const SizedBox(height: 24),
-
-                      // قسم المباريات (My Matches)
-                      // Padding(
-                      //   padding: const EdgeInsets.symmetric(horizontal: 16),
-                      //   child: Column(
-                      //     crossAxisAlignment: CrossAxisAlignment.start,
-                      //     children: [
-                      //       const Text(
-                      //         "My Matches",
-                      //         style: TextStyle(
-                      //           color: Colors.white,
-                      //           fontSize: 20,
-                      //           fontWeight: FontWeight.bold,
-                      //         ),
-                      //       ),
-                      //       const SizedBox(height: 12),
-                      //       ...state.matches.map(
-                      //         (match) => MatchCardWidget(match: match),
-                      //       ),
+                      // const SizedBox(height: 24),
                       //
-                      //       const SizedBox(height: 24),
-                      //
-                      //       // قسم الفرق (My Teams)
-                      //       const Text(
-                      //         "My Teams",
-                      //         style: TextStyle(
-                      //           color: Colors.white,
-                      //           fontSize: 20,
-                      //           fontWeight: FontWeight.bold,
-                      //         ),
-                      //       ),
-                      //       const SizedBox(height: 12),
-                      //       ...state.teams.map(
-                      //         (team) => TeamCardWidget(team: team),
-                      //       ),
-                      //
-                      //       const SizedBox(height: 24),
-                      //
-                      //       // زر تسجيل الخروج (Logout)
-                      //       SizedBox(
-                      //         width: double.infinity,
-                      //         height: 52,
-                      //         child: ElevatedButton(
-                      //           onPressed: () {
-                      //             // أضف event الخروج الخاص بالـ Bloc هنا
-                      //           },
-                      //           style: ElevatedButton.styleFrom(
-                      //             backgroundColor: const Color(0xFF3E1014),
-                      //             shape: RoundedRectangleBorder(
-                      //               borderRadius: BorderRadius.circular(16),
-                      //             ),
-                      //           ),
-                      //           child: const Row(
-                      //             mainAxisAlignment: MainAxisAlignment.center,
-                      //             children: [
-                      //               Icon(Icons.logout, color: Colors.redAccent),
-                      //               SizedBox(width: 8),
-                      //               Text(
-                      //                 "Logout",
-                      //                 style: TextStyle(
-                      //                   color: Colors.redAccent,
-                      //                   fontSize: 16,
-                      //                   fontWeight: FontWeight.bold,
-                      //                 ),
-                      //               ),
-                      //             ],
-                      //           ),
-                      //         ),
-                      //       ),
-                      //       const SizedBox(height: 32),
-                      //     ],
-                      //   ),
+                      // BlocBuilder<CommunityBloc, CommunityState>(
+                      //   bloc: communityBloc,
+                      //   builder: (context, state) {
+                      //     return state.getMyTeamData.builder(
+                      //       onSuccess: (data){
+                      //         return TeamInfoCard(
+                      //           teamName: data?.data?.name??'Team name',
+                      //           role: data?.data?.pendingJoinRequestsCount??'Role',
+                      //           members:data?.data?.membersCount??0,
+                      //           wins: 0,
+                      //           rating: 0,
+                      //         );
+                      //       },
+                      //       onTapRetry: ()=>communityBloc.add(GetMyTeamEvent()),
+                      //       failedWidget: SizedBox(),
+                      //       loadingWidget: SizedBox(),
+                      //     );
+                      //   },
                       // ),
+                      const SizedBox(height: 24),
+
+                      Container(
+                        padding: const EdgeInsets.symmetric(horizontal: 12),
+                        width: double.infinity,
+                        height: 52,
+                        child: ElevatedButton(
+                          onPressed: () {
+                            context.pushNamed(RouteName.teamDetails,arguments: TeamDetailsPageParams());
+
+                          },
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor: const Color(0xFF111827),
+                            elevation: 0,
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(16),
+                              side: BorderSide(
+                                color: context.primarySwatch,
+                              ),
+                            ),
+                          ),
+                          child:  Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Icon(Icons.people_alt_outlined, color: context.primarySwatch),
+                              SizedBox(width: 8),
+                              Text(
+                                "My Team",
+                                style: context.headlineMedium(color: context.primarySwatch),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+
+                      const SizedBox(height: 12),
+                    Container(
+                      padding: const EdgeInsets.symmetric(horizontal: 12),
+                      width: double.infinity,
+                      height: 52,
+                      child: ElevatedButton(
+                        onPressed: () {
+                          context.pushNamed(RouteName.addTeamScreen,arguments: AddTeamScreenParams(communityBloc: communityBloc));
+
+                        },
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: const Color(0xFF111827),
+                          elevation: 0,
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(16),
+                            side: BorderSide(
+                              color: context.primarySwatch,
+                            ),
+                          ),
+                        ),
+                        child:  Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Icon(Icons.add, color: context.primarySwatch),
+                            SizedBox(width: 8),
+                            Text(
+                              "Create Team",
+                              style: context.headlineMedium(color: context.primarySwatch),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                      const SizedBox(height: 12),
+
+
                       LogOutButton(authBloc: authBloc),
                       const SizedBox(height: 32),
                     ],
                   ),
                 );
               },
-              failedWidget: Center(
-                child: Text(
-                  state.getProfileData.errorMessage,
-                  style: const TextStyle(color: Colors.white),
-                ),
-              ),
+             onTapRetry: ()=>profileBloc..add(GetProfileEvent())
             );
           },
         ),

@@ -27,8 +27,7 @@ class AddTeamParams with Params {
 
 
   @override
-  QueryParams getParams() {
-    // TODO: implement getParams
+  QueryParams getBody() {
     return {
       "name": name,
       "description": description
