@@ -23,6 +23,13 @@ import '../../features/auth/domain/use_cases/log_out_use_case.dart' as _i446;
 import '../../features/auth/domain/use_cases/login_usecase.dart' as _i1012;
 import '../../features/auth/domain/use_cases/signup_use_case.dart' as _i571;
 import '../../features/auth/presentation/bloc/auth_bloc.dart' as _i797;
+import '../../features/chat/data/data_source/chat_remote_data.dart' as _i938;
+import '../../features/chat/data/repositories/chat_repositories_imp.dart'
+    as _i712;
+import '../../features/chat/domin/repositories/chat_repositories.dart' as _i72;
+import '../../features/chat/domin/use_cases/send_message_use_case.dart'
+    as _i837;
+import '../../features/chat/presentation/bloc/chat_bloc.dart' as _i65;
 import '../../features/community/data/data_source/community_remote_data.dart'
     as _i533;
 import '../../features/community/data/repositories/community_repositories_imp.dart'
@@ -73,6 +80,22 @@ import '../../features/field/domin/use_cases/get_all_field_use_case.dart'
 import '../../features/field/domin/use_cases/get_field_details_use_case.dart'
     as _i1019;
 import '../../features/field/presentation/bloc/field_bloc.dart' as _i1010;
+import '../../features/notification/data/data_source/notification_remote_data.dart'
+    as _i842;
+import '../../features/notification/data/repositories/notification_repositories_imp.dart'
+    as _i212;
+import '../../features/notification/domin/repositories/notification_repositories.dart'
+    as _i417;
+import '../../features/notification/domin/use_cases/confirm_extra_use_case.dart'
+    as _i539;
+import '../../features/notification/domin/use_cases/get_all_notification_use_case.dart'
+    as _i412;
+import '../../features/notification/domin/use_cases/post_mark_all_use_case.dart'
+    as _i730;
+import '../../features/notification/domin/use_cases/reject_extra_use_case.dart'
+    as _i47;
+import '../../features/notification/presentation/bloc/notification_bloc.dart'
+    as _i29;
 import '../../features/profile/data/data_sources/profile_remote_data_source.dart'
     as _i1012;
 import '../../features/profile/data/repositories/profile_repository_impl.dart'
@@ -121,11 +144,17 @@ _i174.GetIt $initGetIt(
   gh.lazySingleton<_i774.AuthRemoteData>(
     () => _i774.AuthRemoteData(apiClient: gh<_i357.ApiClient>()),
   );
+  gh.lazySingleton<_i938.ChatRemoteData>(
+    () => _i938.ChatRemoteData(apiClient: gh<_i357.ApiClient>()),
+  );
   gh.lazySingleton<_i533.CommunityRemoteData>(
     () => _i533.CommunityRemoteData(apiClient: gh<_i357.ApiClient>()),
   );
   gh.lazySingleton<_i166.ProductRemoteData>(
     () => _i166.ProductRemoteData(apiClient: gh<_i357.ApiClient>()),
+  );
+  gh.lazySingleton<_i842.NotificationRemoteData>(
+    () => _i842.NotificationRemoteData(apiClient: gh<_i357.ApiClient>()),
   );
   gh.lazySingleton<_i1012.ProfileRemoteDataSource>(
     () => _i1012.ProfileRemoteDataSource(apiClient: gh<_i357.ApiClient>()),
@@ -142,6 +171,9 @@ _i174.GetIt $initGetIt(
     () => _i848.CommunityRepositoriesImp(
       remoteData: gh<_i533.CommunityRemoteData>(),
     ),
+  );
+  gh.lazySingleton<_i72.ChatRepositories>(
+    () => _i712.ChatRepositoriesImp(remoteData: gh<_i938.ChatRemoteData>()),
   );
   gh.lazySingleton<_i787.AuthRepository>(
     () => _i662.AuthRepositoriesImp(remoteData: gh<_i774.AuthRemoteData>()),
@@ -163,6 +195,14 @@ _i174.GetIt $initGetIt(
       repositories: gh<_i333.FieldRepositories>(),
     ),
   );
+  gh.lazySingleton<_i417.NotificationRepositories>(
+    () => _i212.NotificationRepositoriesImp(
+      remoteData: gh<_i842.NotificationRemoteData>(),
+    ),
+  );
+  gh.lazySingleton<_i837.SendMessageUseCase>(
+    () => _i837.SendMessageUseCase(repositories: gh<_i72.ChatRepositories>()),
+  );
   gh.lazySingleton<_i1055.EditProfileDataUseCase>(
     () => _i1055.EditProfileDataUseCase(
       profileRepository: gh<_i894.ProfileRepository>(),
@@ -171,6 +211,26 @@ _i174.GetIt $initGetIt(
   gh.lazySingleton<_i903.GetUserProfileUseCase>(
     () => _i903.GetUserProfileUseCase(
       profileRepository: gh<_i894.ProfileRepository>(),
+    ),
+  );
+  gh.lazySingleton<_i539.ConfirmExtraUseCase>(
+    () => _i539.ConfirmExtraUseCase(
+      repositories: gh<_i417.NotificationRepositories>(),
+    ),
+  );
+  gh.lazySingleton<_i412.GetAllNotificationUseCase>(
+    () => _i412.GetAllNotificationUseCase(
+      repositories: gh<_i417.NotificationRepositories>(),
+    ),
+  );
+  gh.lazySingleton<_i730.GetMarkUseCase>(
+    () => _i730.GetMarkUseCase(
+      repositories: gh<_i417.NotificationRepositories>(),
+    ),
+  );
+  gh.lazySingleton<_i47.RejectExtraUseCase>(
+    () => _i47.RejectExtraUseCase(
+      repositories: gh<_i417.NotificationRepositories>(),
     ),
   );
   gh.lazySingleton<_i16.VersionRepositories>(
@@ -182,6 +242,12 @@ _i174.GetIt $initGetIt(
       gh<_i522.GetAllFieldUseCase>(),
       gh<_i603.GetAllFieldSlotUseCase>(),
       gh<_i1019.GetFieldDetailsUseCase>(),
+    ),
+  );
+  gh.lazySingleton<_i29.NotificationBloc>(
+    () => _i29.NotificationBloc(
+      gh<_i412.GetAllNotificationUseCase>(),
+      gh<_i730.GetMarkUseCase>(),
     ),
   );
   gh.lazySingleton<_i458.AcceptChallengeUseCase>(
@@ -294,6 +360,9 @@ _i174.GetIt $initGetIt(
     () => _i1023.GetVersionUseCase(
       authRepositories: gh<_i16.VersionRepositories>(),
     ),
+  );
+  gh.factory<_i65.ChatBloc>(
+    () => _i65.ChatBloc(gh<_i837.SendMessageUseCase>()),
   );
   gh.factory<_i797.AuthBloc>(
     () => _i797.AuthBloc(

@@ -1,4 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:footarena/common/extensions/extensions.dart';
+import 'package:footarena/router/app_router.dart';
+
+import '../../../notification/presentation/pages/notification_screen.dart';
 
 class HomeHeader extends StatelessWidget {
   final TextEditingController? searchController;
@@ -58,11 +62,16 @@ class HomeHeader extends StatelessWidget {
                   color: Colors.white,
                   shape: BoxShape.circle,
                 ),
-                child: const Center(
-                  child: Icon(
-                    Icons.sports_soccer,
-                    color: Color(0xFF3B82F6),
-                    size: 28,
+                child:  Center(
+                  child: GestureDetector(
+                    onTap: (){
+                      context.pushNamed(RouteName.notificationScreen);
+                    },
+                    child: Icon(
+                      Icons.notifications,
+                      color:context.primarySwatch,
+                      size: 28,
+                    ),
                   ),
                 ),
               ),

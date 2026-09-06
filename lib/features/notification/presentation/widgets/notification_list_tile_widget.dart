@@ -32,16 +32,15 @@ class NotificationListTileWidget extends StatelessWidget {
                   mainAxisSize: MainAxisSize.min,
                   children: [
                     Text(
-                      notificationModel.body!,
+                      notificationModel.data?.title??'Title',
                       style: context.labelSmall(fontSize: 16),
                       maxLines: 2,
                       overflow: TextOverflow.ellipsis,
                     ),
                     SizedBox(height: 4),
                     Text(
-                      formatNotificationTime(
-                        notificationModel.createdAt.toString(),
-                      ),
+                      notificationModel.data?.body??'Body',
+
                       style: context.bodySmall(fontSize: 14),
                     ),
                   ],

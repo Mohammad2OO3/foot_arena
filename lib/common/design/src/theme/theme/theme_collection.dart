@@ -123,7 +123,7 @@ class ThemeCollection {
         ),
       ),
       floatingActionButtonTheme: FloatingActionButtonThemeData(
-        backgroundColor: palette.primary,
+        backgroundColor: palette.primarySwatch,
         foregroundColor: palette.onPrimary,
         elevation: 2,
         shape: const StadiumBorder(),

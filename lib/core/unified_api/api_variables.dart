@@ -73,6 +73,7 @@ class ApiVariables {
       _user(path: "myPhotos", queryParameters: queryParams);
 
   static Uri updateMyPassword() => _user(path: "updateMyPassword");
+  static Uri postMessage() => _mainUri(path: "ai/message");
 
 
     //community

@@ -96,6 +96,9 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       },
       (r) {
         emit(state.copyWith(signData: state.signData.setSuccess()));
+        AppVariables.token = r.data!.token;
+        AppVariables.user = r.data!.user!;
+        getIt<ApiClient>().resetHeader();
       },
     );
 

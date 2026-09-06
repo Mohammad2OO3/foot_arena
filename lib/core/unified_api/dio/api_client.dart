@@ -21,8 +21,8 @@ class ApiClient {
       };
 
     dio.options
-      ..connectTimeout = const Duration(seconds: 30)
-      ..receiveTimeout = const Duration(seconds: 30)
+      ..connectTimeout = const Duration(seconds: 60)
+      ..receiveTimeout = const Duration(seconds: 60)
       ..headers = {
         'Accept': 'application/json',
         if (HelperFunc.isAuth())
@@ -37,8 +37,8 @@ class ApiClient {
   resetHeader() {
     dio.options.headers.clear();
     dio
-      ..options.connectTimeout = const Duration(milliseconds: 30000)
-      ..options.receiveTimeout = const Duration(milliseconds: 30000)
+      ..options.connectTimeout = const Duration(seconds: 60)
+      ..options.receiveTimeout = const Duration(seconds: 60)
       ..httpClientAdapter
       ..options.headers = {
         'Lang': AppVariables.getCurrentLang(),
@@ -71,8 +71,7 @@ class ApiClient {
         CancelToken? cancelToken,
         ProgressCallback? onSendProgress,
         ProgressCallback? onReceiveProgress,
-      })
-  async {
+      }) async {
     return await dio.postUri(
       uri,
       data: data,

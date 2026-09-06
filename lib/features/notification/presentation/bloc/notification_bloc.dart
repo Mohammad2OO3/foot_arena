@@ -6,7 +6,6 @@ import '../../../../common/helper/src/pagination_state_model.dart';
 import '../../../../common/models/notification_model.dart';
 import '../../../../core/use_case/use_case.dart';
 import 'package:injectable/injectable.dart';
-import '../../data/model/get_all_notification_response.dart';
 import '../../domin/use_cases/get_all_notification_use_case.dart';
 import '../../domin/use_cases/post_mark_all_use_case.dart';
 
@@ -118,14 +117,14 @@ class NotificationBloc extends Bloc<NotificationEvent, NotificationState> {
         (r) {
           final list = r.data!;
 
-          final bool isNew = list.any((item) => item.isRead == false);
+          // final bool isNew = list.any((item) => item.isRead == false);
 
           emit(
             state.copyWith(
               getAllNotification: state.getAllNotification.setSuccess(
                 data: r.data!,
               ),
-              isNew: isNew,
+              // isNew: isNew,
             ),
           );
         },

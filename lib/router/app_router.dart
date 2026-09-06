@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:footarena/features/chat/presentation/pages/message_screen.dart';
 import 'package:footarena/features/community/presentation/pages/add_team_screen.dart';
 import 'package:footarena/features/community/presentation/pages/team_details_page.dart';
 import 'package:footarena/features/splash/page/splash_screen.dart';
@@ -9,6 +10,7 @@ import '../features/auth/presentation/pages/CompleteProfileScreen.dart';
 import '../features/auth/presentation/pages/login_screen.dart';
 import '../features/community/presentation/pages/community_page.dart';
 import '../features/home/presentation/pages/pitch_details_page.dart';
+import '../features/notification/presentation/pages/notification_screen.dart';
 import '../features/onboarding/pages/onboarding.dart';
 import '../features/profile/presentation/bloc/profile_bloc.dart';
 import '../features/profile/presentation/bloc/profile_event.dart';
@@ -30,6 +32,8 @@ class RouteName {
   static const editProfile = "EditProfile";
   static const teamDetails = "TeamDetailsPage";
   static const addTeamScreen = "AddTeamScreen";
+  static const message = "Message";
+  static const notificationScreen = "NotificationScreen";
 
   // مسار شاشة البروفايل
 }
@@ -44,7 +48,17 @@ class RouteManager {
           settings: routeSettings,
           builder: (_) => OnBoardingScreen(),
         );
-        case RouteName.editProfile:
+      case RouteName.notificationScreen:
+        return MaterialPageRoute(
+          settings: routeSettings,
+          builder: (_) => NotificationScreen(),
+        );
+      case RouteName.message:
+        return MaterialPageRoute(
+          settings: routeSettings,
+          builder: (_) => MessageScreen(),
+        );
+      case RouteName.editProfile:
         return MaterialPageRoute(
           settings: routeSettings,
           builder: (_) => EditProfilePage(
@@ -97,13 +111,12 @@ class RouteManager {
           settings: routeSettings,
           builder: (_) => const CommunityPage(),
         );
-        case RouteName.teamDetails:
+      case RouteName.teamDetails:
         return MaterialPageRoute(
           settings: routeSettings,
-          builder: (_) =>  TeamDetailsPage(
+          builder: (_) => TeamDetailsPage(
             args: routeSettings.arguments as TeamDetailsPageParams,
           ),
-
         );
 
       case RouteName.profile:

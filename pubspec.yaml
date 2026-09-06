@@ -44,6 +44,12 @@ dependencies:
   persistent_bottom_nav_bar_v2: ^6.4.0
   firebase_core: ^4.14.0
   flutter_staggered_animations: ^1.1.1
+  uuid: ^4.6.0
+  flutter_sound: ^9.30.0
+  permission_handler: 11.3.1
+  speech_to_text: ^7.4.0
+  just_audio: ^0.10.6
+  bubble: ^1.2.1
 
 dev_dependencies:
   flutter_test:

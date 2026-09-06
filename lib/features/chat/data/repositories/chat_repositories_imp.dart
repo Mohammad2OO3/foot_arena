@@ -1,0 +1,23 @@
+import '../../../../common/helper/src/typedef.dart';
+import '../../../../core/unified_api/error/error_handeler.dart';
+import 'package:injectable/injectable.dart';
+import '../../domin/repositories/chat_repositories.dart';
+import '../data_source/chat_remote_data.dart';
+import '../model/chat_response.dart';
+
+@LazySingleton(as: ChatRepositories)
+class ChatRepositoriesImp with HandlingException implements ChatRepositories {
+  final ChatRemoteData _remoteData;
+
+  ChatRepositoriesImp({required ChatRemoteData remoteData})
+      : _remoteData = remoteData;
+
+
+  @override
+  DataResponse<ChatResponse> sendMessage(BodyMap params)async => wrapHandlingException(
+    tryCall: () => _remoteData.sendMessage(params),
+  );
+
+
+
+}
