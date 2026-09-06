@@ -1,15 +1,18 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:footarena/common/models/user_model.dart';
 import 'package:footarena/features/community/presentation/bloc/community_bloc.dart';
 
 class RequestToJoinTeamWidget extends StatelessWidget {
 final UserModel userModel;
 final CommunityBloc communityBloc;
+final int teamId;
 
 const RequestToJoinTeamWidget({
 super.key,
 required this.userModel,
 required this.communityBloc,
+required this.teamId,
 });
 
 String get name {
@@ -43,7 +46,40 @@ return userModel.position?.trim().isNotEmpty == true
 
 @override
 Widget build(BuildContext context) {
-return Container(
+return MultiBlocListener(
+listeners: [
+BlocListener<CommunityBloc, CommunityState>(
+bloc: communityBloc,
+listenWhen: (previous, current) =>
+previous.acceptRequestToJointData !=
+current.acceptRequestToJointData,
+listener: (context, state) {
+state.acceptRequestToJointData.listenerFunction(
+onSuccess: () {
+communityBloc.add(
+GetAllRequestToJointEvent(id: teamId),
+);
+},
+);
+},
+),
+BlocListener<CommunityBloc, CommunityState>(
+bloc: communityBloc,
+listenWhen: (previous, current) =>
+previous.rejectRequestToJointData !=
+current.rejectRequestToJointData,
+listener: (context, state) {
+state.rejectRequestToJointData.listenerFunction(
+onSuccess: () {
+communityBloc.add(
+GetAllRequestToJointEvent(id: teamId),
+);
+},
+);
+},
+),
+],
+child: Container(
 margin: const EdgeInsets.only(bottom: 12),
 decoration: BoxDecoration(
 color: const Color(0xFF0A121D),
@@ -81,11 +117,10 @@ fontSize: 16,
 ),
 subtitle: Padding(
 padding: const EdgeInsets.only(top: 6),
-child: Row(
+child: Column(
+crossAxisAlignment: CrossAxisAlignment.start,
 children: [
-// Position
-Expanded(
-child: Row(
+Row(
 children: [
 const Icon(
 Icons.sports_soccer,
@@ -104,13 +139,7 @@ fontSize: 12,
 ),
 ),
 ),
-],
-),
-),
-
-// Experience
-Row(
-children: [
+const SizedBox(width: 12),
 const Icon(
 Icons.workspace_premium_outlined,
 color: Color(0xFF8C9BAE),
@@ -124,14 +153,7 @@ color: Color(0xFF8C9BAE),
 fontSize: 12,
 ),
 ),
-],
-),
-
 const SizedBox(width: 12),
-
-// Height
-Row(
-children: [
 const Icon(
 Icons.height,
 color: Color(0xFF8C9BAE),
@@ -147,13 +169,75 @@ fontSize: 12,
 ),
 ],
 ),
+const SizedBox(height: 12),
+Row(
+children: [
+Expanded(
+child: ElevatedButton(
+onPressed: () {
+communityBloc.add(
+AcceptRequestToJointEvent(
+id: userModel.id!,
+),
+);
+},
+style: ElevatedButton.styleFrom(
+backgroundColor: const Color(0xFF22C55E),
+foregroundColor: Colors.white,
+elevation: 0,
+minimumSize: const Size(
+double.infinity,
+40,
+),
+shape: RoundedRectangleBorder(
+borderRadius: BorderRadius.circular(10),
+),
+),
+child: const Text(
+'Accept',
+style: TextStyle(
+fontSize: 13,
+fontWeight: FontWeight.bold,
+),
+),
+),
+),
+const SizedBox(width: 8),
+Expanded(
+child: ElevatedButton(
+onPressed: () {
+communityBloc.add(
+RejectRequestToJointEvent(
+id: userModel.id!,
+),
+);
+},
+style: ElevatedButton.styleFrom(
+backgroundColor: const Color(0xFFEF4444),
+foregroundColor: Colors.white,
+elevation: 0,
+minimumSize: const Size(
+double.infinity,
+40,
+),
+shape: RoundedRectangleBorder(
+borderRadius: BorderRadius.circular(10),
+),
+),
+child: const Text(
+'Reject',
+style: TextStyle(
+fontSize: 13,
+fontWeight: FontWeight.bold,
+),
+),
+),
+),
+],
+),
 ],
 ),
 ),
-trailing: const Icon(
-Icons.arrow_forward_ios,
-color: Color(0xFF32455E),
-size: 14,
 ),
 ),
 );

@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:footarena/common/design/design.dart';
 import 'package:footarena/common/extensions/extensions.dart';
 
+import '../../../../common/models/user_model.dart';
 import '../bloc/community_bloc.dart';
 import '../widgets/member_tile_widget.dart';
 import '../widgets/request_to_join_team_widget.dart';
@@ -34,14 +35,16 @@ class _MyTeamRequestScreenState extends State<MyTeamRequestScreen> {
         backgroundColor: Colors.transparent,
         elevation: 0,
         leading: const BackButton(color: Colors.white),
-        title: Text("Requests", style: context.bodyMedium(color: Colors.white)),
+        title: Text("Requests", style: context.bodyMedium(color: Colors.white,fontSize: 18)),
       ),
       body: Container(
+        padding: EdgeInsets.symmetric(horizontal: 15),
         child: BlocBuilder<CommunityBloc, CommunityState>(
           bloc: communityBloc,
           builder: (context, state) {
             return state.getAllRequestToJointData.builder(
               onSuccess: (data) {
+
                 return data!.data!.isEmpty
                     ? EmptyWidget()
                     : ListView(
@@ -50,6 +53,7 @@ class _MyTeamRequestScreenState extends State<MyTeamRequestScreen> {
                               (e) => RequestToJoinTeamWidget(
                                 communityBloc: communityBloc,
                                 userModel: e.user!,
+                                teamId: widget.args.teamId,
                               ),
                             )
                             .toList(),

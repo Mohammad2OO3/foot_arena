@@ -124,15 +124,15 @@ class TeamCard extends StatelessWidget {
                     child: const Text("Join Team"),
                   ),
                 ),
-                const SizedBox(width: 8),
-                Expanded(
-                  child: OutlinedButton.icon(
-                    onPressed: () {},
-
-                    icon: const Icon(Icons.sports_mma_outlined),
-                    label: const Text("Challenge"),
-                  ),
-                ),
+                // const SizedBox(width: 8),
+                // Expanded(
+                //   child: OutlinedButton.icon(
+                //     onPressed: () {},
+                //
+                //     icon: const Icon(Icons.sports_mma_outlined),
+                //     label: const Text("Challenge"),
+                //   ),
+                //),
               ],
             ),
           ],

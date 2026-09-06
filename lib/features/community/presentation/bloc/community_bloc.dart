@@ -430,7 +430,8 @@ class CommunityBloc extends Bloc<CommunityEvent, CommunityState> {
   FutureOr<void> _acceptRequestToJoint(
       AcceptRequestToJointEvent event,
       Emitter<CommunityState> emit,
-      ) async {
+      )
+  async {
     emit(
       state.copyWith(
         acceptRequestToJointData:
@@ -476,7 +477,8 @@ class CommunityBloc extends Bloc<CommunityEvent, CommunityState> {
   FutureOr<void> _rejectRequestToJoint(
       RejectRequestToJointEvent event,
       Emitter<CommunityState> emit,
-      ) async {
+      )
+  async {
     emit(
       state.copyWith(
         rejectRequestToJointData:

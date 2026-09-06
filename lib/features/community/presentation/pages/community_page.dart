@@ -51,90 +51,85 @@ class _CommunityPageState extends State<CommunityPage> {
               const SizedBox(height: 16),
               Expanded(
                 child: BlocConsumer<CommunityBloc, CommunityState>(
-                  bloc: _communityBloc,
                   listener: (context, state) {
+                    // state.addChallengeData.listenerFunction(
+                    //   onSuccess: () {},
+                    // );
                     state.requestToJointData.listenerFunction(onSuccess: () {});
+
                   },
+
+                  bloc: _communityBloc,
                   builder: (context, state) {
-                    return BlocConsumer<CommunityBloc, CommunityState>(
-                      listener: (context, state) {
-                        state.addChallengeData.listenerFunction(
-                          onSuccess: () {},
+                    switch (state.selectedTab) {
+                      case CommunityTab.matches:
+                        return state.getAllChallengeData.builder(
+                          onSuccess: (data) {
+                            return data!.data!.isEmpty
+                                ? EmptyWidget()
+                                : ListView(
+                                    children: data.data!
+                                        .map(
+                                          (e) => MatchCard(
+                                            challengeModel: e,
+                                            communityBloc: _communityBloc,
+                                          ),
+                                        )
+                                        .toList(),
+                                  );
+                          },
+                          onTapRetry: () =>
+                              _communityBloc.add(GetAllChallengeEvent()),
                         );
-                      },
-                      bloc: _communityBloc,
-                      builder: (context, state) {
-                        switch (state.selectedTab) {
-                          case CommunityTab.matches:
-                            return state.getAllChallengeData.builder(
-                              onSuccess: (data) {
-                                return data!.data!.isEmpty
-                                    ? EmptyWidget()
-                                    : ListView(
-                                        children: data.data!
-                                            .map(
-                                              (e) => MatchCard(
-                                                challengeModel: e,
-                                                communityBloc: _communityBloc,
-                                              ),
-                                            )
-                                            .toList(),
-                                      );
-                              },
-                              onTapRetry: () =>
-                                  _communityBloc.add(GetAllChallengeEvent()),
-                            );
-                          case CommunityTab.players:
-                            return state.getAllPlayersData.builder(
-                              onSuccess: (data) {
-                                return data!.data!.isEmpty
-                                    ? EmptyWidget()
-                                    : GridView.count(
-                                        crossAxisCount: 2,
-                                        crossAxisSpacing: 12,
-                                        mainAxisSpacing: 12,
-                                        childAspectRatio: 0.72,
-                                        children: data.data!
-                                            .map(
-                                              (e) => PlayerCard(
-                                                id: e.id!,
-                                                name:
-                                                    '${e.firstName} ${e.lastName}',
-                                                position:
-                                                    e.position ?? 'position',
-                                                level: e.experienceYears ?? 0,
-                                                communityBloc: _communityBloc,
-                                                age: e.age ?? 18,
-                                              ),
-                                            )
-                                            .toList(),
-                                      );
-                              },
-                              onTapRetry: () =>
-                                  _communityBloc.add(GetAllPlayersEvent()),
-                            );
-                          case CommunityTab.teams:
-                            return state.getAllTeamData.builder(
-                              onSuccess: (data) {
-                                return data!.data!.isEmpty
-                                    ? EmptyWidget()
-                                    : ListView(
-                                        children: data.data!
-                                            .map(
-                                              (e) => TeamCard(
-                                                communityBloc: _communityBloc,
-                                                teamModel: e,
-                                              ),
-                                            )
-                                            .toList(),
-                                      );
-                              },
-                              onTapRetry: () =>
-                                  _communityBloc.add(GetAllTeamEvent()),
-                            );
-                        }
-                      },
-                    );
+                      case CommunityTab.players:
+                        return state.getAllPlayersData.builder(
+                          onSuccess: (data) {
+                            return data!.data!.isEmpty
+                                ? EmptyWidget()
+                                : GridView.count(
+                                    crossAxisCount: 2,
+                                    crossAxisSpacing: 12,
+                                    mainAxisSpacing: 12,
+                                    childAspectRatio: 0.72,
+                                    children: data.data!
+                                        .map(
+                                          (e) => PlayerCard(
+                                            id: e.id!,
+                                            name:
+                                                '${e.firstName} ${e.lastName}',
+                                            position:
+                                                e.position ?? 'position',
+                                            level: e.experienceYears ?? 0,
+                                            communityBloc: _communityBloc,
+                                            age: e.age ?? 18,
+                                          ),
+                                        )
+                                        .toList(),
+                                  );
+                          },
+                          onTapRetry: () =>
+                              _communityBloc.add(GetAllPlayersEvent()),
+                        );
+                      case CommunityTab.teams:
+                        return state.getAllTeamData.builder(
+                          onSuccess: (data) {
+                            return data!.data!.isEmpty
+                                ? EmptyWidget()
+                                : ListView(
+                                    children: data.data!
+                                        .map(
+                                          (e) => TeamCard(
+                                            communityBloc: _communityBloc,
+                                            teamModel: e,
+                                          ),
+                                        )
+                                        .toList(),
+                                  );
+                          },
+                          onTapRetry: () =>
+                              _communityBloc.add(GetAllTeamEvent()),
+                        );
+                    }
                   },
                 ),
               ),
