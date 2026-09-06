@@ -98,7 +98,7 @@ class ThemeCollection {
       elevatedButtonTheme: ElevatedButtonThemeData(
         style: ElevatedButton.styleFrom(
           padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 10),
-          backgroundColor: palette.primary,
+          backgroundColor: palette.primarySwatch,
           foregroundColor: palette.onPrimary,
           elevation: 1,
           shape: RoundedRectangleBorder(

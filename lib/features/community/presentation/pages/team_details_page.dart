@@ -1,11 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:footarena/common/extensions/extensions.dart';
 import 'package:footarena/core/di/injection.dart';
 import 'package:footarena/features/community/presentation/bloc/community_bloc.dart';
+import 'package:footarena/router/app_router.dart';
 import '../widgets/member_tile_widget.dart';
 import '../widgets/team_details_widget.dart';
 import '../widgets/team_header_card.dart';
 import '../widgets/team_stats_card.dart';
+import 'my_team_request_screen.dart';
 
 class TeamDetailsPage extends StatefulWidget {
   final TeamDetailsPageParams args;
@@ -42,6 +45,21 @@ class _TeamDetailsPageState extends State<TeamDetailsPage> {
             backgroundColor: Colors.transparent,
             elevation: 0,
             leading: const BackButton(color: Colors.white),
+            actions: widget.args.isMyTeam
+                ? [
+                    IconButton(
+                      icon: Icon(Icons.notifications, color: Colors.white),
+                      onPressed: () {
+                        context.pushNamed(RouteName.myTeamRequestScreen,
+                            arguments:
+                            MyTeamRequestScreenParams(
+                          communityBloc: communityBloc,
+                          teamId: state.getMyTeamData.data!.data!.id!
+                        ));
+                      },
+                    ),
+                  ]
+                : [],
           ),
           body: widget.args.isMyTeam
               ? state.getMyTeamData.builder(

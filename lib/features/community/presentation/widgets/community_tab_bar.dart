@@ -7,7 +7,6 @@ class CommunityTabBar extends StatelessWidget {
 
   const CommunityTabBar({super.key, required this.communityBloc});
 
-
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<CommunityBloc, CommunityState>(
@@ -27,12 +26,12 @@ class CommunityTabBar extends StatelessWidget {
                 CommunityTab.matches,
                 state.selectedTab,
               ),
-              // _buildTabItem(
-              //   context,
-              //   "Players",
-              //   CommunityTab.players,
-              //   state.selectedTab,
-              // ),
+              _buildTabItem(
+                context,
+                "Players",
+                CommunityTab.players,
+                state.selectedTab,
+              ),
               _buildTabItem(
                 context,
                 "Teams",
@@ -55,24 +54,19 @@ class CommunityTabBar extends StatelessWidget {
     final isSelected = selectedTab == tab;
     return Expanded(
       child: GestureDetector(
-        onTap: isSelected?null:() {
-          communityBloc.add(ChangeTabEvent(selectedTab: tab));
-          if(tab==CommunityTab.matches){
-
-            communityBloc.add(GetAllChallengeEvent());
-
-
-          } if (tab==CommunityTab.teams){
-
-            communityBloc.add(GetAllTeamEvent());
-
-          }else{
-
-          }
-
-
-
-        },
+        onTap: isSelected
+            ? null
+            : () {
+                communityBloc.add(ChangeTabEvent(selectedTab: tab));
+                if (tab == CommunityTab.matches) {
+                  communityBloc.add(GetAllChallengeEvent());
+                }
+                if (tab == CommunityTab.teams) {
+                  communityBloc.add(GetAllTeamEvent());
+                } else if (tab == CommunityTab.players) {
+                  communityBloc.add(GetAllPlayersEvent());
+                }
+              },
         child: Container(
           padding: const EdgeInsets.symmetric(vertical: 10),
           decoration: BoxDecoration(

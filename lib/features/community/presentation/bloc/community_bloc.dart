@@ -1,5 +1,7 @@
 import 'dart:async';
 import 'package:bloc/bloc.dart';
+import 'package:footarena/features/community/data/model/get_all_players_response.dart';
+import 'package:footarena/features/community/domin/use_cases/get_all_players_use_case.dart';
 import 'package:injectable/injectable.dart';
 import '../../../../common/helper/src/data_state_model.dart';
 import '../../../../core/use_case/use_case.dart';
@@ -48,6 +50,7 @@ class CommunityBloc extends Bloc<CommunityEvent, CommunityState> {
   final AcceptChallengeUseCase _acceptChallengeUseCase;
   final CancelChallengeUseCase _cancelChallengeUseCase;
   final RejectChallengeUseCase _rejectChallengeUseCase;
+  final GetAllPlayersUseCase _getAllPlayersUseCase;
 
   CommunityBloc(
       this._getAllTeamUseCase,
@@ -65,6 +68,7 @@ class CommunityBloc extends Bloc<CommunityEvent, CommunityState> {
       this._acceptChallengeUseCase,
       this._cancelChallengeUseCase,
       this._rejectChallengeUseCase,
+      this._getAllPlayersUseCase,
       ) : super(const CommunityState()) {
     on<ChangeTabEvent>(_changeTab);
 
@@ -88,8 +92,45 @@ class CommunityBloc extends Bloc<CommunityEvent, CommunityState> {
     on<AcceptChallengeEvent>(_acceptChallenge);
     on<CancelChallengeEvent>(_cancelChallenge);
     on<RejectChallengeEvent>(_rejectChallenge);
+    on<GetAllPlayersEvent>(_getAllPlayers);
   }
 
+  FutureOr<void> _getAllPlayers(
+      GetAllPlayersEvent event,
+      Emitter<CommunityState> emit,
+      )
+  async {
+    emit(
+      state.copyWith(
+        getAllPlayersData: state.getAllPlayersData.setLoading(),
+      ),
+    );
+
+    final val = await _getAllPlayersUseCase(NoParams());
+
+    val.fold(
+          (l) {
+        emit(
+          state.copyWith(
+            getAllPlayersData: state.getAllPlayersData.setFaild(
+              errorMessage: l.message,
+            ),
+          ),
+        );
+      },
+          (r) {
+        emit(
+          state.copyWith(
+            getAllPlayersData: state.getAllPlayersData.setSuccess(
+              data: r,
+            ),
+          ),
+        );
+      },
+    );
+
+
+  }
   // ---------------------------------------------------------------------------
   // Tab
   // ---------------------------------------------------------------------------
@@ -112,7 +153,8 @@ class CommunityBloc extends Bloc<CommunityEvent, CommunityState> {
   FutureOr<void> _getAllTeam(
       GetAllTeamEvent event,
       Emitter<CommunityState> emit,
-      ) async {
+      )
+  async {
     emit(
       state.copyWith(
         getAllTeamData: state.getAllTeamData.setLoading(),

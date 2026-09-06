@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 class MemberTileWidget extends StatelessWidget {
   final String name;
   final String joinedDate;
+  final String position;
   final String initials;
   final Color avatarColor;
   final IconData? badgeIcon;
@@ -14,6 +15,7 @@ class MemberTileWidget extends StatelessWidget {
     required this.joinedDate,
     required this.initials,
     required this.avatarColor,
+    required this.position,
     this.badgeIcon,
     this.onTap,
   });
@@ -75,7 +77,7 @@ class MemberTileWidget extends StatelessWidget {
           ),
         ),
         subtitle: Text(
-          "Joined $joinedDate",
+          position ,
           style: const TextStyle(
             color: Color(0xFF8C9BAE),
             fontSize: 12,

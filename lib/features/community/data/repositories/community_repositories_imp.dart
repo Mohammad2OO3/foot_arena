@@ -1,5 +1,6 @@
 import 'package:footarena/features/community/data/model/challenge_response.dart';
 import 'package:footarena/features/community/data/model/get_all_challenge_response.dart';
+import 'package:footarena/features/community/data/model/get_all_players_response.dart';
 import 'package:footarena/features/community/data/model/get_all_request_to_team_response.dart';
 import 'package:footarena/features/community/data/model/get_all_team_response.dart';
 import 'package:footarena/features/community/data/model/request_to_team_response.dart';
@@ -85,4 +86,9 @@ class CommunityRepositoriesImp
   @override
   DataResponse<GetMyTeamResponse> transferTeam(TransferTeamParams params) =>
       wrapHandlingException(tryCall: () => _remoteData.transferTeam(params));
+
+  @override
+  DataResponse<GetAllPlayersResponse> getAllPlayers()async=>
+      wrapHandlingException(tryCall: () => _remoteData.getAllPlayers());
+
 }

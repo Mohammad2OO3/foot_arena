@@ -27,5 +27,21 @@
         "defaultError": "Default Error",
         "cacheError": "Cache Error",
         "noInternetError": "No Internet Connection"
+    },
+    "error": {
+        "loadFailed": "An error occurred while loading",
+        "checkConnection": "Check your internet connection and try again",
+        "noCars": "You have no added cars",
+        "addCarNow": "Add a car now and enjoy absolute cleanliness with us",
+        "noOrders": "You have no orders yet",
+        "noCart": "There are no items in the cart yet",
+        "orderToCart": "Order any available accessory product to follow its status here!",
+        "orderToTrack": "Order any car wash service or accessory and track it here!",
+        "noSearchResult": "No matching search results",
+        "noSearchTextMatch": "It seems what you're looking for is not available in our products. Try a different search phrasing.",
+        "noFilterResult": "The filters you used may have resulted in no search results. Try adjusting them for better results.",
+        "resetFilters": "Reset applied filters",
+        "noNotifications": "You have no notifications yet",
+        "notificationNote": "Notifications will appear here once received."
     }
 }

@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import '../../../extensions/extensions.dart';
 import '../../../helper/src/locale_keys.dart';
 
-
 class AppErrorWidget extends StatelessWidget {
   const AppErrorWidget({
     super.key,
@@ -23,18 +22,35 @@ class AppErrorWidget extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            // Assets.images.png.error.emptyCleaningImage.image(),
-            const SizedBox(height: 24),
             Text(
               LocaleKeys.errorLoadFailed.tr(),
-              style: context.labelSmall(fontSize: 24, fontFamily: "Nasaq"),
+              style: context.labelSmall(
+                  fontSize: 18,
+                  color: context.primarySwatch
+              ),
               textAlign: TextAlign.center,
             ),
             const SizedBox(height: 8),
             Text(
               errorMessage,
-              style: context.bodySmall(fontSize: 16),
+              style: context.bodySmall(fontSize: 12,
+                  color: Colors.white
+
+              ),
               textAlign: TextAlign.center,
+            ),
+            const SizedBox(height: 12),
+
+            SizedBox(
+              width: context.width,
+
+              child: ElevatedButton(
+                onPressed:onTap,
+                child: Text(
+                  "Retry",
+                  style: context.bodyMedium(color: Colors.white),
+                ),
+              ),
             ),
           ],
         ),
@@ -71,20 +87,36 @@ class AppErrorWidgetReFresh extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     // Assets.images.png.error.emptyCleaningImage.image(),
-                    const SizedBox(height: 24),
+
                     Text(
                       LocaleKeys.errorLoadFailed.tr(),
                       style: context.labelSmall(
-                        fontSize: 24,
-                        fontFamily: "Nasaq",
+                        fontSize: 18,
+                        color: context.primarySwatch
                       ),
                       textAlign: TextAlign.center,
                     ),
                     const SizedBox(height: 8),
                     Text(
                       errorMessage,
-                      style: context.bodySmall(fontSize: 16),
+                      style: context.bodySmall(fontSize: 12,
+                        color: Colors.white
+
+                    ),
                       textAlign: TextAlign.center,
+                    ),
+                    const SizedBox(height: 12),
+
+                    Container(
+                      width: context.width,
+
+                      child: ElevatedButton(
+                        onPressed:onTap,
+                        child: Text(
+                          "Retry",
+                          style: context.bodyMedium(color: Colors.white),
+                        ),
+                      ),
                     ),
                   ],
                 ),
@@ -97,15 +129,13 @@ class AppErrorWidgetReFresh extends StatelessWidget {
   }
 }
 
-
 class AppErrorWidgetNullReFresh extends StatelessWidget {
   const AppErrorWidgetNullReFresh({
     super.key,
     required this.errorMessage,
     required this.errorSubMessage,
     required this.onTap,
-    this.image
-
+    this.image,
   });
 
   final String errorMessage;
@@ -130,16 +160,14 @@ class AppErrorWidgetNullReFresh extends StatelessWidget {
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                  // image==null?Assets.images.png.error.emptyMyCars.image(
-                  //   width: context.width*.63
-                  // )  :Image.asset(image!,
-                  //     width: context.width*.63),
-                    const SizedBox(height: 24),
+                    // image==null?Assets.images.png.error.emptyMyCars.image(
+                    //   width: context.width*.63
+                    // )  :Image.asset(image!,
+                    //     width: context.width*.63),
                     Text(
                       errorMessage,
                       style: context.labelSmall(
                         fontSize: 24,
-                        fontFamily: "Nasaq",
                       ),
                       textAlign: TextAlign.center,
                     ),

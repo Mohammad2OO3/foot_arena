@@ -18,7 +18,7 @@ class HomeHeader extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       width: double.infinity,
-      padding: const EdgeInsets.fromLTRB(20, 20, 20, 24),
+      padding:  EdgeInsets.fromLTRB(20, context.statusBarHeight, 20, 24),
       decoration: const BoxDecoration(
         color: Color(0xFF00A843), // Green Header Color
         borderRadius: BorderRadius.only(

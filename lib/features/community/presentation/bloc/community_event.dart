@@ -19,6 +19,7 @@ class GetTeamDetailsEvent extends CommunityEvent {
 }
 
 class GetMyTeamEvent extends CommunityEvent {}
+class GetAllPlayersEvent extends CommunityEvent {}
 
 class AddTeamEvent extends CommunityEvent {
   final AddTeamParams params;

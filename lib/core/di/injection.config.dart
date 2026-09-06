@@ -48,6 +48,8 @@ import '../../features/community/domin/use_cases/cancel_challenge_use_case.dart'
     as _i46;
 import '../../features/community/domin/use_cases/get_all_challenge_use_case.dart'
     as _i37;
+import '../../features/community/domin/use_cases/get_all_players_use_case.dart'
+    as _i136;
 import '../../features/community/domin/use_cases/get_all_request_to_join_use_case.dart'
     as _i493;
 import '../../features/community/domin/use_cases/get_all_team_use_case.dart'
@@ -278,6 +280,11 @@ _i174.GetIt $initGetIt(
       repositories: gh<_i671.CommunityRepositories>(),
     ),
   );
+  gh.lazySingleton<_i136.GetAllPlayersUseCase>(
+    () => _i136.GetAllPlayersUseCase(
+      repositories: gh<_i671.CommunityRepositories>(),
+    ),
+  );
   gh.lazySingleton<_i493.GetAllRequestToJoinUseCase>(
     () => _i493.GetAllRequestToJoinUseCase(
       repositories: gh<_i671.CommunityRepositories>(),
@@ -322,25 +329,6 @@ _i174.GetIt $initGetIt(
       repositories: gh<_i671.CommunityRepositories>(),
     ),
   );
-  gh.factory<_i354.CommunityBloc>(
-    () => _i354.CommunityBloc(
-      gh<_i425.GetAllTeamUseCase>(),
-      gh<_i578.GetTeamDetailsUseCase>(),
-      gh<_i839.GetMyTeamUseCase>(),
-      gh<_i43.AddTeamUseCase>(),
-      gh<_i290.TransferTeamUseCase>(),
-      gh<_i493.GetAllRequestToJoinUseCase>(),
-      gh<_i624.RequestToJoinUseCase>(),
-      gh<_i245.AcceptRequestToJoinUseCase>(),
-      gh<_i54.RejectRequestToJoinUseCase>(),
-      gh<_i37.GetAllChallengeUseCase>(),
-      gh<_i640.GetChallengeDetailsUseCase>(),
-      gh<_i136.AddChallengeUseCase>(),
-      gh<_i458.AcceptChallengeUseCase>(),
-      gh<_i46.CancelChallengeUseCase>(),
-      gh<_i406.RejectChallengeUseCase>(),
-    ),
-  );
   gh.lazySingleton<_i446.LogOutUseCase>(
     () => _i446.LogOutUseCase(authRepositories: gh<_i787.AuthRepository>()),
   );
@@ -363,6 +351,26 @@ _i174.GetIt $initGetIt(
   );
   gh.factory<_i65.ChatBloc>(
     () => _i65.ChatBloc(gh<_i837.SendMessageUseCase>()),
+  );
+  gh.factory<_i354.CommunityBloc>(
+    () => _i354.CommunityBloc(
+      gh<_i425.GetAllTeamUseCase>(),
+      gh<_i578.GetTeamDetailsUseCase>(),
+      gh<_i839.GetMyTeamUseCase>(),
+      gh<_i43.AddTeamUseCase>(),
+      gh<_i290.TransferTeamUseCase>(),
+      gh<_i493.GetAllRequestToJoinUseCase>(),
+      gh<_i624.RequestToJoinUseCase>(),
+      gh<_i245.AcceptRequestToJoinUseCase>(),
+      gh<_i54.RejectRequestToJoinUseCase>(),
+      gh<_i37.GetAllChallengeUseCase>(),
+      gh<_i640.GetChallengeDetailsUseCase>(),
+      gh<_i136.AddChallengeUseCase>(),
+      gh<_i458.AcceptChallengeUseCase>(),
+      gh<_i46.CancelChallengeUseCase>(),
+      gh<_i406.RejectChallengeUseCase>(),
+      gh<_i136.GetAllPlayersUseCase>(),
+    ),
   );
   gh.factory<_i797.AuthBloc>(
     () => _i797.AuthBloc(

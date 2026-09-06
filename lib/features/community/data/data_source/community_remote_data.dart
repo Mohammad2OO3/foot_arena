@@ -1,3 +1,4 @@
+import 'package:footarena/features/community/data/model/get_all_players_response.dart';
 import 'package:injectable/injectable.dart';
 import '../../../../common/helper/src/typedef.dart';
 import '../../../../core/unified_api/api_variables.dart';
@@ -46,9 +47,7 @@ class CommunityRemoteData with HandlingApiManager {
         jsonConvert: getMyTeamResponseFromJson,
       );
 
-
   //////////////////////////////
-
 
   Future<GetAllRequestToTeamResponse> getAllRequestToJoint(int id) async =>
       wrapHandlingApi(
@@ -72,7 +71,6 @@ class CommunityRemoteData with HandlingApiManager {
         tryCall: () => _apiClient.post(ApiVariables.rejectRequestToJoint(id)),
         jsonConvert: requestToTeamResponseFromJson,
       );
-
 
   //////////////////////////////
 
@@ -107,5 +105,10 @@ class CommunityRemoteData with HandlingApiManager {
   Future<ChallengeResponse> rejectChallenge(int id) async => wrapHandlingApi(
     tryCall: () => _apiClient.post(ApiVariables.rejectChallenge(id)),
     jsonConvert: challengeResponseFromJson,
+  );
+
+  Future<GetAllPlayersResponse> getAllPlayers() async => wrapHandlingApi(
+    tryCall: () => _apiClient.get(ApiVariables.getAllPlayers()),
+    jsonConvert: getAllPlayersResponseFromJson,
   );
 }

@@ -1,5 +1,6 @@
 import 'package:footarena/features/community/data/model/challenge_response.dart';
 import 'package:footarena/features/community/data/model/get_all_challenge_response.dart';
+import 'package:footarena/features/community/data/model/get_all_players_response.dart';
 import 'package:footarena/features/community/data/model/get_all_team_response.dart';
 import 'package:footarena/features/community/data/model/get_my_team_response.dart';
 import '../../../../common/helper/src/typedef.dart';
@@ -29,6 +30,10 @@ abstract class CommunityRepositories {
   DataResponse<ChallengeResponse> acceptChallenge(int id);
   DataResponse<ChallengeResponse> cancelChallenge(int id);
   DataResponse<ChallengeResponse> rejectChallenge(int id);
+
+  //////////
+  DataResponse<GetAllPlayersResponse> getAllPlayers();
+
 
 
 

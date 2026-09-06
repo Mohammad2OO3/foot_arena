@@ -96,6 +96,9 @@ class ApiVariables {
   static Uri rejectChallenge(int id) => _mainUri(path: "challenges/$id/reject");
   static Uri cancelChallenge(int id) => _mainUri(path: "challenges/$id/cancel");
 
+  ////
+  static Uri getAllPlayers() => _mainUri(path: "players");
+
  // https://foot-arena.eidosteam.com/api/v1/teams/{team}
 
   //////////////////////////////////////////////////////////////////////////

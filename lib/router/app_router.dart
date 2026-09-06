@@ -9,6 +9,7 @@ import '../core/di/injection.dart'; // تأكد من مسار الـ injection �
 import '../features/auth/presentation/pages/CompleteProfileScreen.dart';
 import '../features/auth/presentation/pages/login_screen.dart';
 import '../features/community/presentation/pages/community_page.dart';
+import '../features/community/presentation/pages/my_team_request_screen.dart';
 import '../features/home/presentation/pages/pitch_details_page.dart';
 import '../features/notification/presentation/pages/notification_screen.dart';
 import '../features/onboarding/pages/onboarding.dart';
@@ -34,6 +35,7 @@ class RouteName {
   static const addTeamScreen = "AddTeamScreen";
   static const message = "Message";
   static const notificationScreen = "NotificationScreen";
+  static const myTeamRequestScreen = "myTeamRequestScreen";
 
   // مسار شاشة البروفايل
 }
@@ -47,6 +49,12 @@ class RouteManager {
         return MaterialPageRoute(
           settings: routeSettings,
           builder: (_) => OnBoardingScreen(),
+        );  case RouteName.myTeamRequestScreen:
+        return MaterialPageRoute(
+          settings: routeSettings,
+          builder: (_) => MyTeamRequestScreen(
+            args: routeSettings.arguments as MyTeamRequestScreenParams,
+          ),
         );
       case RouteName.notificationScreen:
         return MaterialPageRoute(

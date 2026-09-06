@@ -1,7 +1,7 @@
 part of 'community_bloc.dart';
 
 enum CommunityTab { matches,
-  // players,
+  players,
   teams }
 
 class CommunityState {
@@ -27,6 +27,9 @@ class CommunityState {
   final DataStateModel<ChallengeResponse?> acceptChallengeData;
   final DataStateModel<ChallengeResponse?> cancelChallengeData;
   final DataStateModel<ChallengeResponse?> rejectChallengeData;
+  //
+  final DataStateModel<GetAllPlayersResponse?> getAllPlayersData;
+
 
   const CommunityState({
     this.selectedTab = CommunityTab.matches,
@@ -66,6 +69,8 @@ class CommunityState {
     const DataStateModel.setDefultValue(defultValue: null),
     this.rejectChallengeData =
     const DataStateModel.setDefultValue(defultValue: null),
+    this.getAllPlayersData =
+    const DataStateModel.setDefultValue(defultValue: null),
   });
 
   CommunityState copyWith({
@@ -91,9 +96,11 @@ class CommunityState {
     DataStateModel<ChallengeResponse?>? acceptChallengeData,
     DataStateModel<ChallengeResponse?>? cancelChallengeData,
     DataStateModel<ChallengeResponse?>? rejectChallengeData,
+    DataStateModel<GetAllPlayersResponse?>? getAllPlayersData,
   }) {
     return CommunityState(
       selectedTab: selectedTab ?? this.selectedTab,
+      getAllPlayersData: getAllPlayersData ?? this.getAllPlayersData,
 
       // Teams
       getAllTeamData: getAllTeamData ?? this.getAllTeamData,

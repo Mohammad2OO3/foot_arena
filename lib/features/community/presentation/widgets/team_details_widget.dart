@@ -103,6 +103,7 @@ class TeamDetailsWidget extends StatelessWidget {
                 avatarColor: const Color(0xFF03A9F4),
                 badgeIcon: Icons.ads_click,
                 onTap: () {},
+                    position: e.user?.position??'Position',
               ),
             )
                 .toList(),
