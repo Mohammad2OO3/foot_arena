@@ -23,7 +23,7 @@ class EmptyDataWidget extends StatelessWidget {
           Text(
             LocaleKeys.errorMassegeNocontent.tr(),
             style: context.labelSmall(
-              color: Colors.black,
+              color: Colors.white,
               fontSize: 24,
               fontFamily: "Nasaq",
             ),
@@ -52,7 +52,9 @@ class EmptyMessagesDataWidget extends StatelessWidget {
           // ),
           Text(
             LocaleKeys.errorMassegeNocontent.tr(),
-            style: context.titleLarge(),
+            style: context.titleLarge(
+              color: Colors.white
+            ),
           ),
           Space.vM1,
         ],
@@ -88,14 +90,14 @@ class EmptyDataSubWidget extends StatelessWidget {
           SizedBox(height: 24),
           Text(
            title,
-            style: context.labelSmall(fontSize: 24, fontFamily: "Nasaq"),
+            style: context.labelSmall(fontSize: 24,color: context.primarySwatch),
             textAlign: TextAlign.center,
 
           ),
           Space.vM1,
           Text(
             subTitle,
-            style: context.bodySmall(fontSize: 16),
+            style: context.bodySmall(fontSize: 16,color: Colors.white),
             textAlign: TextAlign.center,
           ),
         ],

@@ -24,7 +24,7 @@ class NotificationListTileWidget extends StatelessWidget {
           Row(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-             Icon(Icons.notification_add),
+             Icon(Icons.notification_add,color: context.primarySwatch,),
               SizedBox(width: 8),
               Expanded(
                 child: Column(
@@ -33,7 +33,7 @@ class NotificationListTileWidget extends StatelessWidget {
                   children: [
                     Text(
                       notificationModel.data?.title??'Title',
-                      style: context.labelSmall(fontSize: 16),
+                      style: context.labelSmall(fontSize: 16,color: Colors.white),
                       maxLines: 2,
                       overflow: TextOverflow.ellipsis,
                     ),

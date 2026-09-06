@@ -50,6 +50,8 @@ dependencies:
   speech_to_text: ^7.4.0
   just_audio: ^0.10.6
   bubble: ^1.2.1
+  firebase_messaging: ^16.6.0
+  awesome_notifications: ^0.12.1
 
 dev_dependencies:
   flutter_test:

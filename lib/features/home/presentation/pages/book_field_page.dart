@@ -8,12 +8,12 @@ import '../widgets/booking/booking_success_dialog.dart';
 import '../widgets/booking/booking_time_tile.dart';
 
 class BookFieldPage extends StatefulWidget {
-  final PitchModel pitch;
+  // final PitchModel pitch;
   final String? selectedTime;
 
   const BookFieldPage({
     super.key,
-    required this.pitch,
+    // required this.pitch,
     this.selectedTime,
   });
 
@@ -86,7 +86,7 @@ class _BookFieldPageState extends State<BookFieldPage> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            BookingHeaderCard(pitch: widget.pitch),
+            // BookingHeaderCard(pitch: widget.pitch),
             const SizedBox(height: 24),
             // BookingDatePicker(
             //   selectedDate: selectedDate,
@@ -105,7 +105,7 @@ class _BookFieldPageState extends State<BookFieldPage> {
               },
             ),
             const SizedBox(height: 28),
-            BookingPriceSummary(hourlyPrice: widget.pitch.hourlyPrice),
+            // BookingPriceSummary(hourlyPrice: widget.pitch.hourlyPrice),
             const SizedBox(height: 32),
             SizedBox(
               width: double.infinity,

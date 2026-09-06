@@ -98,7 +98,7 @@ class ApiVariables {
 
   ////
   static Uri getAllPlayers() => _mainUri(path: "players");
-
+  static Uri leaveTeam(int id) => _mainUri(path: "teams/$id/memberships/me");
  // https://foot-arena.eidosteam.com/api/v1/teams/{team}
 
   //////////////////////////////////////////////////////////////////////////

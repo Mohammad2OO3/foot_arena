@@ -15,6 +15,7 @@ abstract class CommunityRepositories {
   DataResponse<GetMyTeamResponse> getMyTeam();
   DataResponse<GetMyTeamResponse> addTeam(BodyMap bodyMap);
   DataResponse<GetMyTeamResponse> transferTeam(TransferTeamParams params);
+  DataResponse<void> leaveTeam(int id);
   /////////////////////////////////////////////////////////
 
   DataResponse<GetAllRequestToTeamResponse> getAllRequestToJoint(int id);

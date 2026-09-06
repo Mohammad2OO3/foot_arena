@@ -111,4 +111,8 @@ class CommunityRemoteData with HandlingApiManager {
     tryCall: () => _apiClient.get(ApiVariables.getAllPlayers()),
     jsonConvert: getAllPlayersResponseFromJson,
   );
+  Future<void> leaveTeam(int id) async => wrapHandlingApi(
+    tryCall: () => _apiClient.delete(ApiVariables.leaveTeam(id)),
+    jsonConvert: (_){},
+  );
 }

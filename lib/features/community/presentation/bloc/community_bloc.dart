@@ -2,6 +2,7 @@ import 'dart:async';
 import 'package:bloc/bloc.dart';
 import 'package:footarena/features/community/data/model/get_all_players_response.dart';
 import 'package:footarena/features/community/domin/use_cases/get_all_players_use_case.dart';
+import 'package:footarena/features/community/domin/use_cases/leave_team_use_case.dart';
 import 'package:injectable/injectable.dart';
 import '../../../../common/helper/src/data_state_model.dart';
 import '../../../../core/use_case/use_case.dart';
@@ -38,6 +39,7 @@ class CommunityBloc extends Bloc<CommunityEvent, CommunityState> {
   final GetMyTeamUseCase _getMyTeamUseCase;
   final AddTeamUseCase _addTeamUseCase;
   final TransferTeamUseCase _transferTeamUseCase;
+  final LeaveTeamUseCase _leaveTeamUseCase;
 
   final GetAllRequestToJoinUseCase _getAllRequestToJointUseCase;
   final RequestToJoinUseCase _requestToJointUseCase;
@@ -53,6 +55,7 @@ class CommunityBloc extends Bloc<CommunityEvent, CommunityState> {
   final GetAllPlayersUseCase _getAllPlayersUseCase;
 
   CommunityBloc(
+      this._leaveTeamUseCase,
       this._getAllTeamUseCase,
       this._getTeamDetailsUseCase,
       this._getMyTeamUseCase,
@@ -73,6 +76,7 @@ class CommunityBloc extends Bloc<CommunityEvent, CommunityState> {
     on<ChangeTabEvent>(_changeTab);
 
     // Teams
+    on<LeaveTeamEvent>(_leaveTeam);
     on<GetAllTeamEvent>(_getAllTeam);
     on<GetTeamDetailsEvent>(_getTeamDetails);
     on<GetMyTeamEvent>(_getMyTeam);
@@ -303,7 +307,8 @@ class CommunityBloc extends Bloc<CommunityEvent, CommunityState> {
   FutureOr<void> _transferTeam(
       TransferTeamEvent event,
       Emitter<CommunityState> emit,
-      ) async {
+      )
+  async {
     emit(
       state.copyWith(
         transferTeamData: state.transferTeamData.setLoading(),
@@ -326,6 +331,49 @@ class CommunityBloc extends Bloc<CommunityEvent, CommunityState> {
         emit(
           state.copyWith(
             transferTeamData: state.transferTeamData.setSuccess(
+              data: r,
+            ),
+          ),
+        );
+      },
+    );
+
+    if (emit.isDone) return;
+
+    emit(
+      state.copyWith(
+        transferTeamData: state.transferTeamData.resetData(),
+      ),
+    );
+  }
+
+  FutureOr<void> _leaveTeam(
+      LeaveTeamEvent event,
+      Emitter<CommunityState> emit,
+      )
+  async {
+    emit(
+      state.copyWith(
+        leaveTeamData: state.leaveTeamData.setLoading(),
+      ),
+    );
+
+    final val = await _leaveTeamUseCase(event.id);
+
+    val.fold(
+          (l) {
+        emit(
+          state.copyWith(
+            leaveTeamData: state.leaveTeamData.setFaild(
+              errorMessage: l.message,
+            ),
+          ),
+        );
+      },
+          (r) {
+        emit(
+          state.copyWith(
+            leaveTeamData: state.leaveTeamData.setSuccess(
               data: r,
             ),
           ),

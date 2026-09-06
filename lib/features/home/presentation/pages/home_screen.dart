@@ -17,12 +17,19 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   late final FieldBloc fieldBloc;
+  final TextEditingController _searchController = TextEditingController();
+  String _searchQuery = '';
 
   @override
   void initState() {
-    fieldBloc = getIt<FieldBloc>()..add(GetAllFieldEvent());
-    // TODO: implement initState
     super.initState();
+    fieldBloc = getIt<FieldBloc>()..add(GetAllFieldEvent());
+  }
+
+  @override
+  void dispose() {
+    _searchController.dispose();
+    super.dispose();
   }
 
   @override
@@ -34,10 +41,13 @@ class _HomeScreenState extends State<HomeScreen> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              // Header with Search Bar
+              // Header مع حقل البحث المحلي
               HomeHeader(
+                searchController: _searchController,
                 onSearchChanged: (query) {
-                  // Search logic
+                  setState(() {
+                    _searchQuery = query;
+                  });
                 },
               ),
 
@@ -53,36 +63,62 @@ class _HomeScreenState extends State<HomeScreen> {
                   ),
                 ),
               ),
+
               // Pitch Cards List
               BlocBuilder<FieldBloc, FieldState>(
                 bloc: fieldBloc,
                 builder: (context, state) {
                   return state.getAllFieldData.builder(
-                    onSuccess: (_) {
+                    onSuccess: (data) {
+                      final allFields = data?.data ?? [];
+
+                      // تصفية القائمة حسب الاسم (Search Filtering)
+                      final filteredFields = allFields.where((field) {
+                        final name = field.name?.toLowerCase() ?? '';
+                        final query = _searchQuery.trim().toLowerCase();
+                        return name.contains(query);
+                      }).toList();
+
+                      // في حال عدم وجود نتائج تطابق كلمة البحث
+                      if (filteredFields.isEmpty) {
+                        return const Padding(
+                          padding: EdgeInsets.symmetric(vertical: 40),
+                          child: Center(
+                            child: Text(
+                              'No fields found matching your search',
+                              style: TextStyle(
+                                color: Colors.grey,
+                                fontSize: 16,
+                              ),
+                            ),
+                          ),
+                        );
+                      }
+
                       return ListView(
                         shrinkWrap: true,
                         physics: const NeverScrollableScrollPhysics(),
                         padding: const EdgeInsets.symmetric(horizontal: 16),
-                        children: state.getAllFieldData.data!.data!
+                        children: filteredFields
                             .map(
                               (e) => PitchCard(
-                                pitch: e,
-                                onTap: () {
-                                  context.pushNamed(
-                                    RouteName.pitchDetailsPage,
-                                    arguments: PitchDetailsScreenParams(
-                                      id: e.id!,
-                                      fieldBloc: fieldBloc,
-                                    ),
-                                  );
-                                },
-                                onFavoriteTap: () {},
-                              ),
-                            )
+                            pitch: e,
+                            onTap: () {
+                              context.pushNamed(
+                                RouteName.pitchDetailsPage,
+                                arguments: PitchDetailsScreenParams(
+                                  id: e.id!,
+                                  fieldBloc: fieldBloc,
+                                ),
+                              );
+                            },
+                            onFavoriteTap: () {},
+                          ),
+                        )
                             .toList(),
                       );
                     },
-                    onTapRetry: () => fieldBloc..add(GetAllFieldEvent()),
+                    onTapRetry: () => fieldBloc.add(GetAllFieldEvent()),
                   );
                 },
               ),
@@ -94,28 +130,9 @@ class _HomeScreenState extends State<HomeScreen> {
         onPressed: () {
           context.pushNamed(RouteName.message);
         },
-        child: Icon(Icons.chat),
+        child: const Icon(Icons.chat),
       ),
     );
   }
 }
 
-class PitchModel {
-  final String id;
-  final String name;
-  final double rating;
-  final String location;
-  final double hourlyPrice;
-  final double halfHourPrice;
-  final String imageUrl;
-
-  const PitchModel({
-    required this.id,
-    required this.name,
-    required this.rating,
-    required this.location,
-    required this.hourlyPrice,
-    required this.halfHourPrice,
-    required this.imageUrl,
-  });
-}

@@ -58,6 +58,11 @@ class RejectRequestToJointEvent extends CommunityEvent {
 
   RejectRequestToJointEvent({required this.id});
 }
+class LeaveTeamEvent extends CommunityEvent {
+  final int id;
+
+  LeaveTeamEvent({required this.id});
+}
 
 // Challenges
 

@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'core/di/injection.dart';
 import 'features/community/presentation/pages/community_page.dart';
+import 'features/home/presentation/cubit/home_cubit.dart';
 import 'features/home/presentation/pages/home_screen.dart';
 import 'features/profile/presentation/bloc/profile_bloc.dart';
 import 'features/profile/presentation/bloc/profile_event.dart';
@@ -18,6 +19,8 @@ class MainWrapperScreen extends StatefulWidget {
 class _MainWrapperScreenState extends State<MainWrapperScreen> {
   late final PageController pageController;
 
+  late final HomeCubit homeCubit;
+
   int selectedIndex = 0;
 
   late final List<Widget> pages;
@@ -28,6 +31,7 @@ class _MainWrapperScreenState extends State<MainWrapperScreen> {
 
     pageController = PageController();
 
+
     pages = [
       const HomeScreen(),
       const CommunityPage(),
@@ -37,6 +41,15 @@ class _MainWrapperScreenState extends State<MainWrapperScreen> {
         child: const ProfilePage(),
       ),
     ];
+
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      if(
+      homeCubit.state.pendingNotificationData !=null
+      ){
+        homeCubit.processPendingNotification();
+      }
+
+    });
   }
 
   @override

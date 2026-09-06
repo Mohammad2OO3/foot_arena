@@ -115,14 +115,12 @@ class NotificationBloc extends Bloc<NotificationEvent, NotificationState> {
           );
         },
         (r) {
-          final list = r.data!;
 
-          // final bool isNew = list.any((item) => item.isRead == false);
 
           emit(
             state.copyWith(
               getAllNotification: state.getAllNotification.setSuccess(
-                data: r.data!,
+                data: r.data!.items!,
               ),
               // isNew: isNew,
             ),

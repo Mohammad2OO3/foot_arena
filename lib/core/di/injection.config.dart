@@ -60,6 +60,8 @@ import '../../features/community/domin/use_cases/get_my_team_use_case.dart'
     as _i839;
 import '../../features/community/domin/use_cases/get_team_details_use_case.dart'
     as _i578;
+import '../../features/community/domin/use_cases/leave_team_use_case.dart'
+    as _i624;
 import '../../features/community/domin/use_cases/reject_challenge_use_case.dart'
     as _i406;
 import '../../features/community/domin/use_cases/reject_request_to_join_use_case.dart'
@@ -309,6 +311,10 @@ _i174.GetIt $initGetIt(
       repositories: gh<_i671.CommunityRepositories>(),
     ),
   );
+  gh.lazySingleton<_i624.LeaveTeamUseCase>(
+    () =>
+        _i624.LeaveTeamUseCase(repositories: gh<_i671.CommunityRepositories>()),
+  );
   gh.lazySingleton<_i406.RejectChallengeUseCase>(
     () => _i406.RejectChallengeUseCase(
       repositories: gh<_i671.CommunityRepositories>(),
@@ -354,6 +360,7 @@ _i174.GetIt $initGetIt(
   );
   gh.factory<_i354.CommunityBloc>(
     () => _i354.CommunityBloc(
+      gh<_i624.LeaveTeamUseCase>(),
       gh<_i425.GetAllTeamUseCase>(),
       gh<_i578.GetTeamDetailsUseCase>(),
       gh<_i839.GetMyTeamUseCase>(),

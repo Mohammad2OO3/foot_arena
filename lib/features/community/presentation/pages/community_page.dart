@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:go_router/go_router.dart';
 import 'package:footarena/common/design/design.dart';
 import '../../../../core/di/injection.dart';
-import '../../../../router/app_router.dart';
 import '../bloc/community_bloc.dart';
 import '../widgets/community_tab_bar.dart';
 import '../widgets/match_card.dart';

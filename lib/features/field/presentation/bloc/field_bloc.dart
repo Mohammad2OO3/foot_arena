@@ -95,7 +95,8 @@ class FieldBloc extends Bloc<FieldEvent, FieldState> {
   FutureOr<void> _getAllField(
     GetAllFieldEvent event,
     Emitter<FieldState> emit,
-  ) async {
+  )
+  async {
     emit(state.copyWith(getAllFieldData: state.getAllFieldData.setLoading()));
 
     final val = await _getAllFieldUseCase(NoParams());

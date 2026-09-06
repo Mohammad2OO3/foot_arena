@@ -91,4 +91,9 @@ class CommunityRepositoriesImp
   DataResponse<GetAllPlayersResponse> getAllPlayers()async=>
       wrapHandlingException(tryCall: () => _remoteData.getAllPlayers());
 
+  @override
+  DataResponse<void> leaveTeam(int id) async=>
+      wrapHandlingException(tryCall: () => _remoteData.leaveTeam(id));
+
+
 }

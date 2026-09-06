@@ -13,6 +13,7 @@ class CommunityState {
   final DataStateModel<GetMyTeamResponse?> getMyTeamData;
   final DataStateModel<GetMyTeamResponse?> addTeamData;
   final DataStateModel<GetMyTeamResponse?> transferTeamData;
+  final DataStateModel<void> leaveTeamData;
 
   // Requests to join team
   final DataStateModel<GetAllRequestToTeamResponse?> getAllRequestToJointData;
@@ -36,6 +37,8 @@ class CommunityState {
 
     // Teams
     this.getAllTeamData =
+    const DataStateModel.setDefultValue(defultValue: null),
+    this.leaveTeamData =
     const DataStateModel.setDefultValue(defultValue: null),
     this.getTeamDetailsData =
     const DataStateModel.setDefultValue(defultValue: null),
@@ -82,6 +85,7 @@ class CommunityState {
     DataStateModel<GetMyTeamResponse?>? getMyTeamData,
     DataStateModel<GetMyTeamResponse?>? addTeamData,
     DataStateModel<GetMyTeamResponse?>? transferTeamData,
+    DataStateModel<void>? leaveTeamData,
 
     // Requests
     DataStateModel<GetAllRequestToTeamResponse?>? getAllRequestToJointData,
@@ -100,6 +104,7 @@ class CommunityState {
   }) {
     return CommunityState(
       selectedTab: selectedTab ?? this.selectedTab,
+      leaveTeamData: leaveTeamData ?? this.leaveTeamData,
       getAllPlayersData: getAllPlayersData ?? this.getAllPlayersData,
 
       // Teams

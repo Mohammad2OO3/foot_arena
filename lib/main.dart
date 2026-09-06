@@ -1,5 +1,6 @@
 import 'package:bot_toast/bot_toast.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 import 'common/design/design.dart';
 import 'common/design/src/theme/theme/theme_notifier.dart';
@@ -7,12 +8,14 @@ import 'common/helper/helper.dart';
 import 'core/di/injection.dart';
 import 'package:device_preview/device_preview.dart';
 import '../router/app_router.dart';
+import 'core/notification/notification_service.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await EasyLocalization.ensureInitialized();
   await configureInjection();
-
+  await NotificationUtils().initAllNotifications();
+  await SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
   runApp(
     EasyLocalization(
       supportedLocales: const [Locale('ar'), Locale('en')],
