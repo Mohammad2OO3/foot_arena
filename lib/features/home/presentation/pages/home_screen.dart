@@ -45,7 +45,7 @@ class _HomeScreenState extends State<HomeScreen> {
               const Padding(
                 padding: EdgeInsets.fromLTRB(16, 20, 16, 12),
                 child: Text(
-                  'Popular Matches Today',
+                  'Recommended Matches',
                   style: TextStyle(
                     color: Colors.white,
                     fontSize: 20,
