@@ -3,16 +3,20 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:footarena/common/models/user_model.dart';
 import 'package:footarena/features/community/presentation/bloc/community_bloc.dart';
 
+import '../../../../common/models/request_to_join_team_model.dart';
+
 class RequestToJoinTeamWidget extends StatelessWidget {
   final UserModel userModel;
   final CommunityBloc communityBloc;
   final int teamId;
+  final RequestToJointTeamModel requestModel;
 
   const RequestToJoinTeamWidget({
     super.key,
     required this.userModel,
     required this.communityBloc,
     required this.teamId,
+    required this.requestModel,
   });
 
   String get name {
@@ -168,7 +172,7 @@ class RequestToJoinTeamWidget extends StatelessWidget {
                       child: ElevatedButton(
                         onPressed: () {
                           communityBloc.add(
-                            AcceptRequestToJointEvent(id: userModel.id!),
+                            AcceptRequestToJointEvent(id: requestModel.id!),
                           );
                         },
                         style: ElevatedButton.styleFrom(
@@ -194,7 +198,7 @@ class RequestToJoinTeamWidget extends StatelessWidget {
                       child: ElevatedButton(
                         onPressed: () {
                           communityBloc.add(
-                            RejectRequestToJointEvent(id: userModel.id!),
+                            RejectRequestToJointEvent(id: requestModel.id!),
                           );
                         },
                         style: ElevatedButton.styleFrom(

@@ -53,6 +53,7 @@ class _MyTeamRequestScreenState extends State<MyTeamRequestScreen> {
                               (e) => RequestToJoinTeamWidget(
                                 communityBloc: communityBloc,
                                 userModel: e.user!,
+                                requestModel:e,
                                 teamId: widget.args.teamId,
                               ),
                             )
