@@ -374,7 +374,6 @@ class CommunityBloc extends Bloc<CommunityEvent, CommunityState> {
         emit(
           state.copyWith(
             leaveTeamData: state.leaveTeamData.setSuccess(
-              data: r,
             ),
           ),
         );
